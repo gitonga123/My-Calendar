@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 03, 2017 at 12:24 PM
+-- Generation Time: Feb 04, 2017 at 08:49 AM
 -- Server version: 5.7.17-0ubuntu0.16.04.1
 -- PHP Version: 5.6.30-1+deb.sury.org~xenial+1
 
@@ -19,6 +19,171 @@ SET time_zone = "+00:00";
 --
 -- Database: `holdon`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `countypro_crontab`
+--
+
+CREATE TABLE `countypro_crontab` (
+  `id` int(11) NOT NULL,
+  `bill_no` varchar(256) NOT NULL,
+  `bill_description` varchar(256) NOT NULL,
+  `schedule_id` varchar(256) NOT NULL,
+  `part_id` varchar(256) NOT NULL,
+  `sub_part_id` varchar(256) NOT NULL,
+  `county_id` varchar(256) NOT NULL,
+  `subcounty_id` varchar(256) NOT NULL,
+  `fee_id` varchar(256) NOT NULL,
+  `ward_id` varchar(256) NOT NULL,
+  `client_name` varchar(256) NOT NULL,
+  `client_address` varchar(256) NOT NULL,
+  `mobile_number` varchar(256) NOT NULL,
+  `telephone_number` varchar(256) NOT NULL,
+  `email_id` varchar(256) NOT NULL,
+  `mode_of_pay` varchar(256) NOT NULL,
+  `online_pay_code` varchar(256) NOT NULL,
+  `online_conf_code` varchar(256) NOT NULL,
+  `bill_amount` varchar(256) NOT NULL,
+  `quantity` varchar(256) NOT NULL,
+  `unit_cost` varchar(256) NOT NULL,
+  `cashier_id` varchar(256) NOT NULL,
+  `cashier_name` varchar(256) NOT NULL,
+  `created_by` varchar(256) NOT NULL,
+  `date_created` varchar(256) NOT NULL,
+  `bill_date` varchar(256) NOT NULL,
+  `bill_status` varchar(256) NOT NULL,
+  `date_paid` varchar(256) NOT NULL,
+  `receipt_id` varchar(256) DEFAULT NULL,
+  `void_comment` varchar(256) DEFAULT NULL,
+  `date_voided` varchar(256) DEFAULT NULL,
+  `voided_by` varchar(256) DEFAULT NULL,
+  `modified_by` varchar(256) DEFAULT NULL,
+  `date_modified` varchar(256) DEFAULT NULL,
+  `remarks` varchar(256) DEFAULT NULL,
+  `status` varchar(256) NOT NULL,
+  `response` varchar(256) DEFAULT NULL,
+  `response_key` varchar(100) DEFAULT NULL,
+  `key` varchar(100) DEFAULT NULL,
+  `fees` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `countypro_crontab`
+--
+
+INSERT INTO `countypro_crontab` (`id`, `bill_no`, `bill_description`, `schedule_id`, `part_id`, `sub_part_id`, `county_id`, `subcounty_id`, `fee_id`, `ward_id`, `client_name`, `client_address`, `mobile_number`, `telephone_number`, `email_id`, `mode_of_pay`, `online_pay_code`, `online_conf_code`, `bill_amount`, `quantity`, `unit_cost`, `cashier_id`, `cashier_name`, `created_by`, `date_created`, `bill_date`, `bill_status`, `date_paid`, `receipt_id`, `void_comment`, `date_voided`, `voided_by`, `modified_by`, `date_modified`, `remarks`, `status`, `response`, `response_key`, `key`, `fees`) VALUES
+(3, 'INV-CPD001-AAA0001', 'e-Billing Services Bill', '1', '5', '1', '13', '4', '1', '1', 'Dr. Mugwima Bernard Njuguna', 'N/A', '0722332866', '', 'mugwima@gmail.com', 'Cash', '', '', '36580', '36580', '36580', '1', 'Cashier-1', '1', '2016-12-16 00:00:00', '2016-12-16 00:00:00', 'Draft', '2016-12-16 00:00:00', '1', '', '', '', '', '2016-12-16 00:00:00', '', 'sent', 'Success', NULL, NULL, ''),
+(4, 'INV-CPD001-AAA0002', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'Reuben Njoroge Kamau Kabbau', 'N/A', '0789542030', '', 'rkabbau@gmail.com', 'Cash', '', '', '46660', '46660', '46660', '1', 'Cashier-1', '1', '2016-12-28 00:00:00', '2016-12-28 00:00:00', 'Draft', '2016-12-28 00:00:00', '1', '', '', '', '', '2016-12-28 00:00:00', '', 'pending', '', '', NULL, '2337-20160,374-15000,372-2000,2379-3000,209-1000,1634-2000,1632-3500'),
+(5, 'INV-CPD001-AAA0003', 'e-Billing Services Bill', '', '', '', '13', '4', '', '', 'Phillip Mkamba Lenjo', 'N/A', '0723474660', '', 'lenjophillip@gmail.com', 'Cash', '', '', '36580', '36580', '36580', '1', 'Cashier-1', '1', '2017-01-04 00:00:00', '2017-01-04 00:00:00', 'Draft', '2017-01-04 00:00:00', '1', '', '', '', '', '2017-01-04 00:00:00', '', 'pending', '', '', NULL, '2336-10080,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(6, 'INV-CPD001-AAA0001', 'e-Billing Services Bill', '1', '5', '1', '13', '4', '1', '1', 'Dr. Mugwima Bernard Njuguna', 'N/A', '0722332866', '', 'mugwima@gmail.com', 'Cash', '', '', '36580', '36580', '36580', '1', 'Cashier-1', '1', '2016-12-16 00:00:00', '2016-12-16 00:00:00', 'Draft', '2016-12-16 00:00:00', '1', '', '', '', '', '2017-01-04 15:13:43', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(7, 'INV-CPD001-AAA0004', 'e-Billing Services Bill', '', '', '', '13', '12', '', '', 'Design Source', 'N/A', '254722306860', '', 'info@designsource.co.ke', 'Cash', '', '', '214918', '214918', '214918', '1', 'Cashier-1', '1', '2017-01-05 00:00:00', '2017-01-05 00:00:00', 'Draft', '2017-01-05 00:00:00', '1', '', '', '', '', '2017-01-05 00:00:00', '', 'pending', '', '', NULL, '1943-188418, 374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(8, 'INV-COU-0001', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '98466', '0', '0', '1', 'Cashier-1', '1', '2017-01-06 00:00:00', '2017-01-06 00:00:00', 'Draft', '2017-01-06 00:00:00', '1', '', '', '', '', '2017-01-06 00:00:00', '', 'pending', '', '', NULL, '374-1000,2370-3000,209-1000,1943-84466'),
+(9, 'INV-COU-0002', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '98466', '98466', '98466', '1', 'Cashier-1', '1', '2017-01-06 00:00:00', '2017-01-06 00:00:00', 'Draft', '2017-01-06 00:00:00', '1', '', '', '', '', '2017-01-06 00:00:00', '', 'sent', '', NULL, NULL, '374-1000,2370-3000,209-1000,1943-84466'),
+(10, 'INV-EXTL-0001', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '47809', '47809', '47809', '1', 'Cashier-1', '1', '2017-01-10 00:00:00', '2017-01-10 00:00:00', 'Draft', '2017-01-10 00:00:00', '1', '', '', '', '', '2017-01-10 00:00:00', '', 'sent', '', NULL, NULL, '1934-47809'),
+(11, 'INV-COU-0003', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'Henry Muthoka Mwau', 'N/A', '0722700156', '', 'mwau@realplan.co.ke', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-11 00:00:00', '2017-01-11 00:00:00', 'Draft', '2017-01-11 00:00:00', '1', '', '', '', '', '2017-01-11 00:00:00', '', 'pending', '', '', NULL, '374-7500,2370-3000,209-1000,1934-50000'),
+(12, 'INV-COU-0004', 'e-Billing Services Bill', '', '', '', '13', '5', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-11 00:00:00', '2017-01-11 00:00:00', 'Draft', '2017-01-11 00:00:00', '1', '', '', '', '', '2017-01-11 00:00:00', '', 'pending', '', '', NULL, '374-7500,2370-3000,209-1000,1934-50000'),
+(13, 'INV-CPD001-AAA0005', 'e-Billing Services Bill', '1', '5', '1', '13', '11', '1', '1', 'EDWARD NDUATI HIUHU', 'N/A', '0722299930', '', 'konvexdesigns@gmail.com', 'Cash', '', '', '36580', '36580', '36580', '1', 'Cashier-1', '1', '2017-01-11 00:00:00', '2017-01-11 00:00:00', 'Draft', '2017-01-11 00:00:00', '1', '', '', '', '', '2017-01-11 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(14, 'INV-COU-0005', 'e-Billing Services Bill', '', '', '', '13', '7', '', '', 'Paul G Chege( Urban Lines Consultants)', 'N/A', '0722509244', '', 'ulsworld2017@gmail.com', 'Cash', '', '', '64000', '64000', '64000', '1', 'Cashier-1', '1', '2017-01-11 00:00:00', '2017-01-11 00:00:00', 'Draft', '2017-01-11 00:00:00', '1', '', '', '', '', '2017-01-11 00:00:00', '', 'pending', '', '', NULL, '374-10000,2370-3000,209-1000,1934-50000'),
+(15, 'INV-EXTL-0002', 'e-Billing Services Bill', '', '', '', '13', '7', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-11 00:00:00', '2017-01-11 00:00:00', 'Draft', '2017-01-11 00:00:00', '1', '', '', '', '', '2017-01-11 00:00:00', '', 'pending', '', '', NULL, '207-7500'),
+(16, 'INV-EXTL-0003', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'pending', '', '', NULL, '207-7500'),
+(17, 'INV-EXTL-0004', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(18, 'INV-EXTL-0005', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(19, 'INV-EXTL-0006', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(20, 'INV-EXTL-0007', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '14000', '14000', '14000', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-14000'),
+(21, 'INV-EXTL-0008', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(22, 'INV-EXTL-0009', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(23, 'INV-EXTL-0010', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(24, 'INV-EXTL-0011', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(25, 'INV-EXTL-0012', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '', NULL, '207-7500'),
+(26, 'INV-EXTL-0013', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(27, 'INV-EXTL-0014', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(28, 'INV-EXTL-0015', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(29, 'INV-EXTL-0016', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(30, 'INV-EXTL-0017', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(31, 'INV-EXTL-0018', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(32, 'INV-EXTL-0019', 'e-Billing Services Bill', '', '', '', '13', '7', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(33, 'INV-CPD001-AAA0007', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'Office for Creative Architecture Limited', 'N/A', '254202003423', '', 'info@oca.co.ke', 'Cash', '', '', '41620', '41620', '41620', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '2336-15120,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(34, 'INV-EXTL-0020', 'e-Billing Services Bill', '', '', '', '13', '6', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '0', NULL, '207-7500'),
+(35, 'INV-EXTL-0021', 'e-Billing Services Bill', '', '', '', '13', '6', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', '', '', '', '', '2017-01-12 00:00:00', '', 'sent', '', '17881', NULL, '207-7500'),
+(36, 'INV-REN-CPD0001', 'e-Billing Services Bill', '1', '5', '1', '13', '11', '1', '1', 'RICHARD MESHACK NGABU KAMAU', 'N/A', '0722743864', '', 'richiengabu@gmail.com', 'Cash', '', '', '32100', '32100', '32100', '1', 'Cashier-1', '1', '2017-01-13 00:00:00', '2017-01-13 00:00:00', 'Draft', '2017-01-13 00:00:00', '1', '', '', '', '', '2017-01-13 00:00:00', '', 'sent', 'Success', '53298', NULL, ''),
+(37, 'INV-EXTL-0022', 'e-Billing Services Bill', '', '', '', '13', '6', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-13 00:00:00', '2017-01-13 00:00:00', 'Draft', '2017-01-13 00:00:00', '1', '', '', '', '', '2017-01-13 00:00:00', '', 'sent', '', '57202', NULL, '207-7500'),
+(38, 'INV-EXTL-0023', 'e-Billing Services Bill', '', '', '', '13', '10', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-13 00:00:00', '2017-01-13 00:00:00', 'Draft', '2017-01-13 00:00:00', '1', '', '', '', '', '2017-01-13 00:00:00', '', 'sent', '', '58374', NULL, '2370-7500'),
+(39, 'INV-CPD001-AAA0009', 'e-Billing Services Bill', '1', '5', '1', '13', '6', '1', '1', 'David Mugo Michire', 'N/A', '0722632053', '', 'michiremugo@yahoo.com', 'Cash', '', '', '39940', '39940', '39940', '1', 'Cashier-1', '1', '2017-01-13 00:00:00', '2017-01-13 00:00:00', 'Draft', '2017-01-13 00:00:00', '1', '', '', '', '', '2017-01-13 00:00:00', '', 'sent', 'Success', '59663', NULL, ''),
+(40, 'INV-EXTL-0024', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139167', NULL, '207-7500'),
+(41, 'INV-EXTL-0025', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139226', NULL, '207-7500'),
+(42, 'INV-EXTL-0026', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139254', NULL, '207-7500'),
+(43, 'INV-EXTL-0027', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139253', NULL, '207-7500'),
+(44, 'INV-EXTL-0028', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139320', NULL, '207-7500'),
+(45, 'INV-EXTL-0029', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139352', NULL, '207-7500'),
+(46, 'INV-EXTL-0030', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139394', NULL, '207-7500'),
+(47, 'INV-EXTL-0031', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139446', NULL, '207-7500'),
+(48, 'INV-EXTL-0032', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '139468', NULL, '207-7500'),
+(49, 'INV-CPD001-AAA0010', 'e-Billing Services Bill', '1', '5', '1', '13', '11', '1', '1', 'RICHARD MESHACK NGABU KAMAU', 'N/A', '0722743864', '', 'richiengabu@gmail.com', 'Cash', '', '', '45820', '45820', '45820', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', 'Success', '140280', NULL, ''),
+(50, 'INV-EXTL-0033', 'e-Billing Services Bill', '', '', '', '13', '2', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140472', NULL, '207-7500'),
+(51, 'INV-EXTL-0034', 'e-Billing Services Bill', '', '', '', '13', '2', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140622', NULL, '207-7500'),
+(52, 'INV-EXTL-0035', 'e-Billing Services Bill', '', '', '', '13', '10', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140620', NULL, '207-7500'),
+(53, 'INV-AML-0001', 'e-Billing Services Bill', '', '', '', '13', '7', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '28000', '28000', '28000', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140630', NULL, '209-1000,2370-3000,235-2400'),
+(54, 'INV-EXTL-0036', 'e-Billing Services Bill', '', '', '', '13', '10', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140649', NULL, '207-7500'),
+(55, 'INV-EXTL-0037', 'e-Billing Services Bill', '', '', '', '13', '10', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140709', NULL, '207-7500'),
+(56, 'INV-EXTL-0038', 'e-Billing Services Bill', '', '', '', '13', '9', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '140708', NULL, '207-7500'),
+(57, 'INV-CPD001-AAA0011', 'e-Billing Services Bill', '1', '5', '1', '13', '7', '1', '1', 'Paul Robert Davey', 'N/A', '0701100225', '', 'pauldavey54@gmail.com', 'Cash', '', '', '49348', '49348', '49348', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', 'Success', '141356', NULL, ''),
+(58, 'INV-COU-0006', 'e-Billing Services Bill', '', '', '', '13', '7', '', '', 'Paul G Chege( Urban Lines Consultants)', 'N/A', '0722509244', '', 'ulsworld2017@gmail.com', 'Cash', '', '', '64000', '64000', '64000', '1', 'Cashier-1', '1', '2017-01-16 00:00:00', '2017-01-16 00:00:00', 'Draft', '2017-01-16 00:00:00', '1', '', '', '', '', '2017-01-16 00:00:00', '', 'sent', '', '141590', NULL, '374-10000,2370-3000,209-1000,1934-50000'),
+(59, 'INV-CPD001-AAA0008', 'e-Billing Services Bill', '5', '1', '1', '13', '11', '1', '1', 'NJOROGE JOEL NG\'ANG\'A', 'Kiambu', '0728926303', '', 'KIMEMIASTEVE@GMAIL.COM', 'Cash', '', '', '43300', '43300', '43300', '1', 'Cashier-1', '1', '2017-01-12 00:00:00', '2017-01-12 00:00:00', 'Draft', '2017-01-12 00:00:00', '1', NULL, NULL, NULL, NULL, NULL, NULL, 'sent', 'Success', '174574', NULL, ''),
+(60, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sent', '', '', NULL, ''),
+(61, 'INV-CPD001-AAA0012', 'e-Billing Services Bill', '1', '5', '1', '13', '4', '1', '1', 'MURIU MUKUI', 'N/A', '0722569320', '', 'mukuimax@yahoo.com', 'Cash', '', '', '35500', '35500', '35500', '1', 'Cashier-1', '1', '2017-01-17 00:00:00', '2017-01-17 00:00:00', 'Draft', '2017-01-17 00:00:00', '1', '', '', '', '', '2017-01-17 00:00:00', '', 'sent', 'Success', '174743', NULL, ''),
+(62, 'INV-CPD001-AAA0013', 'e-Billing Services Bill', '', '', '', '13', '6', '', '', 'Monica Njeri Mwangi', 'N/A', '0722325151', '', 'monica@castlesarch.co.ke', 'Cash', '', '', '71020', '71020', '71020', '1', 'Cashier-1', '1', '2017-01-17 00:00:00', '2017-01-17 00:00:00', 'Draft', '2017-01-17 00:00:00', '1', '', '', '', '', '2017-01-17 00:00:00', '', 'sent', '', '175335', NULL, '2336-44520,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(63, 'INV-COU-0007', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'Henry Muthoka Mwau', 'N/A', '0722700156', '', 'mwau@realplan.co.ke', 'Cash', '', '', '71500', '71500', '71500', '1', 'Cashier-1', '1', '2017-01-17 00:00:00', '2017-01-17 00:00:00', 'Draft', '2017-01-17 00:00:00', '1', '', '', '', '', '2017-01-17 00:00:00', '', 'sent', '', '175610', NULL, '207-7500,2370-3000,209-1000,1936-60000'),
+(64, 'INV-CPD001-AAA0014', 'e-Billing Services Bill', '1', '5', '1', '13', '12', '1', '1', 'Archscan Ltd', 'N/A', '254720464174', '', 'archscan@archscanassociates.com', 'Cash', '', '', '43300', '43300', '43300', '1', 'Cashier-1', '1', '2017-01-18 00:00:00', '2017-01-18 00:00:00', 'Draft', '2017-01-18 00:00:00', '1', '', '', '', '', '2017-01-18 00:00:00', '', 'sent', 'Success', '196670', NULL, ''),
+(65, 'INV-COU-0008', 'e-Billing Services Bill', '', '', '', '13', '5', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-18 00:00:00', '2017-01-18 00:00:00', 'Draft', '2017-01-18 00:00:00', '1', '', '', '', '', '2017-01-18 00:00:00', '', 'sent', '', '198579', NULL, '374-7500,2370-3000,209-1000,1934-50000'),
+(66, 'INV-CPD001-AAA0015', 'e-Billing Services Bill', '1', '5', '1', '13', '12', '1', '1', 'Arch. Odegi John O.', 'N/A', '+254722162040', '', 'archodegijohn@gmail.com', 'Cash', '', '', '31902', '31902', '31902', '1', 'Cashier-1', '1', '2017-01-18 00:00:00', '2017-01-18 00:00:00', 'Draft', '2017-01-18 00:00:00', '1', '', '', '', '', '2017-01-18 00:00:00', '', 'sent', 'Success', '211433', NULL, ''),
+(67, 'INV-CPD001-AAA0016', 'e-Billing Services Bill', '', '', '', '13', '12', '', '', 'Arch. Mwangi Michael Kimani', 'N/A', '0723951942', '', 'mwamkim@gmail.com', 'Cash', '', '', '69500', '69500', '69500', '1', 'Cashier-1', '1', '2017-01-19 00:00:00', '2017-01-19 00:00:00', 'Draft', '2017-01-19 00:00:00', '1', '', '', '', '', '2017-01-19 00:00:00', '', 'sent', '', '227552', NULL, '2336-43000,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(68, 'INV-COU-0009', 'e-Billing Services Bill', '1', '5', '1', '13', '12', '1', '1', 'Dr. Peter Kariuki Kamau', 'N/A', '0712761716', '', 'petkkamau@gmail.com', 'Cash', '', '', '64000', '64000', '64000', '1', 'Cashier-1', '1', '2017-01-19 00:00:00', '2017-01-19 00:00:00', 'Draft', '2017-01-19 00:00:00', '1', '', '', '', '', '2017-01-19 00:00:00', '', 'sent', 'Success', '227936', NULL, ''),
+(69, 'INV-CPD001-AAA0017', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'ARPRIM CONSULTANTS', 'N/A', '254714775339', '', 'ftunduli@yahoo.com', 'Cash', '', '', '47300', '47300', '47300', '1', 'Cashier-1', '1', '2017-01-19 00:00:00', '2017-01-19 00:00:00', 'Draft', '2017-01-19 00:00:00', '1', '', '', '', '', '2017-01-19 00:00:00', '', 'sent', '', '228021', NULL, '2336-20800,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(70, 'INV-CPD001-AAA0018', 'e-Billing Services Bill', '1', '5', '1', '13', '4', '1', '1', 'Capital Architects', 'N/A', '0722303429', '', 'wawerufm@yahoo.com', 'Cash', '', '', '39940', '39940', '39940', '1', 'Cashier-1', '1', '2017-01-19 00:00:00', '2017-01-19 00:00:00', 'Draft', '2017-01-19 00:00:00', '1', '', '', '', '', '2017-01-19 00:00:00', '', 'sent', 'Success', '238473', NULL, ''),
+(71, 'INV-CPD001-AAA0019', 'e-Billing Services Bill', '1', '5', '1', '13', '4', '1', '1', 'Reuben Njoroge Kamau Kabbau', 'N/A', '0789542030', '', 'rkabbau@gmail.com', 'Cash', '', '', '49180', '49180', '49180', '1', 'Cashier-1', '1', '2017-01-20 00:00:00', '2017-01-20 00:00:00', 'Draft', '2017-01-20 00:00:00', '1', '', '', '', '', '2017-01-20 00:00:00', '', 'sent', 'Success', '255073', NULL, ''),
+(72, 'INV-CPD001-AAA0020', 'e-Billing Services Bill', '1', '5', '1', '13', '7', '1', '1', 'SIMON F MULANGA', 'N/A', '0722348658', '', 'archispacea@gmail.com', 'Cash', '', '', '39940', '39940', '39940', '1', 'Cashier-1', '1', '2017-01-20 00:00:00', '2017-01-20 00:00:00', 'Draft', '2017-01-20 00:00:00', '1', '', '', '', '', '2017-01-20 00:00:00', '', 'sent', 'Success', '259764', NULL, ''),
+(73, 'INV-CPD001-AAA0021', 'e-Billing Services Bill', '', '', '', '13', '7', '', '', 'Sycum Solutions', 'N/A', '0722798098', '', 'info@sycumsolutions.net', 'Cash', '', '', '264222', '264222', '264222', '1', 'Cashier-1', '1', '2017-01-23 00:00:00', '2017-01-23 00:00:00', 'Draft', '2017-01-23 00:00:00', '1', '', '', '', '', '2017-01-23 00:00:00', '', 'sent', '', '340242', NULL, '2341-237722,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500'),
+(74, 'INV-CPD001-AAA0022', 'e-Billing Services Bill', '1', '5', '1', '13', '6', '1', '1', 'Fredrick Owino', 'N/A', '254717065662', '', 'fredrikowino@yahoo.com', 'Cash', '', '', '54020', '54020', '54020', '1', 'Cashier-1', '1', '2017-01-23 00:00:00', '2017-01-23 00:00:00', 'Draft', '2017-01-23 00:00:00', '1', '', '', '', '', '2017-01-23 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(75, 'INV-COU-0010', 'e-Billing Services Bill', '1', '5', '1', '13', '10', '1', '1', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '21500', '21500', '21500', '1', 'Cashier-1', '1', '2017-01-23 00:00:00', '2017-01-23 00:00:00', 'Draft', '2017-01-23 00:00:00', '1', '', '', '', '', '2017-01-23 00:00:00', '', 'sent', '', '', NULL, ''),
+(76, 'INV-CPD001-AAA0023', 'e-Billing Services Bill', '1', '5', '1', '13', '4', '1', '1', 'Epaphras Apedo Agama', 'N/A', '0720410863', '', 'agamaapedo@gmail.com', 'Cash', '', '', '318670', '318670', '318670', '1', 'Cashier-1', '1', '2017-01-23 00:00:00', '2017-01-23 00:00:00', 'Draft', '2017-01-23 00:00:00', '1', '', '', '', '', '2017-01-23 00:00:00', '', 'sent', 'Success', '25466', NULL, ''),
+(77, 'INV-CPD001-AAA0024', 'e-Billing Services Bill', '1', '5', '1', '13', '8', '1', '1', 'Jawkim Architects', 'N/A', '0720239782', '', 'info@jawkimarchitects.com', 'Cash', '', '', '36580', '36580', '36580', '1', 'Cashier-1', '1', '2017-01-23 00:00:00', '2017-01-23 00:00:00', 'Draft', '2017-01-23 00:00:00', '1', '', '', '', '', '2017-01-23 00:00:00', '', 'sent', '', '', NULL, ''),
+(78, 'INV-EXTU-0001', 'e-Billing Services Bill', '1', '5', '1', '13', '7', '1', '1', 'COLLINS M. NTHUNI', 'N/A', '254721763860', '', 'cnthuni@yahoo.com', 'Cash', '', '', '54000', '54000', '54000', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'sent', '', '', NULL, ''),
+(79, 'INV-EXTL-0039', 'e-Billing Services Bill', '1', '5', '1', '13', '9', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'sent', '', '', NULL, ''),
+(80, 'INV-EXTL-0040', 'e-Billing Services Bill', '1', '5', '1', '13', '9', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'sent', '', '', NULL, ''),
+(81, 'INV-COU-0011', 'e-Billing Services Bill', '1', '5', '1', '13', '11', '1', '1', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'sent', '', '', NULL, ''),
+(82, 'INV-COU-0012', 'e-Billing Services Bill', '1', '5', '1', '13', '7', '1', '1', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '64000', '64000', '64000', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(83, 'INV-CPD001-AAA0028', 'e-Billing Services Bill', '', '', '', '13', '12', '', '1', 'mwenje benson njuguna', 'N/A', '254722721950', '', 'mwenjeb@yahoo.com', 'Cash', '', '', '37750', '37750', '37750', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'sent', 'Success', '341618', NULL, '1634-2000,1632-3500,374-15000,372-2000,2370-3000,209-1000,271-11250'),
+(84, 'INV-COU-0013', 'e-Billing Services Bill', '1', '5', '1', '13', '12', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '525878', '525878', '525878', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(85, 'INV-EXTL-0041', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(86, 'INV-EXTL-0042', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(87, 'INV-EXTL-0043', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(88, 'INV-EXTL-0044', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(89, 'INV-EXTL-0045', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(90, 'INV-EXTL-0046', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(91, 'INV-EXTL-0047', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(92, 'INV-EXTL-0048', 'e-Billing Services Bill', '1', '5', '1', '13', '3', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(93, 'INV-CPD001-AAA0029', 'e-Billing Services Bill', '1', '5', '1', '13', '12', '1', '1', 'EVANSON NGANGA MURI', 'N/A', '254720887065', '', 'archmuri@gmail.com', 'Cash', '', '', '50350', '50350', '50350', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(94, 'INV-COU-0014', 'e-Billing Services Bill', '1', '5', '1', '13', '12', '1', '1', 'Dr. Peter Kariuki Kamau', 'N/A', '0712761716', '', 'petkkamau@gmail.com', 'Cash', '', '', '64000', '64000', '64000', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(95, 'INV-EXTL-0049', 'e-Billing Services Bill', '1', '5', '1', '13', '1', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(96, 'INV-EXTL-0050', 'e-Billing Services Bill', '1', '5', '1', '13', '1', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(97, 'INV-EXTL-0051', 'e-Billing Services Bill', '1', '5', '1', '13', '1', '1', '1', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-25 00:00:00', '2017-01-25 00:00:00', 'Draft', '2017-01-25 00:00:00', '1', '', '', '', '', '2017-01-25 00:00:00', '', 'pending', 'Validation of Input Items Failed.', '', NULL, ''),
+(98, 'INV-EXTL-0052', 'e-Billing Services Bill', '', '', '', '13', '1', '', '', 'Renson K. Mbwagwa', 'N/A', '254722363049', '', 'renson.mbwagwa@curp.or.ke', 'Cash', '', '', '7500', '7500', '7500', '1', 'Cashier-1', '1', '2017-01-26 00:00:00', '2017-01-26 00:00:00', 'Draft', '2017-01-26 00:00:00', '1', '', '', '', '', '2017-01-26 00:00:00', '', 'sent', 'Success', '341620', NULL, '1942-7500,'),
+(99, 'INV-CPD001-AAA0027', 'e-Billing Services Bill', '', '', '', '13', '12', '', '', 'KM ARCHPLANS LTD', 'N/A', '0711292844', '', 'consult@kmarchplans.com', 'Cash', '', '', '110660', '110660', '110660', '1', 'Cashier-1', '1', '2017-01-24 00:00:00', '2017-01-24 00:00:00', 'Draft', '2017-01-24 00:00:00', '1', '', '', '', '', '2017-01-24 00:00:00', '', 'sent', 'Success', '341634', NULL, '2337-20160,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500,'),
+(100, 'INV-SUB-0001', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'Dr. Peter Kariuki Kamau', 'N/A', '0712761716', '', 'petkkamau@gmail.com', 'Cash', '', '', '14000', '14000', '14000', '1', 'Cashier-1', '1', '2017-01-26 00:00:00', '2017-01-26 00:00:00', 'Draft', '2017-01-26 00:00:00', '1', '', '', '', '', '2017-01-26 00:00:00', '', 'sent', 'Success', '341621', NULL, '207-1000,2370-3000,1949-10000,'),
+(101, 'INV-CPD001-AAA0025', 'e-Billing Services Bill ', '', '', '', '13', '11', '', '1', 'NJOROGE JOEL NG\'ANG\'A', '', '0722642942', '0722642942', 'SHIRUHKATE@GMAIL.COM', 'Cash', '', '', '39940', '39940', '39940', '1', 'Cashier-1 ', '1', '2017-01-23 00:00:00 ', '2017-01-23 00:00:00', 'Draft', '2017-01-23 00:00:00', '1', NULL, NULL, NULL, NULL, NULL, NULL, 'pending', 'Validation of Input Items Failed.', '', NULL, '1634-2000,1632-3500,374-15000,372-2000,2370-3000,209-1000,2336-13440'),
+(102, 'INV-STR-CPD001-AAA0001', 'e-Billing Services Bill', '', '', '', '13', '4', '', '', 'Dr. Mugwima Bernard Njuguna', 'N/A', '0722332866', '', 'mugwima@gmail.com', 'Cash', '', '', '6040', '6040', '6040', '1', 'Cashier-1', '1', '2017-01-26 00:00:00', '2017-01-26 00:00:00', 'Draft', '2017-01-26 00:00:00', '1', '', '', '', '', '2017-01-26 00:00:00', '', 'sent', 'Success', '341633', NULL, '210-1000,2349-5040'),
+(103, 'INV-COU-0015', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-26 00:00:00', '2017-01-26 00:00:00', 'Draft', '2017-01-26 00:00:00', '1', '', '', '', '', '2017-01-26 00:00:00', '', 'sent', 'Success', '341623', NULL, '374-7500,2370-3000,207-1000,1934-50000,'),
+(104, 'INV-COU-0016', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '51500', '51500', '51500', '1', 'Cashier-1', '1', '2017-01-26 00:00:00', '2017-01-26 00:00:00', 'Draft', '2017-01-26 00:00:00', '1', '', '', '', '', '2017-01-26 00:00:00', '', 'sent', 'Success', '341625', NULL, '374-7500,2370-3000,207-1000,1942-40000,'),
+(105, 'INV-COU-0017', 'e-Billing Services Bill', '', '', '', '13', '8', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-26 00:00:00', '2017-01-26 00:00:00', 'Draft', '2017-01-26 00:00:00', '1', '', '', '', '', '2017-01-26 00:00:00', '', 'sent', 'Success', '341624', NULL, '374-7500,2370-3000,207-1000,1934-50000,'),
+(106, 'INV-CPD001-AAA0030', 'e-Billing Services Bill', '', '', '', '13', '6', '', '', 'Mbogo David Chola', 'N/A', '0721318614', '', 'mail@davidchola.com', 'Cash', '', '', '117452', '117452', '117452', '1', 'Cashier-1', '1', '2017-01-27 00:00:00', '2017-01-27 00:00:00', 'Draft', '2017-01-27 00:00:00', '1', '', '', '', '', '2017-01-27 00:00:00', '', 'sent', 'Success', '341626', NULL, '2340-85952,374-15000,372-2000,2370-3000,209-1000,1634-7000,1632-3500,'),
+(107, 'INV-CPD001-AAA0031', 'e-Billing Services Bill', '', '', '', '13', '4', '', '', 'Reuben Njoroge Kamau Kabbau', 'N/A', '0789542030', '', 'rkabbau@gmail.com', 'Cash', '', '', '54180', '54180', '54180', '1', 'Cashier-1', '1', '2017-01-27 00:00:00', '2017-01-27 00:00:00', 'Draft', '2017-01-27 00:00:00', '1', '', '', '', '', '2017-01-27 00:00:00', '', 'sent', 'Success', '341627', NULL, '2336-22680,374-15000,372-2000,2370-3000,209-1000,1634-7000,1632-3500,'),
+(108, 'INV-CPD001-AAA0032', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'Apt Building Associates', 'N/A', '254722883549', '', 'aptbuilt@gmail.com', 'Cash', '', '', '48300', '48300', '48300', '1', 'Cashier-1', '1', '2017-01-27 00:00:00', '2017-01-27 00:00:00', 'Draft', '2017-01-27 00:00:00', '1', '', '', '', '', '2017-01-27 00:00:00', '', 'sent', 'Success', '341629', NULL, '2336-16800,374-15000,372-2000,2370-3000,209-1000,1634-7000,1632-3500,'),
+(109, 'INV-CPD001-AAA0033', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'Apt Building Associates', 'N/A', '254722883549', '', 'aptbuilt@gmail.com', 'Cash', '', '', '52300', '52300', '52300', '1', 'Cashier-1', '1', '2017-01-27 00:00:00', '2017-01-27 00:00:00', 'Draft', '2017-01-27 00:00:00', '1', '', '', '', '', '2017-01-27 00:00:00', '', 'sent', 'Success', '341628', NULL, '2336-20800,374-15000,372-2000,2370-3000,209-1000,1634-7000,1632-3500,'),
+(110, 'INV-COU-0018', 'e-Billing Services Bill', '', '', '', '13', '11', '', '', 'DAVID ZINNY WEYUSIA', 'N/A', '0724611855', '', 'deezinny@gmail.com', 'Cash', '', '', '61500', '61500', '61500', '1', 'Cashier-1', '1', '2017-01-27 00:00:00', '2017-01-27 00:00:00', 'Draft', '2017-01-27 00:00:00', '1', '', '', '', '', '2017-01-27 00:00:00', '', 'sent', 'Success', '341630', NULL, '374-7500,2370-3000,207-1000,1934-50000,'),
+(111, 'INV-CPD001-AAA0034', 'e-Billing Services Bill', '', '', '', '13', '10', '', '', 'Dennis Mwangi Githaiga', 'N/A', '0722498203', '', 'githaiga@verv.co.ke', 'Cash', '', '', '182140', '182140', '182140', '1', 'Cashier-1', '1', '2017-01-27 00:00:00', '2017-01-27 00:00:00', 'Draft', '2017-01-27 00:00:00', '1', '', '', '', '', '2017-01-27 00:00:00', '', 'sent', 'Success', '341631', NULL, '2341-155640,374-15000,372-2000,2370-3000,209-1000,1634-2000,1632-3500,'),
+(112, 'INV-CPD001-AAA0035', 'e-Billing Services Bill', '', '', '', '13', '4', '', '', 'Onesmus Kakoi Mwatu', 'N/A', '254722240895', '', 'mwatuonesmus@gmail.com', 'Cash', '', '', '86540', '86540', '86540', '1', 'Cashier-1', '1', '2017-01-29 00:00:00', '2017-01-29 00:00:00', 'Draft', '2017-01-29 00:00:00', '1', '', '', '', '', '2017-01-29 00:00:00', '', 'sent', 'Success', '341632', NULL, '2340-55040,374-15000,372-2000,2370-3000,209-1000,1634-7000,1632-3500,');
 
 -- --------------------------------------------------------
 
@@ -3578,7 +3743,7 @@ INSERT INTO `TABLE2` (`id`, `team_name`, `home`, `away`, `draw`, `result_ht`, `r
 (3933, 'Laci', '4.45', '1.84', '3.02', '0-0', '1-1', 'X', 'Albania Kupa E Shqiperise', '10:47:27'),
 (3934, 'Chania', '2.51', '2.51', '3.28', '2-1', '2-2', 'X', 'Greece Football League', '10:47:51'),
 (3935, 'Kissamikos', '8.16', '1.38', '3.98', '0-1', '0-4', '2', 'Greece cup', '10:48:13'),
-(3936, 'Valerenga', '2.9', '2.21', '3.19', '2-1', '2-1', '1', 'Int club Friendly', '10:48:50'),
+(3936, 'Valerenga', '2.90', '2.21', '3.19', '2-1', '2-1', '1', 'Int club Friendly', '10:48:50'),
 (3937, 'Machine Sazi Tabriz', '4.09', '2.02', '3.03', '0-1', '0-3', '2', 'Iran Pro League', '10:49:41'),
 (3938, 'Saint Entienne W', '37.00', '1.05', '7.28', '0-3', '0-6', '2', 'France Division 1 women', '10:51:18'),
 (3939, 'Banik Ostrava', '1.69', '4.15', '3.74', '4-0', '8-0', '1', 'Int Club Friendly', '10:51:39'),
@@ -3591,7 +3756,6 @@ INSERT INTO `TABLE2` (`id`, `team_name`, `home`, `away`, `draw`, `result_ht`, `r
 INSERT INTO `TABLE2` (`id`, `team_name`, `home`, `away`, `draw`, `result_ht`, `result_ft`, `results`, `league`, `times`) VALUES
 (3946, 'Apollon Limassol', '1.08', '21.50', '7.95', '2-0', '0-0', 'X', 'Cyprus Cup', '10:55:17'),
 (3947, 'AL Fateh', '1.90', '3.90', '3.48', '0-0', '3-1', '1', 'Saudi Arabia Professional League', '10:55:45'),
-(3948, 'Sturm Graz', '1.76', '3.82', '3.72', 'P', 'P', 'P', 'Int Club Friendly', '10:56:20'),
 (3949, 'Norrkoping', '2.32', '2.63', '3.46', '1-1', '1-3', '2', 'Int Club Friendly', '10:56:41'),
 (3950, 'Iraklis 1908', '2.35', '3.47', '2.88', '0-0', '0-0', 'X', 'Greece Super League', '10:57:13'),
 (3951, 'Pas Giannina', '1.70', '5.15', '3.14', '0-0', '1-0', '1', 'Greece cup', '10:57:32'),
@@ -3638,7 +3802,6 @@ INSERT INTO `TABLE2` (`id`, `team_name`, `home`, `away`, `draw`, `result_ht`, `r
 (3992, 'Anderlecht W', '1.06', '14.80', '11.70', '0-0', '3-0', '1', 'Belgium Super league W', '11:16:21'),
 (3993, 'OH Leuven W', '1.29', '6.99', '5.43', '1-0', '1-1', 'X', 'Belgium Super league W', '11:17:22'),
 (3994, 'Kaa Gent W', '2.68', '2.12', '3.92', '0-1', '1-2', '2', 'Belgium Super league W', '11:17:46'),
-(3995, 'Burgess Hill', '3.26', '1.94', '3.62', 'P', 'P', 'P', 'England Isthmian Football League Premier Divison', '11:18:14'),
 (3996, 'SPVGG Erkenschwick', '2.58', '2.27', '3.67', '2-0', '4-0', '1', 'Int Club Friendly', '11:19:04'),
 (3998, 'SV Heimstetten', '4.48', '1.58', '4.12', '0-2', '1-6', '2', 'Int Club Friendly', '11:20:57'),
 (3999, 'EC Augua Santa SP', '1.83', '3.33', '2.76', '1-0', '1-0', '1', 'Brazil Paulista Serie A2', '11:22:15'),
@@ -3649,7 +3812,6 @@ INSERT INTO `TABLE2` (`id`, `team_name`, `home`, `away`, `draw`, `result_ht`, `r
 (4004, 'Marquense', '1.60', '5.10', '3.60', '0-0', '1-1', 'X', 'Guatemala Liga Nacional', '11:28:25'),
 (4005, 'Shakhtar Donetsk', '1.38', '6.38', '4.59', '1-1', '2-2', 'X', 'Int Club Friendly', '11:31:03'),
 (4006, 'ASTV Stadl', '1.23', '8.98', '5.65', '1-1', '2-1', '1', 'Int Club Friendly', '11:31:35'),
-(4007, 'Al Wehdat', '1.39', '6.93', '4.26', 'P', 'P', 'P', 'AFC Champions League', '11:32:28'),
 (4008, 'Portugal U18', '1.32', '7.13', '4.89', '2-0', '4-0', '1', 'Int Club Friendly U18', '11:33:44'),
 (4009, 'Lillie', '2.26', '3.31', '2.99', '0-0', '1-0', '1', 'France Coupe De France', '11:34:20'),
 (4010, 'Bordeaux', '1.62', '5.01', '3.81', '0-0', '2-1', '1', 'France Coupe De France', '11:34:45'),
@@ -3712,11 +3874,107 @@ INSERT INTO `TABLE2` (`id`, `team_name`, `home`, `away`, `draw`, `result_ht`, `r
 (4067, 'Cameroon', '3.49', '2.47', '2.79', '0-0', '2-0', '1', 'Africa Cup of Nations ', '11:57:17'),
 (4068, 'Moreirense', '2.11', '3.83', '3.18', '1-0', '1-1', 'X', 'Portugal Primeira Liga', '11:57:50'),
 (4069, 'Celta Vigo', '1.73', '5.69', '3.36', '0-0', '0-0', 'X', 'Spain Copa Del Rey', '09:34:17'),
-(4070, 'Huddersfield', '2.74', '2.84', '3.00', '3-1', '3-1', '1', 'England Championship', '09:35:16');
+(4070, 'Huddersfield', '2.74', '2.84', '3.00', '3-1', '3-1', '1', 'England Championship', '09:35:16'),
+(4071, 'Brisbane Roar', '2.96', '2.42', '3.34', '0-0', '0-0', 'X', 'Australia A-League', '09:23:51'),
+(4072, 'Vejle BK', '2.26', '2.77', '3.38', '1-2', '2-2', 'X', 'Int Club Friendly', '09:25:36'),
+(4073, 'Azal Baku', '10.30', '1.33', '4.56', '1-0', '1-2', '2', 'Azerbaijan Premeir League', '09:26:12'),
+(4074, 'Lyngby BK', '2.15', '3.02', '3.28', '0-0', '0-1', '2', 'Int Club Friendly', '09:26:51'),
+(4075, 'Sokol Saratov', '1.68', '4.23', '3.72', '0-1', '0-1', '2*', 'Int Club Friendly', '09:27:25'),
+(4076, 'Hong Kong FC', '12.10', '1.14', '7.24', '0-4', '0-6', '2', 'Hong kong Premier League', '09:27:47'),
+(4077, 'Juventus Youth', '1.19', '11.00', '5.90', '0-0', '3-0', '1', 'Italy Lega Pro, Girone B', '09:28:48'),
+(4078, 'Vasas Budapest', '3.66', '1.81', '3.66', '1-1', '1-3', '2', 'Int Club Friendly', '09:29:11'),
+(4079, 'JSM Bejaia', '1.84', '4.49', '3.01', '2-0', '3-0', '1', 'Algeria Ligue 2', '09:29:37'),
+(4080, 'MC EL Eulma', '1.48', '6.89', '3.57', '0-0', '1-0', '1', 'Algeria Ligue 1', '09:29:53'),
+(4081, 'Paradou AC', '2.00', '3.70', '3.03', '1-0', '2-1', '1', 'Algeria Ligue 2', '09:30:15'),
+(4082, 'JSM Skikda', '2.42', '3.14', '2.72', '0-0', '1-0', '1', 'Algeria Ligue 1', '09:30:33'),
+(4083, 'Al Ansar', '1.75', '4.06', '3.55', '0-0', '0-0', 'X', 'Algeria Ligue 1', '09:30:55'),
+(4084, 'Al Shabab (Oman)', '2.27', '3.37', '3.01', '1-1', '3-2', '1', 'Oman Omani League', '09:40:36'),
+(4085, 'Muscat Club', '3.28', '2.22', '3.17', '0-1', '0-2', '2', 'Oman Omani League', '09:41:22'),
+(4086, 'Dibba Al Fujairah', '5.34', '1.55', '4.22', '0-1', '0-2', '2', 'UAE Arabian Gulf League', '09:41:54'),
+(4087, 'Austria Vienna', '1.29', '7.77', '5.02', '1-0', '1-0', '1*', 'Int Club Friendly', '09:43:08'),
+(4088, 'Lokomotiva Plovdiv', '6.47', '1.40', '4.35', '0-1', '2-2', 'X', 'Int Club Friendly', '09:43:30'),
+(4089, 'Ca Batna', '2.87', '2.71', '2.76', '0-2', '1-2', '2', 'Algeria Ligue 1', '09:43:50'),
+(4090, 'Dorogi Fc', '3.99', '1.69', '3.89', '0-0', '0-0', 'X', 'Int Club Friendly', '09:44:29'),
+(4091, 'Viktoria Koln', '1.80', '3.65', '3.70', '1-1', '1-2', '2', 'Int Club Friendly', '09:44:47'),
+(4092, 'Sohar Club', '2.48', '2.80', '3.22', '0-0', '0-1', '2', 'Oman Omani League', '09:45:16'),
+(4093, 'Sparta Prague', '3.48', '1.99', '3.22', '1-0', '2-0', '1', 'Int Club Friendly', '09:48:57'),
+(4094, 'RS Berkane', '2.15', '4.09', '2.78', '0-0', '1-0', '1', 'Morocco Botola', '09:49:23'),
+(4095, 'SJK/2', '28.40', '1.07', '9.73', '0-2', '3-7', '2', 'Finland Suomen Cup Group B', '10:14:25'),
+(4096, 'Al Ittihad Jeddah', '2.81', '2.39', '3.39', '1-1', '1-4', '2', 'Saudi Arabia Professional League', '10:15:41'),
+(4097, 'Greuther Furth', '3.71', '1.99', '3.60', '2-0', '4-1', '1', 'Germany 2nd Bundesliga', '10:25:13'),
+(4098, 'Arminia', '2.20', '3.44', '3.28', '2-1', '2-1', '1', 'Germany 2nd Bundesliga', '10:25:32'),
+(4099, 'Kaiserslautern', '2.41', '3.38', '2.95', '0-0', '1-0', '1', 'Germany 2nd Bundesliga', '10:25:51'),
+(4100, 'Astra Giurgiu', '1.34', '9.40', '4.78', '1-0', '1-0', '1', 'Romania Liga 1', '10:52:50'),
+(4101, 'Minnesota UTD', '2.43', '2.59', '3.31', '0-0', '1-1', 'X', 'Int Club Friendly', '10:53:09'),
+(4102, 'Benfica Lisbon B', '1.74', '4.80', '3.48', '2-1', '2-1', '1', 'Portugal Segunda Liga', '10:53:38'),
+(4103, 'Twente W', '1.08', '117.70', '8.49', '4-0', '7-0', '1', 'Netherlands Eredivisie', '10:14:00'),
+(4104, 'Heerenveen W', '11.50', '1.19', '5.66', '0-0', '0-1', '2', 'Netherlands Eredivisie W', '10:14:38'),
+(4105, 'Zwolle W', '8.01', '1.24', '5.94', '1-1', '2-3', '2', 'Netherlands Eredivisie W', '10:15:07'),
+(4106, 'Standard Liege W', '1.05', '22.50', '10.00', '0-0', '3-0', '1', 'Belgium Super league W', '10:15:40'),
+(4107, 'Ucam Murcia', '2.14', '3.85', '3.10', '0-0', '1-0', '1', 'Spain Segunda Division', '10:16:14'),
+(4108, 'Le Havre', '1.88', '4.61', '3.33', '1-0', '1-1', 'X', 'France Ligue 2', '10:16:40'),
+(4109, 'Strasbourge', '2.16', '3.89', '3.03', '0-0', '2-0', '1', 'France Ligue 2', '10:16:55'),
+(4110, 'Laval', '2.37', '3.45', '2.96', '0-0', '0-0', 'X', 'France Ligue 2', '10:17:16'),
+(4111, 'Lens', '2.05', '3.88', '3.29', '0-0', '0-0', 'X', 'France Ligue 2', '10:17:32'),
+(4112, 'Reims', '1.73', '5.42', '3.47', '0-0', '1-1', 'X', 'France Ligue 2', '10:17:48'),
+(4113, 'Ac Ajaccio', '2.27', '3.45', '3.13', '1-0', '2-1', '1', 'France Ligue 2', '10:18:08'),
+(4114, 'Niort', '2.05', '3.94', '3.24', '0-1', '3-2', '1', 'France Ligue 2', '10:18:21'),
+(4115, 'Amiens', '2.05', '3.88', '3.29', '1-1', '1-2', '2', 'France Ligue 2', '10:18:34'),
+(4116, 'ASM Belfort', '3.08', '2.50', '2.98', '2-1', '2-3', '2', 'France National', '10:18:56'),
+(4117, 'Epinal', '2.24', '3.46', '3.09', '0-0', '1-1', 'X', 'France National', '10:19:07'),
+(4118, 'Sedan', '2.93', '2.61', '2.98', '0-1', '0-2', '2', 'France National', '10:19:18'),
+(4119, 'ADD DEN HAAG', '4.02', '1.93', '3.54', '0-2', '0-2', '2', 'Netherlands Eredivisie', '10:19:54'),
+(4120, 'Jong Ajax', '1.54', '5.16', '4.58', '1-0', '4-1', '1', 'Netherlands Eerste Divisie', '10:20:09'),
+(4121, 'VVV Venlo', '1.55', '5.63', '4.18', '2-0', '4-1', '1', 'Netherlands Eerste Divisie', '10:20:23'),
+(4122, 'Maastricht', '1.22', '12.80', '6.15', '0-0', '0-0', 'X', 'Netherlands Eerste Divisie', '10:20:42'),
+(4123, 'FC Emmen', '3.20', '2.24', '3.31', '2-0', '3-1', '1', 'Netherlands Eerste Divisie', '10:20:57'),
+(4124, 'Den Bosch', '3.43', '2.04', '3.59', '1-0', '2-1', '1', 'Netherlands Eerste Divisie', '10:21:13'),
+(4125, 'Cambuur', '1.50', '6.14', '4.38', '1-0', '3-0', '1', 'Netherlands Eerste Divisie', '10:21:29'),
+(4126, 'Jong Utrecht', '2.84', '2.41', '3.42', '0-2', '0-2', '2', 'Netherlands Eerste Divisie', '10:21:47'),
+(4127, 'Dordrecht', '2.01', '3.50', '3.60', '2-0', '2-2', 'X', 'Netherlands Eerste Divisie', '10:22:15'),
+(4128, 'Telstar', '2.29', '2.88', '3.62', '0-1', '3-1', '1', 'Netherlands Eerste Divisie', '10:22:38'),
+(4129, 'FC Eindhoven', '2.04', '3.27', '3.80', '1-1', '4-1', '1', 'Netherlands Eerste Divisie', '10:22:54'),
+(4130, 'Manchester City U23', '1.55', '4.91', '3.98', '2-0', '4-1', '1', 'England Amateur Premier League 2 Division 1', '10:23:21'),
+(4131, 'Blackburn U23', '2.17', '2.89', '3.41', '2-1', '2-1', '1', 'England Amateur Premier League 2 Division 2', '10:23:37'),
+(4132, 'Far Rabat', '2.05', '4.00', '3.00', '0-0', '2-0', '1', 'Morocco Botola', '10:23:55'),
+(4133, 'Portuguesa', '1.74', '4.74', '3.53', '0-1', '1-3', '2', 'Venezuela Primera Division Apertura', '10:24:23'),
+(4134, 'Hamburger SV', '3.11', '2.36', '3.32', '0-0', '1-0', '1', 'Germany 2nd Bundesliga', '10:24:54'),
+(4135, 'Verona', '1.87', '4.28', '3.53', '1-2', '2-2', 'X', 'Italy Serie B', '10:25:08'),
+(4136, 'Lokeren', '4.08', '1.88', '3.65', '0-0', '0-0', 'X', 'Belgium Pro League', '10:25:24'),
+(4137, 'Lommel', '2.81', '2.30', '3.22', '0-0', '0-1', '2', 'Belgium 1st Division', '10:25:42'),
+(4138, 'Europa Point FC', '31.70', '1.04', '9.74', '0-2', '0-3', '2', 'Gibraltar Premier Division', '10:26:03'),
+(4139, 'Wigan', '3.01', '2.68', '2.90', '0-1', '0-1', '2', 'England Championship', '10:27:57'),
+(4140, 'Metz', '3.77', '1.99', '3.56', '0-0', '1-0', '1', 'France Ligue 1', '10:28:19'),
+(4141, 'Baumit Jablonec', '1.71', '4.50', '3.42', '1-0', '2-0', '1', 'Int Club Friendly', '10:28:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testing`
+--
+
+CREATE TABLE `testing` (
+  `id` int(11) NOT NULL,
+  `team_name` varchar(500) DEFAULT NULL,
+  `home` varchar(100) DEFAULT NULL,
+  `away` varchar(100) DEFAULT NULL,
+  `draw` varchar(100) DEFAULT NULL,
+  `result_ht` varchar(100) DEFAULT NULL,
+  `result_ft` varchar(100) DEFAULT NULL,
+  `results` varchar(100) DEFAULT NULL,
+  `league` varchar(1000) DEFAULT NULL,
+  `times` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `countypro_crontab`
+--
+ALTER TABLE `countypro_crontab`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `TABLE2`
@@ -3725,14 +3983,30 @@ ALTER TABLE `TABLE2`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `testing`
+--
+ALTER TABLE `testing`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `countypro_crontab`
+--
+ALTER TABLE `countypro_crontab`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+--
 -- AUTO_INCREMENT for table `TABLE2`
 --
 ALTER TABLE `TABLE2`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4071;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4143;
+--
+-- AUTO_INCREMENT for table `testing`
+--
+ALTER TABLE `testing`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

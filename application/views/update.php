@@ -80,30 +80,49 @@
         <script type="text/javascript" src='/page/assets/js/plugins/slimscroll/jquery.slimscroll.min.js'></script>
         <script type= "text/javascript" src="/page/assets/js/jquery.dataTables.min.js"></script>
         <script src="/page/assets/jqueryui/jquery-ui.min.js"></script>
+        <script src="/page/assets/js/jquery.validate.min.js"></script>
         <script src="/page/assets/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#sendupdate").click(function () {
                     console.log("Daniel");
+                    
                     var id = $("#teamid").val();
                     var halftime = $("#halftime").val();
                     var fulltime = $("#fulltime").val();
                     var result = $("#results").val();
+                    var pattern='^[0-9]*\-[0-9]*\$';
+                    var fulltimes = fulltime.match(pattern);
+                    var halftimes = halftime.match(pattern);
+                    if(fulltimes != null || fulltime === 'P'){
+                        if(halftime.length >= 1 && halftimes != null ||halftime ==='P'){
 
-                    var srvRqst = $.ajax({
-                        url: '/page/mark/result_update',
-                        type: 'post',
-                        data: {halftime: halftime, fulltime: fulltime, results: result, id: id},
-                        datatype: 'text',
 
-                    });
+                       
+                            var srvRqst = $.ajax({
+                                url: '/page/mark/result_update',
+                                type: 'post',
+                                data: {halftime: halftime, fulltime: fulltime, results: result, id: id},
+                                datatype: 'text',
 
-                    srvRqst.done(function (response) {
-                        $('div.user_error').html(response);
-                        location.reload();
-                    });
+                             });
+
+                            srvRqst.done(function (response) {
+                                $('div.user_error').html(response);
+                                location.reload();
+                            }); 
+                      }else{
+                        $("#halftime").css('border','solid 1px red');
+                      } 
+                    }else{
+                        $("#fulltime").css('border','solid 1px red');    
+                    }
+                    
+                     });
+
                 });
-            });
+
+                
         </script>
     </body>
 

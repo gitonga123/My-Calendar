@@ -54,7 +54,7 @@
                             Home
                         </label>
                         <div class="col-sm-5">
-                            <input type="text" name="home" id="home" class="form-control" required = "required" />
+                            <input type="text" name="home" id="home" class="form-control" pattern="^[0-9]*\.[0-9]{2}$" required = "required" />
                         </div>
                     </div>
 
@@ -63,7 +63,7 @@
                             Draw
                         </label>
                         <div class="col-sm-5">
-                            <input type="text" name="draw" id="draw" class="form-control" required = "required" />
+                            <input type="text" name="draw" id="draw" class="form-control" pattern="^[0-9]*\.[0-9]{2}$" required = "required" />
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                             Away 
                         </label>
                         <div class="col-sm-5">
-                            <input type="text" name="away" id="away" class="form-control" required = "required" />
+                            <input type="text" name="away" id="away" class="form-control" pattern="^[0-9]*\.[0-9]{2}$" required = "required" />
                         </div>
                     </div>
 
@@ -125,6 +125,7 @@
         <script type= "text/javascript" src="/page/assets/js/jquery.dataTables.min.js"></script>
 
         <script src="/page/assets/jqueryui/jquery-ui.min.js"></script>
+        <script src="/page/assets/js/jquery.validate.min.js"></script>
         <script src="/page/assets/js/bootstrap.min.js"></script>
          <script src="/page/assets/js/customer.js"></script>
 
