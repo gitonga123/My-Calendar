@@ -17,29 +17,29 @@
         <div style="padding-bottom: 2%"></div>
             <div class="row">
                 <div class="col-md-2">
-                    <a href="/page/mark" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
+                    <a href="/page/make" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/page/mark/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
+                    <a href="/page/make/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/page/mark/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
+                    <a href="/page/make/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/page/mark/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
+                    <a href="/page/make/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/page/mark/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
+                    <a href="/page/make/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
+                    <a href="/page/make/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
                 </div>
                 <div style="padding-bottom: 5%"></div>
                 <div class="col-md-4">
-                     <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
+                     <a href="/page/make/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
                 </div>
                 <div class="col-md-4">
-                     <a href="/page/mark/files" class="btn btn-danger"> Files Testing</a>
+                     <a href="/page/make/files" class="btn btn-danger"> Files Testing</a>
                 </div>
                  <div class="col-md-4">
                     <a href="#" class="btn btn-danger" id="upload_data"><i class="fa fa-upload"> </i> Advanced Uploads</a>
@@ -130,7 +130,7 @@
                                     var res2 = compare2[1];
                                     if(isNaN(res1) && isNaN(res2)){
                                         var srvRqst = $.ajax({
-                                            url: '/page/mark/result_update',
+                                            url: '/page/make/result_update',
                                             type: 'post',
                                             data: {halftime: halftime, fulltime: fulltime, results: fulltime, id: id},
                                             datatype: 'text',
@@ -152,7 +152,7 @@
                                             resultss = '2'
                                         }
                                         var srvRqst = $.ajax({
-                                            url: '/page/mark/result_update',
+                                            url: '/page/make/result_update',
                                             type: 'post',
                                             data: {halftime: halftime, fulltime: fulltime, results: resultss, id: id},
                                             datatype: 'text',
@@ -184,7 +184,7 @@
                 var time = prompt("Please enter the time");
 
                 var srvRqst = $.ajax({
-                    url: '/page/mark/transafer',
+                    url: '/page/make/transafer',
                     type: 'post',
                     data: {time: time},
                     datatype: 'text',

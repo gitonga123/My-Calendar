@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit("No direct Access is allowed");
 
-class Marks extends CI_Model {
+class Makes extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -13,7 +13,7 @@ class Marks extends CI_Model {
         return $this->db->insert($table_name,$data);
     }
     public function get_all_details2() {
-        $table_name = "TABLE2";
+        $table_name = "TABLE3";
         $this->db->select();
         $this->db->limit(10);
         $query = $this->db->get($table_name);
@@ -22,7 +22,7 @@ class Marks extends CI_Model {
     }
 
     public function get_all_details3() {
-        $table_name = "TABLE2";
+        $table_name = "TABLE3";
         $this->db->select();
         
         $query = $this->db->get($table_name);
@@ -38,7 +38,7 @@ class Marks extends CI_Model {
     }
 
     public function get_all_details_search($home,$draw,$away){
-        $table_name = "old_new";
+        $table_name = "TABLE3";
         $this->db->select();
         $this->db->order_by('home','ASC');
         $this->db->where('home =',$home);
@@ -52,7 +52,7 @@ class Marks extends CI_Model {
 
 
     public function get_all_details_search2($home,$draw,$away){
-        $table_name = "old_new";
+        $table_name = "TABLE3";
         $this->db->select();
         $this->db->order_by('home','ASC');
         $this->db->where('home =',$home);
@@ -64,7 +64,7 @@ class Marks extends CI_Model {
     }
 
     public function get_all_details() {
-        $table_name = "TABLE2";
+        $table_name = "TABLE3";
         $this->db->select();
         $query = $this->db->get($table_name);
 
@@ -72,7 +72,7 @@ class Marks extends CI_Model {
     }
 
     public function delete_postpone($id){
-        return $this->db->delete('TABLE2', array('id' => $id));
+        return $this->db->delete('TABLE3', array('id' => $id));
     }
 
     public function delete_updated($id){
@@ -103,99 +103,99 @@ class Marks extends CI_Model {
     }
 
     public function insert_details($data) {
-        $table_name = "TABLE2";
+        $table_name = "TABLE3";
         return $this->db->insert($table_name, $data);
     }
 
     public function transfer_exact_team($data){
-        $table_name='TABLE2';
+        $table_name='TABLE3';
         return $this->db->insert($table_name,$data);
     }
 
     public function get_updates($data) {
-        $this->db->insert("TABLE2", $data);
+        $this->db->insert("TABLE3", $data);
     }
 
     public function team_name() {
         $this->db->distinct();
         $this->db->select('team_name');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function home_name() {
         $this->db->distinct();
         $this->db->select('home');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function away_name() {
         $this->db->distinct();
         $this->db->select('away');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function draw_name() {
         $this->db->distinct();
         $this->db->select('draw');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function half_name() {
         $this->db->distinct();
         $this->db->select('result_ht');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function full_name() {
         $this->db->distinct();
         $this->db->select('result_ft');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function result_name() {
         $this->db->distinct();
         $this->db->select('results');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function league_name() {
         $this->db->distinct();
         $this->db->select('league');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function search_home($data) {
 
-        $query = $this->db->get_where('TABLE2', array('home' => $data));
+        $query = $this->db->get_where('TABLE3', array('home' => $data));
 
         return $query->result();
     }
 
     public function search_draw($data) {
 
-        $query = $this->db->get_where('TABLE2', array('draw' => $data));
+        $query = $this->db->get_where('TABLE3', array('draw' => $data));
 
         return $query->result();
     }
 
     public function search_away($data) {
 
-        $query = $this->db->get_where('TABLE2', array('away' => $data));
+        $query = $this->db->get_where('TABLE3', array('away' => $data));
 
         return $query->result();
     }
 
     public function update_result($data, $data1) {
         $this->db->where('id', $data);
-        return $this->db->update('TABLE2', $data1);
+        return $this->db->update('TABLE3', $data1);
     }
 
     public function update_leagues($leagues,$id){
@@ -212,7 +212,7 @@ class Marks extends CI_Model {
 
     public function select_last() {
         $this->db->order_by('id', 'DESC');
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->row_array();
     }
 
@@ -230,7 +230,7 @@ class Marks extends CI_Model {
         $result = $this->select_all_id();
         foreach ($result as $key => $value) {
             $this->db->where('id', $value->id);
-            $query = $this->db->get('TABLE2');
+            $query = $this->db->get('TABLE3');
             $hold[] = $query->row_array();
         }
         return $hold;
@@ -276,14 +276,14 @@ class Marks extends CI_Model {
 
     public function get_string_analysis() {
         $this->db->select();
-        $query = $this->db->get('TABLE2');
+        $query = $this->db->get('TABLE3');
         return $query->result();
     }
 
     public function update_half_result($id, $value){
         $data['result_ft'] = $value;
         $this->db->where('id', $id);
-        return $this->db->update('TABLE2', $data);
+        return $this->db->update('TABLE3', $data);
     }
     
     public function get_fee_range_details(){
@@ -298,7 +298,7 @@ class Marks extends CI_Model {
     }
 
     public function get_team_name_history($team_name){
-        $query = $this->db->get_where('TABLE2', array('team_name' => $team_name));
+        $query = $this->db->get_where('TABLE3', array('team_name' => $team_name));
 
         return $query->result();
     }

@@ -5,24 +5,24 @@ require_once('header.php');
 <body>
     <div class=" container container-fluid">
         <div style="padding-bottom: 2%"></div>
-        <a href="/page/mark" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
+        <a href="/page/make" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
+        <a href="/page/make/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
+        <a href="/page/make/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
+        <a href="/page/make/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
 
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
+        <a href="/page/make/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
 
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
+        <a href="/page/make/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
         <span style="margin-left: 5%"></span>
         <a href="#" id="timeClock" class="btn btn-default"></a>
         <span style="margin-left: 5%"></span>
         <div style="padding-bottom: 1%"></div>
-        <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
+        <a href="/page/make/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
         <span style="margin-left: 5%"></span>        
         <button class="btn btn-default" id="briefhome"><i class="fa fa-briefcase"></i> Brief Home</button>
         <span style="margin-left: 5%"></span>
@@ -149,7 +149,7 @@ require_once('header.php');
             $(".summary_default").hide();
             $(".summary_details").show();
             var srvRqst = $.ajax({
-                url: '/page/mark/trend',
+                url: '/page/make/trend',
                 data: {},
                 type: 'post'
             });
@@ -159,7 +159,7 @@ require_once('header.php');
             });
 
             var serverRqst = $.ajax({
-                url: '/page/mark/trend2',
+                url: '/page/make/trend2',
                 data: {},
                 type: 'post'
             });
@@ -173,7 +173,7 @@ require_once('header.php');
             $(".summary_default").hide();
             $(".summary_details").show();
             var srvRqst = $.ajax({
-                url: '/page/mark/trend_draw',
+                url: '/page/make/trend_draw',
                 data: {},
                 type: 'post'
             });
@@ -183,7 +183,7 @@ require_once('header.php');
             });
 
             var serverRqst = $.ajax({
-                url: '/page/mark/trend_draw2',
+                url: '/page/make/trend_draw2',
                 data: {},
                 type: 'post'
             });
@@ -197,7 +197,7 @@ require_once('header.php');
             $(".summary_default").hide();
             $(".summary_details").show();
             var srvRqst = $.ajax({
-                url: '/page/mark/trend_away',
+                url: '/page/make/trend_away',
                 data: {},
                 type: 'post'
             });
@@ -214,7 +214,7 @@ require_once('header.php');
             $(".away_frequency").show();
             $(".home_table").hide();
             var srvRqst = $.ajax({
-                url: '/page/mark/count_values',
+                url: '/page/make/count_values',
                 data: {},
                 type: 'post'
             });
@@ -231,7 +231,7 @@ require_once('header.php');
             $(".away_frequency").show();
             $(".home_table").hide();
             var srvRqst = $.ajax({
-                url: '/page/mark/count_score',
+                url: '/page/make/count_score',
                 data: {},
                 type: 'post'
             });
@@ -247,7 +247,7 @@ require_once('header.php');
             $(".away_frequency").show();
             $(".home_table").hide();
             var srvRqst = $.ajax({
-                url: '/page/mark/count_score2',
+                url: '/page/make/count_score2',
                 data: {},
                 type: 'post'
             });
@@ -265,7 +265,7 @@ require_once('header.php');
             $(".away_frequency").show();
             $(".home_table").hide();
             var srvRqst = $.ajax({
-                url: '/page/mark/graphical_home',
+                url: '/page/make/graphical_home',
                 data: {},
                 type: 'post'
             });
@@ -384,7 +384,7 @@ require_once('header.php');
             $(".away_frequency").show();
             $(".draw_table").hide();
             var srvRqst = $.ajax({
-                url: '/page/mark/graphical_draw',
+                url: '/page/make/graphical_draw',
                 data: {},
                 type: 'post'
             });
@@ -503,7 +503,7 @@ require_once('header.php');
             $(".away_frequency").show();
             $(".away_table").hide();
             var srvRqst = $.ajax({
-                url: '/page/mark/graphical_away',
+                url: '/page/make/graphical_away',
                 data: {},
                 type: 'post'
             });
@@ -614,7 +614,7 @@ require_once('header.php');
             });
 
 //            var serverRqst = $.ajax({
-//                url: '/page/mark/trend_away_2',
+//                url: '/page/make/trend_away_2',
 //                data: {},
 //                type: 'post'
 //            });

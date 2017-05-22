@@ -6,30 +6,30 @@ require_once('header.php');
 <body>
     <div class=" container container-fluid">
         <div style="padding-bottom: 2%"></div>
-        <a href="/page/mark/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
+        <a href="/page/make/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
+        <a href="/page/make/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
+        <a href="/page/make/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
 
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
+        <a href="/page/make/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
 
         <span style="margin-left: 5%"></span>
-        <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
+        <a href="/page/make/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
         <span style="margin-left: 5%"></span>
 
-        <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
+        <a href="/page/make/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
 
         <div style="padding-bottom: 2%"></div>
         
-        <a href="/page/mark/post" class="btn btn-default" ><i class="fa fa-lock"></i> Postponed</a>
+        <a href="/page/make/post" class="btn btn-default" ><i class="fa fa-lock"></i> Postponed</a>
         <span style="margin-left: 5%"></span>  
         <a href="#" id="timeClock" class="btn btn-default"></a>
         <span style="margin-left: 5%"></span>
         <a href="#" class="btn btn-danger" id="upload_data"><i class="fa fa-upload"> </i> Uploads</a>
         <span style="margin-left: 5%"></span>
-        <a href="/page/make/" class="btn btn-primary"><i class="fa fa-next"> </i> New Site</a>
+        <a href="/page/mark/" class="btn btn-primary"><i class="fa fa-next"> </i> Old Site</a>
        <span> <?php echo "<p style='font-weight: bold; color: red'>Total Records=: " . $count . "</p>"; ?></span>
        <div class="user_error"></div>
        <div style="padding-bottom: 2%"></div>
@@ -89,7 +89,7 @@ require_once('header.php');
             var time = prompt("Please enter the time");
 
             var srvRqst = $.ajax({
-                url: '/page/mark/transafer',
+                url: '/page/make/transafer',
                 type: 'post',
                 data: {time: time},
                 datatype: 'text',

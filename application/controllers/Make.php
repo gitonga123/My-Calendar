@@ -2,11 +2,11 @@
 
 defined('BASEPATH') or exit("No direct Script is Allowed");
 
-class Mark extends CI_Controller {
+class Make extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model("marks");
+        $this->load->model("makes");
         $this->load->helper("url");
         $this->load->library("pagination");
         $this->load->helper("form");
@@ -15,15 +15,15 @@ class Mark extends CI_Controller {
 
     public function index() {
         $data['title'] = "Entry Results";
-        $data['odds'] = $this->marks->get_all_details2();
-        $data['count'] = count($this->marks->get_all_details());
-        $this->load->view('mark', $data);
+        $data['odds'] = $this->makes->get_all_details2();
+        $data['count'] = count($this->makes->get_all_details());
+        $this->load->view('mark2', $data);
     }
 
     public function transafer() {
         $table_name = "table_2";
         $time = $this->input->post('time');
-        $data = $this->marks->get_details_for_uploads($table_name);
+        $data = $this->makes->get_details_for_uploads($table_name);
         if ($data) {
             $query = json_decode(json_encode($data), TRUE);
             foreach ($query as $key => $value) {
@@ -38,10 +38,10 @@ class Mark extends CI_Controller {
                         "date" => $value['DATE']
                     );
                     // print_r($datas);
-                    $this->marks->get_updates($datas);
+                    $this->makes->get_updates($datas);
                 }
             }
-            echo "<p class='alert alert-info'>Data Upload complete:  Go to <a href='/page/mark/update_result' class='btn btn-sm btn-info'>Uploads to add update result</a></p>";
+            echo "<p class='alert alert-info'>Data Upload complete:  Go to <a href='/page/make/update_result' class='btn btn-sm btn-info'>Uploads to add update result</a></p>";
         } else {
             echo "<p class='alert alert-danger'>No Data uploads Avaialable</p>";
         }
@@ -68,39 +68,39 @@ class Mark extends CI_Controller {
         $data['error'] = "";
 
         if (isset($_POST['team'])) {
-            $datas['team_name'] = $this->input->post('team');
+            $datas['team_name'] = ucwords(strtolower($this->input->post('team')));
             $datas['home'] = $this->input->post('home');
             $datas['away'] = $this->input->post('away');
             $datas['draw'] = $this->input->post('draw');
             $datas['result_ht'] = $this->input->post('halftime');
             $datas['result_ft'] = $this->input->post('fulltime');
             $datas['results'] = $this->input->post('results');
-            $datas['league'] = $this->input->post('league');
+            $datas['league'] = ucwords(strtolower($this->input->post('league')));
             $datas['times'] = $this->get_time();
             $data['date'] = $this->get_date();
-            $this->marks->get_updates($datas);
+            $this->makes->get_updates($datas);
 
             // $this->testing_area();
             // if($query){
             //     $this->index();
             // }
         }
-        $this->load->view('insert', $data);
+        $this->load->view('insert2', $data);
     }
 
     public function delete_postpone() {
-        $odds = $this->marks->get_all_details();
+        $odds = $this->makes->get_all_details();
 
         foreach ($odds as $key => $value) {
             if ($value->result_ft === 'P') {
                 echo "deleting...";
-                $this->marks->delete_postpone($value->id);
+                $this->makes->delete_postpone($value->id);
             }
         }
     }
 
     public function team_suggest() {
-        $team_search = $this->marks->team_name();
+        $team_search = $this->makes->team_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->team_name;
@@ -109,7 +109,7 @@ class Mark extends CI_Controller {
     }
 
     public function home_suggest() {
-        $team_search = $this->marks->home_name();
+        $team_search = $this->makes->home_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->home;
@@ -118,7 +118,7 @@ class Mark extends CI_Controller {
     }
 
     public function draw_suggest() {
-        $team_search = $this->marks->draw_name();
+        $team_search = $this->makes->draw_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->draw;
@@ -127,7 +127,7 @@ class Mark extends CI_Controller {
     }
 
     public function away_suggest() {
-        $team_search = $this->marks->away_name();
+        $team_search = $this->makes->away_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->away;
@@ -136,7 +136,7 @@ class Mark extends CI_Controller {
     }
 
     public function half_suggest() {
-        $team_search = $this->marks->half_name();
+        $team_search = $this->makes->half_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->result_ht;
@@ -145,7 +145,7 @@ class Mark extends CI_Controller {
     }
 
     public function full_suggest() {
-        $team_search = $this->marks->full_name();
+        $team_search = $this->makes->full_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->result_ft;
@@ -154,7 +154,7 @@ class Mark extends CI_Controller {
     }
 
     public function result_suggest() {
-        $team_search = $this->marks->result_name();
+        $team_search = $this->makes->result_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->results;
@@ -163,7 +163,7 @@ class Mark extends CI_Controller {
     }
 
     public function league_suggest() {
-        $team_search = $this->marks->league_name();
+        $team_search = $this->makes->league_name();
         $hold = array();
         foreach ($team_search as $key => $value) {
             $hold[] = $value->league;
@@ -173,15 +173,15 @@ class Mark extends CI_Controller {
 
     public function search_area() {
         $data['title'] = 'Search Area';
-        $data['testing_data'] = $this->marks->select_test();
-        $this->load->view('search', $data);
+        $data['testing_data'] = $this->makes->select_test();
+        $this->load->view('search2', $data);
     }
 
     public function google() {
 
-        $team_draw = $this->marks->draw_name();
-        $team_home = $this->marks->home_name();
-        $team_away = $this->marks->away_name();
+        $team_draw = $this->makes->draw_name();
+        $team_home = $this->makes->home_name();
+        $team_away = $this->makes->away_name();
         $hold = array();
         foreach ($team_draw as $key => $value) {
             $hold[] = $value->draw;
@@ -200,11 +200,11 @@ class Mark extends CI_Controller {
 
     public function search_areas() {
         $search = $this->input->post('search');
-        $home_search = $this->marks->search_home($search);
+        $home_search = $this->makes->search_home($search);
 
-        $draw_search = $this->marks->search_draw($search);
+        $draw_search = $this->makes->search_draw($search);
 
-        $away_search = $this->marks->search_away($search);
+        $away_search = $this->makes->search_away($search);
 
         $result = count($home_search);
         $result2 = count($draw_search);
@@ -409,7 +409,7 @@ class Mark extends CI_Controller {
 
     public function update_result() {
         $data['title'] = "Update Results";
-        $odds = $this->marks->get_all_details();
+        $odds = $this->makes->get_all_details();
         $hold = array();
         foreach ($odds as $key => $value) {
             if (empty($value->result_ft)) {
@@ -433,7 +433,7 @@ class Mark extends CI_Controller {
 
 
         $data['hold'] = $hold;
-        $this->load->view('update', $data);
+        $this->load->view('update2', $data);
     }
 
     public function result_update() {
@@ -441,11 +441,11 @@ class Mark extends CI_Controller {
         $data1['result_ht'] = $this->input->post('halftime');
         $data2['result_ft'] = $this->input->post('fulltime');
         $data3['results'] = $this->input->post('results');
-        $results1 = $this->marks->update_result($data, $data1);
+        $results1 = $this->makes->update_result($data, $data1);
         if ($results1) {
-            $results2 = $this->marks->update_result($data, $data2);
+            $results2 = $this->makes->update_result($data, $data2);
             if ($results2) {
-                $results3 = $this->marks->update_result($data, $data3);
+                $results3 = $this->makes->update_result($data, $data3);
                 if ($results3) {
                     echo $results3;
                 }
@@ -457,7 +457,7 @@ class Mark extends CI_Controller {
         $data['title'] = "Lock Screen";
         $data['error_message'] = "";
 
-        $this->load->view('screen', $data);
+        $this->load->view('screen2', $data);
     }
 
     public function login() {
@@ -467,7 +467,7 @@ class Mark extends CI_Controller {
         } else {
             $data['title'] = "Lock Screen";
             $data['error_message'] = "<p class='alert alert-danger'>Password Mis-smatch</p>";
-            $this->load->view('screen', $data);
+            $this->load->view('screen2', $data);
         }
     }
 
@@ -488,7 +488,7 @@ class Mark extends CI_Controller {
     }
 
     public function summary() {
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
 
         $data['title'] = "Summary";
 
@@ -505,12 +505,12 @@ class Mark extends CI_Controller {
         $data['count_draw'] = $count_draw;
         $data['count_away'] = $count_away;
 
-        $this->load->view('summary', $data);
+        $this->load->view('summary2', $data);
     }
 
     public function graphical_home() {
         $home = array();
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
         foreach ($datas as $key => $value) {
             $temp_home[] = $value->home;
         }
@@ -526,7 +526,7 @@ class Mark extends CI_Controller {
     public function count_values() {
         $hommy = array();
         $total = 0;
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
         $data = json_decode(json_encode($datas), true);
         foreach ($data as $key => $value) {
             $hommy[] = $value['results'];
@@ -554,7 +554,7 @@ class Mark extends CI_Controller {
     public function count_score() {
         $score = array();
         $total = 0;
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
         $data = json_decode(json_encode($datas), true);
         foreach ($data as $key => $value) {
             $score[] = $value['result_ht'];
@@ -581,7 +581,7 @@ class Mark extends CI_Controller {
     public function count_score2() {
         $score = array();
         $total = 0;
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
         $data = json_decode(json_encode($datas), true);
 
         foreach ($data as $key => $value) {
@@ -608,7 +608,7 @@ class Mark extends CI_Controller {
 
     public function graphical_away() {
         $away = array();
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
         foreach ($datas as $key => $value) {
             $temp_away[] = $value->away;
         }
@@ -623,7 +623,7 @@ class Mark extends CI_Controller {
 
     public function graphical_draw() {
         $draw = array();
-        $datas = $this->marks->get_all_details();
+        $datas = $this->makes->get_all_details();
         foreach ($datas as $key => $value) {
 
             $temp_draw[] = $value->draw;
@@ -641,7 +641,7 @@ class Mark extends CI_Controller {
     public function exact_search() {
         $push_db = array();
         $data['title'] = "Exact Search";
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         if (isset($_POST['home'])) {
             $value_home = $this->input->post('home');
@@ -652,289 +652,28 @@ class Mark extends CI_Controller {
                 'draw' => $value_draw,
                 'away' => $value_away);
 
-            $data['exact_search'] = $this->marks->get_all_details_search($value_home, $value_draw, $value_away);
+            $data['exact_search'] = $this->makes->get_all_details_search($value_home, $value_draw, $value_away);
             $exact_search = "<p class='alert alert-warning'>Results Area</p>";
             $exact_hold = "<p class='alert alert-warning'>Results Area</p>";
             $exact_search_hold = "<p class='alert alert-warning'>Results Area</p>";
             $data['exact_search_hold'] = $exact_search_hold;
             $data['hold_search'] = $exact_hold;
-
-            
         }
         if (!empty($push_db)) {
-            $this->marks->insert_search($push_db);
-            $this->load->view('exact_search', $data);
+            $this->makes->insert_search($push_db);
+            $this->load->view('exact_search2', $data);
         } else {
             $exact_search_hold = "<p class='alert alert-warning'>Results Area</p>";
             $data['exact_search_hold'] = $exact_search_hold;
             $exact_search = "<p class='alert alert-warning'>Results Area</p>";
             $data['exact_search'] = $exact_search;
-            $this->load->view('exact_search', $data);
-        }
-        if(count($data['exact_search']) != 0){
-
-            foreach ($data['exact_search'] as $key => $value) {
-                    
-                    $split_results = explode('-', $value->result_ht);
-                    $halftime[] = $this->sum($split_results);
-            }
-            $halftime_counted_values =(array_count_values($halftime));
-            $analysis = $this->get_over_under($halftime_counted_values,'halftime');
-
-            foreach ($data['exact_search'] as $key => $value) {
-                    
-                    $split_results_fulltime = explode('-', $value->result_ft);
-                    $fulltime[] = $this->sum($split_results_fulltime);
-            }
-            $fulltime_counted_values =(array_count_values($fulltime));
-            $analysisf = $this->get_over_under($fulltime_counted_values,'fulltime');
-
-            foreach ($data['exact_search'] as $key => $value) {
-                    $halftimes[] = $value->result_ht;
-                    $fulltimes[] = $value->result_ft;
-            }
-            $gg_halftime = $this->goal_nogoal($halftimes); 
-            $gg_fulltime = $this->goal_nogoal($fulltimes);
-
-            
-            echo "
-                <div style='margin-top:10px'>
-                <div class='container'>
-                    <div class='row'>
-                    <div class='col-md-12'>
-                        <p class='alert alert-success'>Over/Under Analysis of <bold>{$this->input->post('home')}</bold>, <bold>{$this->input->post('draw')} </bold> and <bold>{$this->input->post('away')}</bold></p>
-                    </div>
-                        <div class='col-md-6'>
-                        <p class='alert alert-info'>Half Time Analysis</p>
-                            <div class='col-md-6'>
-                                <table class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th>Total Score</th>
-                                            <th>Count</th></tr></thead><tbody>";
-
-                                    foreach ($halftime_counted_values as $key => $value) {
-                                           echo "<tr><td>" . $key ."</td><td>" .$value."</td></tr>";
-                                    }
-            echo" </tbody></table></div> ";
-            echo "<div class='col-md-6'>
-                <table class='table table-bordered'>
-                    <thead>
-                        <tr>
-                            <th>Desc</th>
-                            <th>Conclusion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>Prediction</th><td>{$analysis[0]}</td></tr>
-                        <tr><th>Percentage Win</th><td>{$analysis[1]}</td></tr>
-                        <tr> <th>With Under</th><td>{$analysis[2]}</td></tr>
-                        <tr><th>With Over</th><td>{$analysis[3]}</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            </div>
-                <div class='col-md-6'>
-                <p class='alert alert-danger'>Full Time Analysis</p>
-                    <div class='col-md-6'>
-                        <table class='table table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th>Total Score</th>
-                                    <th>Count</th></tr></thead><tbody>";
-
-                            foreach ($fulltime_counted_values as $key => $value) {
-                                   echo "<tr><td>" . $key ."</td><td>" .$value."</td></tr>";
-                            }
-            echo" </tbody></table></div>";
-                echo "
-
-                <div class='col-md-6'>
-                                <table class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th>Desc</th>
-                                            <th>Conclusion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><th>Prediction</th><td>{$analysisf[0]}</td></tr>
-                                        <tr><th>Percentage Win</th><td>{$analysisf[1]}</td></tr>
-                                        <tr> <th>With Under</th><td>{$analysisf[2]}</td></tr>
-                                        <tr><th>With Over</th><td>{$analysisf[3]}</td></tr>
-                                    </tbody>
-                                </table>
-                                
-
-                            </div>
-                        </div>
-                        <div class='col-md-6'>
-                            <tr>
-                                <td>GG = {$gg_halftime['GG']} | NG = {$gg_halftime['NG']}</td>
-                                <th>Prediction = {$gg_halftime['prediction']} | Percentage Win = {$gg_halftime['percentage_win']}
-                            </tr>
-                        </div>
-                        <div class='col-md-6'>
-                            <tr>
-                                <td>GG = {$gg_fulltime['GG']} | NG = {$gg_fulltime['NG']}</td>
-                                <th>Prediction = {$gg_fulltime['prediction']} | Percentage Win = {$gg_fulltime['percentage_win']}
-                            </tr>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            ";
-        }else{
-            echo "<p class='alert alert-danger'>No Records TO Analyse</p>";
+            $this->load->view('exact_search2', $data);
         }
     }
 
-    public function goal_nogoal($array){
-        print_r($array);
-        if(is_array($array)){
-            $halftime = array();
-            $split_results = array();
-            
-            $gg = 0;
-            $ng = 0;
-            foreach($array as $key => $value) {
-                // echo $value . "<br />";
-                $split_results = explode('-', $value);
-                if(in_array(0, $split_results)){
-                    $ng += 1;
-                }else{
-                    $gg +=1;
-                }
-
-                $halftime= array('GG' => $gg, 'NG' => $ng);
-            }
-
-            if($halftime['GG'] > $halftime['NG']){
-
-                $prediction = "GG";
-                $precentage_win = number_format((($halftime['GG']/count($array))*100),2). '%';
-
-                $halftime ['prediction']= $prediction;
-
-                $halftime ['percentage_win']= $precentage_win;
-            }elseif ($halftime['GG'] == $halftime['NG']) {
-                echo "Percentage Win";
-
-                $prediction = "GG/NG";
-                $precentage_win = number_format((($halftime['GG']/count($array))*100),2). '%';
-
-                $halftime ['prediction']= $prediction;
-
-                $halftime ['percentage_win']= $precentage_win;
-            }else{
-                
-
-                $prediction = "NG";
-                $precentage_win = number_format((($halftime['NG']/count($array))*100),2). '%';
-
-                $halftime ['prediction']= $prediction;
-
-                $halftime ['percentage_win']= $precentage_win;
-            }
-            return ($halftime);
-        }else{
-            echo "<p class='alert alert-danger'>No Records To Analyse</p>";
-        }
-
-    }
-    public function sum($array1){
-        $total = 0;
-        $array = array();
-        for ($i=0; $i < sizeof($array1); $i++) { 
-                $total = $total + $array1[$i];
-        }
-
-        return $total;  
-    }
-
-    public function get_over_under($array,$period){
-        
-        if(is_array($array) && $period ==='halftime'){
-            $low = 1;
-            $lower = 0;
-            $determine_under =0;
-            $determine_over = 0;
-            $get_average_low = 0;
-            $get_average_high = 0;
-            foreach ($array as $key => $value) {
-                if($key <= $low){
-                    $get_average_low += $value ;
-                    $determine_under += $value;
-                }else{
-                    $get_average_high += $value;
-                    $determine_over += $value;
-                }
-            }
-
-            $denominator = $get_average_low + $get_average_high;
-            if($determine_over > $determine_under){
-
-                $precentage_win = $get_average_high / $denominator * 100;
-
-                $conclusion  = array("Over 1.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
-                return $conclusion;
-            }elseif($determine_over == $determine_under){
-
-                $precentage_win = $get_average_high / $denominator * 100;
-
-                $conclusion  = array("Over 1.5/Under 1.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
-                return $conclusion;
-            }
-            else{
-                $precentage_win = $get_average_low / $denominator * 100;
-                $conclusion  = array("Under 1.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
-                return $conclusion;
-            }
-        }
-
-        if(is_array($array) && $period ==='fulltime'){
-            $low = 3;
-            $lower = 0;
-            $get_average_low = 0;
-            $get_average_high = 0;
-            $determine_under =0;
-            $determine_over = 0;
-            foreach ($array as $key => $value) {
-                if($key >= $low){
-                    $get_average_high += $value ;
-                    $determine_over += $value;
-                }else{
-                    $get_average_low += $value;
-                    $determine_under += $value;
-                }
-            }
-
-            #print_r(array("High" => $determine_over,"Low" => $determine_under));
-            $denominator = $get_average_low + $get_average_high;
-            if($determine_over > $determine_under){
-
-                $precentage_win = $get_average_high / $denominator * 100;
-
-                $conclusion  = array("Over 2.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
-                return $conclusion;
-            }elseif($determine_over == $determine_under){
-
-                $precentage_win = $get_average_high / $denominator * 100;
-
-                $conclusion  = array("Over 2.5/Under 2.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
-                return $conclusion;
-            }
-            else{
-                echo $get_average_low;
-                $precentage_win = $get_average_low / $denominator * 100;
-                $conclusion  = array("Under 2.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
-                return $conclusion;
-            }
-        }
-    }
     //Brief Case Draw
     public function trend_draw() {
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         foreach ($datas2 as $key => $value) {
             $temp_draw[] = $value->draw;
@@ -983,7 +722,7 @@ class Mark extends CI_Controller {
 
     public function trend_draw2() {
         $hold = array();
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         foreach ($datas2 as $key => $value) {
             $temp_home[] = $value->home;
@@ -1100,7 +839,7 @@ class Mark extends CI_Controller {
 
 //Brief Case Away
     public function trend_away() {
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         echo "<p class='alert alert-info'><i class='fa fa-briefcase'></i>Away</p>
         <table class='table table-hover table-condensed' id='myTable'>
@@ -1116,7 +855,7 @@ class Mark extends CI_Controller {
         </thead><tbody>
       ";
         foreach ($data_search as $key => $value) {
-            $query = $this->marks->get_all_details_search2($value['home'], $value['draw'], $value['away']);
+            $query = $this->makes->get_all_details_search2($value['home'], $value['draw'], $value['away']);
             if (count($query) > 5) {
                 foreach ($query as $key => $value) {
                     echo "<tr>";
@@ -1145,7 +884,7 @@ class Mark extends CI_Controller {
 
     public function trend_away_2() {
         $hold = array();
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         foreach ($datas2 as $key => $value) {
             $temp_home[] = $value->home;
@@ -1263,7 +1002,7 @@ class Mark extends CI_Controller {
 //Brief Case Home
     public function trend() {
         $hold = array();
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         foreach ($datas2 as $key => $value) {
             $temp_home[] = $value->home;
@@ -1314,7 +1053,7 @@ class Mark extends CI_Controller {
 
     public function trend2() {
         $hold = array();
-        $datas2 = $this->marks->get_all_details();
+        $datas2 = $this->makes->get_all_details();
         $data_search = json_decode(json_encode($datas2), TRUE);
         foreach ($datas2 as $key => $value) {
             $temp_home[] = $value->home;
@@ -1448,13 +1187,13 @@ class Mark extends CI_Controller {
 
     public function testing_area() {
 
-        $table = $this->marks->select_last();
+        $table = $this->makes->select_last();
         unset($table['league']);
         unset($table['times']);
         unset($table['team_name']);
         unset($table['result_ht']);
         unset($table['result_ft']);
-        $query = $this->marks->insert_last($table);
+        $query = $this->makes->insert_last($table);
         if ($query) {
             
         } else {
@@ -1464,27 +1203,27 @@ class Mark extends CI_Controller {
 
     public function test_area() {
         $data["title"] = "Testing Module";
-        $data['tested'] = $this->marks->select_test();
-        $data['matching'] = $this->marks->select_matching_id();
+        $data['tested'] = $this->makes->select_test();
+        $data['matching'] = $this->makes->select_matching_id();
 
         $this->load->view("testing", $data);
     }
 
     public function mark_okay() {
         $id = $this->input->post('id');
-        $this->marks->mark_okay($id);
+        $this->makes->mark_okay($id);
     }
 
     public function mark_down() {
         $id = $this->input->post('id');
 
-        $this->marks->mark_down($id);
+        $this->makes->mark_down($id);
     }
 
     public function correct_tested() {
         $total = 0;
-        $query = $this->marks->correct_tested();
-        $count2 = count($this->marks->select_test());
+        $query = $this->makes->correct_tested();
+        $count2 = count($this->makes->select_test());
 
         $count = count($query);
 
@@ -1495,8 +1234,8 @@ class Mark extends CI_Controller {
 
     public function wrong_tested() {
         $total = 0;
-        $count2 = count($this->marks->select_test());
-        $query = $this->marks->wrong_tested();
+        $count2 = count($this->makes->select_test());
+        $query = $this->makes->wrong_tested();
         $count = count($query);
         $total = ($count / $count2) * 100;
 
@@ -1517,15 +1256,15 @@ class Mark extends CI_Controller {
         $data2['result_ft'] = $this->input->post('fulltime');
         $data3['results'] = $this->input->post('results');
         $data4['others'] = $this->input->post('others');
-        $this->marks->test_update($id, $data1);
-        $this->marks->test_update($id, $data2);
-        $this->marks->test_update($id, $data3);
-        $this->marks->test_update($id, $data4);
+        $this->makes->test_update($id, $data1);
+        $this->makes->test_update($id, $data2);
+        $this->makes->test_update($id, $data3);
+        $this->makes->test_update($id, $data4);
     }
 
     public function test() {
 
-        $strings = $this->marks->get_string_analysis();
+        $strings = $this->makes->get_string_analysis();
         $value = 07.19;
         // $pattern = "/^[0-9]*\.[0-9]{2}$";
         $pattern = "/^[0-9]+(?:\.[0-9]{2})?$/";
@@ -1540,7 +1279,7 @@ class Mark extends CI_Controller {
     public function post() {
         $hold = array();
         $pasto = array();
-        $strings = $this->marks->get_string_analysis();
+        $strings = $this->makes->get_string_analysis();
 
         foreach ($strings as $key => $value) {
             if ($value->results === 'P') {
@@ -1560,29 +1299,29 @@ class Mark extends CI_Controller {
         }
         $data['hold'] = $hold;
         $data['title'] = "Postponed Matches";
-        $this->load->view('show', $data);
+        $this->load->view('show2', $data);
     }
 
     public function change_value() {
-        $data = $this->marks->get_all_details();
+        $data = $this->makes->get_all_details();
         foreach ($data as $key => $value) {
             if ($value->results === 'x') {
-                $this->marks->update_half_result($value->id, 'X');
+                $this->makes->update_half_result($value->id, 'X');
             }
         }
     }
 
     public function update_team() {
-        $datas = $this->marks->get_exact_search_data();
+        $datas = $this->makes->get_exact_search_data();
 
         if (empty($datas)) {
             $data['title'] = 'Update Team';
             $data['upload'] = '';
-            $this->load->view('update_team', $data);
+            $this->load->view('update_team2', $data);
         } else {
             $data['title'] = 'Update Team | League';
-            $data['upload'] = $this->marks->get_exact_search_data();
-            $this->load->view('update_team', $data);
+            $data['upload'] = $this->makes->get_exact_search_data();
+            $this->load->view('update_team2', $data);
         }
     }
 
@@ -1591,12 +1330,12 @@ class Mark extends CI_Controller {
         $league = $this->input->post('league');
         $id = $this->input->post('id');
 
-        $this->marks->update_teams($league, $id);
-        $this->marks->update_leagues($team_name, $id);
+        $this->makes->update_teams($league, $id);
+        $this->makes->update_leagues($team_name, $id);
     }
 
     public function update_holdon() {
-        $data = $this->marks->get_updated_teams();
+        $data = $this->makes->get_updated_teams();
         $hold = array();
         foreach ($data as $key => $value) {
             if (!empty($value->league)) {
@@ -1609,7 +1348,7 @@ class Mark extends CI_Controller {
                     'times' => $this->get_time(),
                     'date' => $this->get_date()
                 );
-                $query = $this->marks->transfer_exact_team($hold);
+                $query = $this->makes->transfer_exact_team($hold);
                 if ($query) {
                     echo "<p class='alert alert-info'>Details Updated</p>";
                 } else {
@@ -1620,9 +1359,9 @@ class Mark extends CI_Controller {
     }
 
     public function delete_updated() {
-        $odds = $this->marks->get_updated_teams();
+        $odds = $this->makes->get_updated_teams();
         foreach ($odds as $key => $value) {
-            $query = $this->marks->delete_updated($value->id);
+            $query = $this->makes->delete_updated($value->id);
             if ($query) {
                 echo "<p class='alert alert-info'>Details Deleted</p>";
             } else {
@@ -1632,9 +1371,9 @@ class Mark extends CI_Controller {
     }
 
     public function delete_uploaded() {
-        $odds = $this->marks->get_details_for_uploads2();
+        $odds = $this->makes->get_details_for_uploads2();
         foreach ($odds as $key => $value) {
-            $query = $this->marks->delete_uploaded($value->id);
+            $query = $this->makes->delete_uploaded($value->id);
             if ($query) {
                 echo "<p class='alert alert-info'>Details Deleted</p>";
             } else {
@@ -1648,8 +1387,7 @@ class Mark extends CI_Controller {
         $resultsbt = array();
         $reesultsaf = array();
         $resultsat = array();
-        $check = array();
-        $search = $this->marks->get_details_for_uploads2();
+        $search = $this->makes->get_details_for_uploads2();
         echo "<table class='table table-bordered' id='predict_table'>
                 <thead>
                     <tr class='active'>
@@ -1665,11 +1403,11 @@ class Mark extends CI_Controller {
                     </tr>
                 </thead><tbody>";
         foreach ($search as $keys => $values) {
-            $query = $this->marks->get_all_details_search($values->HOME, $values->DRAW, $values->AWAY);
+            $query = $this->makes->get_all_details_search($values->HOME, $values->DRAW, $values->AWAY);
+
             if (!empty($query)) {
                 if (count($query) < 5) {
                     foreach ($query as $key => $value) {
-                        $check[] = $query;
                         if (!empty($value->results)) {
                             echo "<tr class='danger'>
                                 <td>{$value->team_name}</td>
@@ -1682,8 +1420,8 @@ class Mark extends CI_Controller {
                                 <td>{$value->league}</td>
                                 <td>{$value->id}</td>
                             </tr>";
-                            $result1ft[] = $value->result_ft;
-                            $result1ht[] = $value->result_ht;
+                            $resultsbf[] = $value->result_ft;
+                            $resultsbt[] = $value->result_ht;
                         }
                     }
                 } else {
@@ -1715,23 +1453,107 @@ class Mark extends CI_Controller {
                 $('#predict_table').DataTable();
            });
            </script>";
-        $num = $this->information("Half",$result1ft);
+        $num = $this->information("Half",$resultsat);
         echo $num;
+//        echo "<div class='col-lg-3'>";
+//            $this->information($resultsbf);
+//        echo "</div>";
+//        echo "<div class='col-lg-3'>";
+//        $this->information("daniel");
+//        echo "</div>";
+//        echo "<div>";
+//            echo "<p class='alert alert-info'>Full Time Over/Under Analysis</p>";
+//            $this->information("full",$resultsbf);
+//        echo "</div>";
+//        echo "<div>";
+//            echo "<p class='alert alert-info'>Half Time Over/Under Analysis</p>";
+//            $this->information("half",$resultsbt);
+//        echo "</div>";
+//         print_r($resultsaf);
+//         print_r($resultsbt);
+//         print_r($resultsbf);
     }
 
     public function information($strings,$results) {
-
+//        $holds = array();
+//        $num = array();
+//        $delimiter = '-';
         $number = count($results);
         
         return $number;
         
+////        echo "<table class='table table-condensed'>";
+////        echo "<thead><th>Count: </th><th>Number</th></thead>";
+//        if (is_array($results)) {
+//            echo "<tr>";
+//            echo "<td>Results</td>";
+//            echo "<td>{$number}</td>";
+//            echo "</tr>";
+//            foreach ($results as $key => $value) {
+//                $hold = explode($delimiter, $value);
+//                $holds[] = array(
+//                    'one' => $hold[0],
+//                    'two' => $hold[1]
+//                );
+//            }
+//            if (empty($holds)) {
+//                echo "No Results Returned and the Explode Level";
+//            } else {
+//                foreach ($holds as $key => $values) {
+////                    Check for Over 2.5
+//                    $num[] = $values['one'] + $values['two'] . "<br />";
+//                }
+//            }
+//            $this->get_over($strings,$num);
+//            
+//        } else {
+//            echo "<p class='alert alert-danger'>No Results. Work Harder<p><br />";
+//        }
     }
 
+//    public function get_over($strings,$num) {
+//        $verdict = array();
+//        $number1 = 0;
+//        $number2 = 0;
+//        if($strings === 'full'){
+//            $control = 2;
+//        }else{
+//            $control = 1;
+//        }
+//        echo "<tr>";
+//        if (is_array($num)) {
+//            $number = array_count_values($num);
+//            foreach ($number as $key => $value) {
+//                if ($key > $control) {
+//                    $verdict[] = "Over";
+//                    $number1 =$number1 + 1;
+//                } else {
+//                    $verdict[] = "Under";
+//                    $number2 = $number2 + 1;
+//                }
+//            }
+//            $over = array_search("Over", $verdict);
+//            $under = array_search("Over", $verdict);
+//            echo "</tr><tr><td> Over</td><td>{$number1}</td>";
+//            echo "</tr><tr><td> Under</td><td>{$number2}</td>";
+//            echo "</tr><tr><th class='alert-danger'>VERDICT</th>";
+//            if (!empty($over) && !empty($under)) {
+//                echo "<th class='alert-danger'>Over / Under Not Possible</th>";
+//            } else if (!empty($over) && !empty($under)) {
+//                echo "<th class='alert-danger'>Over Is Possible</th>";
+//            } else if (!empty($over) && !empty($under)) {
+//                echo "<th class='alert-danger'>Under is Possible</th>";
+//            }
+//            echo "</tr></table></div>";
+//        } else {
+//            echo "Send the right kind of results";
+//        }
+//    }
 
     public function team_search() {
         $team_name = $this->input->post('team_name');
         echo $team_name;
-        $search = $this->marks->get_team_name_history($team_name);
+        $search = $this->makes->get_team_name_history($team_name);
         echo "<table class='table table-bordered' id='team_table'>
                 <thead>
                     <tr class='active'>
@@ -1786,8 +1608,8 @@ class Mark extends CI_Controller {
 //        $this->load->helper('file');
 //
 //        $string = fopen("/home/danmutwiri/Desktop/file.sql", "a+") or exit("Unable to open the file");
-//        // $datas3 = $this->marks->get_fee_details();
-//        $datas2 = $this->marks->get_fee_range_table();
+//        // $datas3 = $this->makes->get_fee_details();
+//        $datas2 = $this->makes->get_fee_range_table();
 //        echo "File writing..";
 //
 //        foreach ($datas2 as $key => $value) {

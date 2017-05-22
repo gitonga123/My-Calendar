@@ -19,19 +19,19 @@
 
             </div>
             <div style="padding-bottom: 2%"></div>
-            <a href="/page/mark" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
+            <a href="/page/make" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
             <span style="margin-left: 5%"></span>
-            <a href="/page/mark/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
+            <a href="/page/make/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
             <span style="margin-left: 5%"></span>
-            <a href="/page/mark/test_area" class="btn btn-info"><i class="fa fa-google"></i> Search</a>
+            <a href="/page/make/test_area" class="btn btn-info"><i class="fa fa-google"></i> Search</a>
             <span style="margin-left: 5%"></span>
-            <a href="/page/mark/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
+            <a href="/page/make/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
 
             <span style="margin-left: 5%"></span>
-            <a href="/page/mark/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
+            <a href="/page/make/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
 
             <span style="margin-left: 5%"></span>
-            <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
+            <a href="/page/make/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
             <span style="margin-left: 5%"></span>
 
             <a href="#" class="btn btn-default" id="testing"><i class="fa fa-terminal"> </i> Testing</a>
@@ -39,7 +39,7 @@
             <div style="padding-bottom: 2%"></div>
             <a href="#" id="timeClock" class="btn btn-default"></a>
             <span style="margin-left: 5%"></span>
-            <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
+            <a href="/page/make/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
 
             <span style="margin-left: 5%"></span>
             <a href="#" class="btn btn-success" id="update_teams"><i class="fa fa-search"></i> Mass Search</a>
@@ -152,7 +152,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var srvRqst = $.ajax({
-                    url: '/page/mark/google',
+                    url: '/page/make/google',
                     data: {},
                     type: 'post',
                     datatype: 'json'
@@ -168,7 +168,7 @@
 
                 $('form#submitResults').on('submit', function (form) {
                     form.preventDefault();
-                    $.post('/page/mark/search_areas', $('form#submitResults').serialize(), function (data) {
+                    $.post('/page/make/search_areas', $('form#submitResults').serialize(), function (data) {
                         $('div.search_result').html(data);
                     });
                 });
@@ -176,7 +176,7 @@
 
             $(document).ready(function () {
                 var srvRqst = $.ajax({
-                    url: '/page/mark/team_suggest',
+                    url: '/page/make/team_suggest',
                     data: {},
                     type: 'post',
                     datatype: 'json'
@@ -200,7 +200,7 @@
                 var result = $("#result_test").val();
                 var others = $("#others").val();
                 var srvRqst = $.ajax({
-                    url: '/page/mark/test_update',
+                    url: '/page/make/test_update',
                     type: 'post',
                     data: {halftime: halftime, fulltime: fulltime, results: result, id: id, others: others},
                     datatype: 'text',
@@ -214,7 +214,7 @@
             });
             $("#testing").click(function () {
                 var servRqst = $.ajax({
-                    url: '/page/mark/test',
+                    url: '/page/make/test',
                     type: 'post',
                     data: {},
                     datatype: 'text'
@@ -227,7 +227,7 @@
 
             $("#update_teams").click(function () {
                 var serverRqst = $.ajax({
-                    url: '/page/mark/get_prediction',
+                    url: '/page/make/get_prediction',
                     data: {},
                     type: 'post'
                 });
@@ -240,7 +240,7 @@
             $("#send_team").click(function () {
                 $('form#submitTeamName').on('submit', function (form) {
                     form.preventDefault();
-                    $.post('/page/mark/team_search', $('form#submitTeamName').serialize(), function (data) {
+                    $.post('/page/make/team_search', $('form#submitTeamName').serialize(), function (data) {
                         $('div.search_result').html(data);
                     });
                 });
