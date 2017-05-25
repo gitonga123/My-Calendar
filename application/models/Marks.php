@@ -71,6 +71,29 @@ class Marks extends CI_Model {
         return $query->result();
     }
 
+    public function load_settings(){
+        $table_name = 'settings';
+        $this->db->select();
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+       }
+
+    public function get_frequent_home($value_size) {
+        $value = (int)$value_size;
+        $query_string = "SELECT home, draw, away
+                            FROM (SELECT home,draw,away FROM TABLE2 
+                                    GROUP BY home,draw,away 
+                                    HAVING COUNT(home) >= ($value) AND COUNT(draw) >= ($value) and COUNT(away) >= ($value)) as t";
+        if ($this->db->simple_query($query_string)) {
+            $query = $this->db->query($query_string);
+            return $query->result();
+        }else{
+            return "Error ME Friend";
+        }
+        
+    }
+
     public function delete_postpone($id){
         return $this->db->delete('TABLE2', array('id' => $id));
     }
@@ -196,6 +219,11 @@ class Marks extends CI_Model {
     public function update_result($data, $data1) {
         $this->db->where('id', $data);
         return $this->db->update('TABLE2', $data1);
+    }
+
+    public function update_settings($data, $data1) {
+        $this->db->where('id', $data);
+        return $this->db->update('settings', $data1);
     }
 
     public function update_leagues($leagues,$id){

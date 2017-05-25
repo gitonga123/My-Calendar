@@ -106,7 +106,6 @@
                     var fulltimes = fulltime.match(pattern);
                     var halftimes = halftime.match(pattern);
                     if(fulltimes != null || fulltime === 'P'){
-                        console.log("fulltime = " + fulltime)
                         if(halftime.length >= 1 && halftimes != null ||halftime ==='P'){
                             var compare1 = halftime.split("-");
                             var compare2 = fulltime.split("-");
@@ -121,50 +120,95 @@
                                 for(var i = 0; i < compare2.length; i++){
                                     total2 = total2 + Number(compare2[i]);
                                 }
+                                console.log("compare1 [0]" + compare1[0] +"compare1 [1]" + compare1[1] +"compare2 [0]" + compare2[0] +"compare2 [1]" + compare1[1])
                                 if(total2 < total){
                                     $("#halftime").css('border','solid 1px red');
                                     $("#fulltime").css('border','solid 1px red');
                                     document.getElementById("entry_error").innerHTML=" Check your Half and Fulltime Result";
                                 }else{
-                                    var res1 = compare2[0];
-                                    var res2 = compare2[1];
-                                    if(isNaN(res1) && isNaN(res2)){
-                                        var srvRqst = $.ajax({
-                                            url: '/page/make/result_update',
-                                            type: 'post',
-                                            data: {halftime: halftime, fulltime: fulltime, results: fulltime, id: id},
-                                            datatype: 'text',
-                                         });
+                                    if(compare1[0] === undefined || compare1[1] === undefined){
+                                        var res1 = compare2[0];
+                                        var res2 = compare2[1];
+                                        if(isNaN(res1) && isNaN(res2)){
+                                            var srvRqst = $.ajax({
+                                                url: '/page/make/result_update',
+                                                type: 'post',
+                                                data: {halftime: halftime, fulltime: fulltime, results: fulltime, id: id},
+                                                datatype: 'text',
+                                             });
 
-                                        srvRqst.done(function (response) {
-                                            $('div.user_error').html(response);
-                                            location.reload();
-                                        });
+                                            srvRqst.done(function (response) {
+                                                $('div.user_error').html(response);
+                                                location.reload();
+                                            });
+                                        }else{
+                                            if(halftime === 'P' || halftime =='P'){
+                                                halftime = ' '
+                                            }
+                                            if(res1 > res2){
+                                                resultss = '1'
+                                            }else if(res1 == res2){
+                                                resultss = 'X'
+                                            }else if(res1 < res2){
+                                                resultss = '2'
+                                            }
+                                            var srvRqst = $.ajax({
+                                                url: '/page/make/result_update',
+                                                type: 'post',
+                                                data: {halftime: halftime, fulltime: fulltime, results: resultss, id: id},
+                                                datatype: 'text',
+                                             });
+
+                                            srvRqst.done(function (response) {
+                                                $('div.user_error').html(response);
+                                                location.reload();
+                                            });
+                                        }   
+                                    }else if(compare1[0] > compare2[0] || compare1[1] > compare2[1]){
+                                        $("#halftime").css('border','solid 1px red');
+                                        $("#fulltime").css('border','solid 1px red');
+                                        document.getElementById("entry_error").innerHTML=" Check your Half and Fulltime Result";
                                     }else{
-                                        if(halftime === 'P' || halftime =='P'){
-                                            halftime = ' '
-                                        }
-                                        if(res1 > res2){
-                                            resultss = '1'
-                                        }else if(res1 == res2){
-                                            resultss = 'X'
-                                        }else if(res1 < res2){
-                                            resultss = '2'
-                                        }
-                                        var srvRqst = $.ajax({
-                                            url: '/page/make/result_update',
-                                            type: 'post',
-                                            data: {halftime: halftime, fulltime: fulltime, results: resultss, id: id},
-                                            datatype: 'text',
-                                         });
+                                        var res1 = compare2[0];
+                                        var res2 = compare2[1];
+                                        if(isNaN(res1) && isNaN(res2)){
+                                            var srvRqst = $.ajax({
+                                                url: '/page/make/result_update',
+                                                type: 'post',
+                                                data: {halftime: halftime, fulltime: fulltime, results: fulltime, id: id},
+                                                datatype: 'text',
+                                             });
 
-                                        srvRqst.done(function (response) {
-                                            $('div.user_error').html(response);
-                                            location.reload();
-                                        });
-                                    }   
-                                }      
-                            }    
+                                            srvRqst.done(function (response) {
+                                                $('div.user_error').html(response);
+                                                location.reload();
+                                            });
+                                        }else{
+                                            if(halftime === 'P' || halftime =='P'){
+                                                halftime = ' '
+                                            }
+                                            if(res1 > res2){
+                                                resultss = '1'
+                                            }else if(res1 == res2){
+                                                resultss = 'X'
+                                            }else if(res1 < res2){
+                                                resultss = '2'
+                                            }
+                                            var srvRqst = $.ajax({
+                                                url: '/page/make/result_update',
+                                                type: 'post',
+                                                data: {halftime: halftime, fulltime: fulltime, results: resultss, id: id},
+                                                datatype: 'text',
+                                             });
+
+                                            srvRqst.done(function (response) {
+                                                $('div.user_error').html(response);
+                                                location.reload();
+                                            });
+                                        }
+                                    }     
+                                }                                          
+                            }  
                       }else{
                         $("#halftime").css('border','solid 1px red');
                         document.getElementById("entry_error").innerHTML="Content Missing || Wrong Entry";

@@ -9,6 +9,7 @@
         <script src="/page/assets/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type = "text/css" href="/page/assets/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/page/assets/font-awesome/css/font-awesome.css"></link>
+        <link rel="shortcut icon" href="/page/assets/img/favicon.ico" type="image/x-icon"/>
         <style>
             body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
             .myLink {display: none};

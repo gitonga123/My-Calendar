@@ -106,7 +106,6 @@
                     var fulltimes = fulltime.match(pattern);
                     var halftimes = halftime.match(pattern);
                     if(fulltimes != null || fulltime === 'P'){
-                        console.log("fulltime = " + fulltime)
                         if(halftime.length >= 1 && halftimes != null ||halftime ==='P'){
                             var compare1 = halftime.split("-");
                             var compare2 = fulltime.split("-");
@@ -122,9 +121,12 @@
                                     total2 = total2 + Number(compare2[i]);
                                 }
                                 if(total2 < total){
-                                    $("#halftime").css('border','solid 1px red');
-                                    $("#fulltime").css('border','solid 1px red');
-                                    document.getElementById("entry_error").innerHTML=" Check your Half and Fulltime Result";
+                                    
+                                    // if(compare1[0] > compare2[0] || compare1[1] > compare2[1]){
+                                        $("#halftime").css('border','solid 1px red');
+                                        $("#fulltime").css('border','solid 1px red');
+                                        document.getElementById("entry_error").innerHTML=" Check your Half and Fulltime Result";
+                                    // }
                                 }else{
                                     var res1 = compare2[0];
                                     var res2 = compare2[1];

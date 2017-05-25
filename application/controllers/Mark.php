@@ -657,9 +657,12 @@ class Mark extends CI_Controller {
             $exact_hold = "<p class='alert alert-warning'>Results Area</p>";
             $exact_search_hold = "<p class='alert alert-warning'>Results Area</p>";
             $data['exact_search_hold'] = $exact_search_hold;
-            $data['hold_search'] = $exact_hold;
+            $data['hold_search'] = $exact_hold; 
 
-            
+
+            $data['button']= "<span style='margin-left: 5%'></span>
+            <a href='/page/mark/call_function/{$value_home}/{$value_draw}/{$value_away}' class='btn btn-primary'><i class='fa fa-star'> </i> View Analysis</a>";
+
         }
         if (!empty($push_db)) {
             $this->marks->insert_search($push_db);
@@ -669,11 +672,26 @@ class Mark extends CI_Controller {
             $data['exact_search_hold'] = $exact_search_hold;
             $exact_search = "<p class='alert alert-warning'>Results Area</p>";
             $data['exact_search'] = $exact_search;
+            $data['button'] = '';
             $this->load->view('exact_search', $data);
         }
-        if(count($data['exact_search']) != 0){
+    }
 
-            foreach ($data['exact_search'] as $key => $value) {
+    public function call_function(){
+        $value1=  $this->uri->segment(3);
+        $value2 =  $this->uri->segment(4);
+        $value3 =  $this->uri->segment(5);
+        $this->display_exact_search_results($value1,$value2,$value3);
+    }
+
+    public function display_exact_search_results($value_home,$value_draw,$value_away){
+        $home = floatval($value_home);
+        $draw = floatval($value_draw);
+        $away = floatval($value_away);
+        $data = $this->marks->get_all_details_search($home, $draw,$away);
+
+        if(count($data) != 0){
+            foreach ($data as $key => $value) {
                     
                     $split_results = explode('-', $value->result_ht);
                     $halftime[] = $this->sum($split_results);
@@ -681,7 +699,7 @@ class Mark extends CI_Controller {
             $halftime_counted_values =(array_count_values($halftime));
             $analysis = $this->get_over_under($halftime_counted_values,'halftime');
 
-            foreach ($data['exact_search'] as $key => $value) {
+            foreach ($data as $key => $value) {
                     
                     $split_results_fulltime = explode('-', $value->result_ft);
                     $fulltime[] = $this->sum($split_results_fulltime);
@@ -689,108 +707,32 @@ class Mark extends CI_Controller {
             $fulltime_counted_values =(array_count_values($fulltime));
             $analysisf = $this->get_over_under($fulltime_counted_values,'fulltime');
 
-            foreach ($data['exact_search'] as $key => $value) {
+            foreach ($data as $key => $value) {
                     $halftimes[] = $value->result_ht;
                     $fulltimes[] = $value->result_ft;
             }
             $gg_halftime = $this->goal_nogoal($halftimes); 
             $gg_fulltime = $this->goal_nogoal($fulltimes);
+            $data1['home'] = $value_home;
+            $data1['draw'] = $value_draw;
+            $data1['away'] = $value_away;
+            $data1['halftime_counted_values'] = $halftime_counted_values;
+            $data1['analysis'] = $analysis;
+            $data1['fulltime_counted_values'] = $fulltime_counted_values;
+            $data1['analysisf'] = $analysisf;
 
-            
-            echo "
-                <div style='margin-top:10px'>
-                <div class='container'>
-                    <div class='row'>
-                    <div class='col-md-12'>
-                        <p class='alert alert-success'>Over/Under Analysis of <bold>{$this->input->post('home')}</bold>, <bold>{$this->input->post('draw')} </bold> and <bold>{$this->input->post('away')}</bold></p>
-                    </div>
-                        <div class='col-md-6'>
-                        <p class='alert alert-info'>Half Time Analysis</p>
-                            <div class='col-md-6'>
-                                <table class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th>Total Score</th>
-                                            <th>Count</th></tr></thead><tbody>";
+            $data1['gg_fulltime'] = $gg_fulltime;
+            $data1['gg_halftime'] = $gg_halftime;
+            $data1['title'] = "Learn More";
+            $this->load->view('search_result',$data1);
 
-                                    foreach ($halftime_counted_values as $key => $value) {
-                                           echo "<tr><td>" . $key ."</td><td>" .$value."</td></tr>";
-                                    }
-            echo" </tbody></table></div> ";
-            echo "<div class='col-md-6'>
-                <table class='table table-bordered'>
-                    <thead>
-                        <tr>
-                            <th>Desc</th>
-                            <th>Conclusion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><th>Prediction</th><td>{$analysis[0]}</td></tr>
-                        <tr><th>Percentage Win</th><td>{$analysis[1]}</td></tr>
-                        <tr> <th>With Under</th><td>{$analysis[2]}</td></tr>
-                        <tr><th>With Over</th><td>{$analysis[3]}</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            </div>
-                <div class='col-md-6'>
-                <p class='alert alert-danger'>Full Time Analysis</p>
-                    <div class='col-md-6'>
-                        <table class='table table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th>Total Score</th>
-                                    <th>Count</th></tr></thead><tbody>";
-
-                            foreach ($fulltime_counted_values as $key => $value) {
-                                   echo "<tr><td>" . $key ."</td><td>" .$value."</td></tr>";
-                            }
-            echo" </tbody></table></div>";
-                echo "
-
-                <div class='col-md-6'>
-                                <table class='table table-bordered'>
-                                    <thead>
-                                        <tr>
-                                            <th>Desc</th>
-                                            <th>Conclusion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><th>Prediction</th><td>{$analysisf[0]}</td></tr>
-                                        <tr><th>Percentage Win</th><td>{$analysisf[1]}</td></tr>
-                                        <tr> <th>With Under</th><td>{$analysisf[2]}</td></tr>
-                                        <tr><th>With Over</th><td>{$analysisf[3]}</td></tr>
-                                    </tbody>
-                                </table>
-                                
-
-                            </div>
-                        </div>
-                        <div class='col-md-6'>
-                            <tr>
-                                <td>GG = {$gg_halftime['GG']} | NG = {$gg_halftime['NG']}</td>
-                                <th>Prediction = {$gg_halftime['prediction']} | Percentage Win = {$gg_halftime['percentage_win']}
-                            </tr>
-                        </div>
-                        <div class='col-md-6'>
-                            <tr>
-                                <td>GG = {$gg_fulltime['GG']} | NG = {$gg_fulltime['NG']}</td>
-                                <th>Prediction = {$gg_fulltime['prediction']} | Percentage Win = {$gg_fulltime['percentage_win']}
-                            </tr>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            ";
         }else{
             echo "<p class='alert alert-danger'>No Records TO Analyse</p>";
         }
+        
     }
-
     public function goal_nogoal($array){
-        print_r($array);
+        
         if(is_array($array)){
             $halftime = array();
             $split_results = array();
@@ -838,7 +780,7 @@ class Mark extends CI_Controller {
             }
             return ($halftime);
         }else{
-            echo "<p class='alert alert-danger'>No Records To Analyse</p>";
+            echo "<p class='alert alert-danger'>Results can not be determined at the Moment</p>";
         }
 
     }
@@ -1260,17 +1202,22 @@ class Mark extends CI_Controller {
         return $hold;
     }
 
+    public function get_frequent_home(){
+        $settings = $this->marks->load_settings();
+        $result = $this->marks->get_frequent_home($settings[0]->field_value);
+        return $result;
+    }
+   
 //Brief Case Home
     public function trend() {
-        $hold = array();
-        $datas2 = $this->marks->get_all_details();
-        $data_search = json_decode(json_encode($datas2), TRUE);
-        foreach ($datas2 as $key => $value) {
-            $temp_home[] = $value->home;
-        }
-        $temp_home_u = array_unique($temp_home);
-
-        echo "<p class='alert alert-info'><i class='fa fa-briefcase'></i>Home</p>
+        //Get my current 
+        $actual_link = base_url(uri_string());
+        $settings = $this->marks->load_settings();
+        $result_with = $this->marks->get_frequent_home($settings[0]->field_value);
+        $data_search = json_decode(json_encode($result_with), TRUE);
+       
+        echo "<p class='alert alert-info'><i class='fa fa-briefcase'></i> Most Repetitive with a value of :
+        {$settings[0]->field_value}. Go to System Settings To Change <bold><a href='/page/mark/setting'> Settings</a></bold></p>
         <table class='table table-hover table-condensed' id='myTable'>
         <thead>
           <th>Team Name</th>
@@ -1280,36 +1227,38 @@ class Mark extends CI_Controller {
           <th>halftime</th>
           <th>fulltime</th>
           <th>Judgment</th>
+          <th>League</th>
+          <th>Learn More</th>
           
         </thead><tbody>
       ";
-        foreach ($temp_home_u as $key => $value) {
-            $exacts = $this->search_return($data_search, 'home', $value);
-            if (count($exacts) > 15) {
-                foreach ($exacts as $key => $value) {
-                    echo "<tr>";
-                    echo "<td>" . $value['team_name'] . "</td>";
-                    echo "<td>" . $value['home'] . "</td>";
-                    echo "<td>" . $value['draw'] . "</td>";
-                    echo "<td>" . $value['away'] . "</td>";
-                    echo "<td>" . $value['result_ht'] . "</td>";
-                    echo "<td>" . $value['result_ft'] . "</td>";
-                    echo "<td>" . $value['results'] . "</td>";
-
-                    echo "</tr>";
-                }
-            }
+      foreach ($data_search as $key => $value) {
+        $result_searched = $this->marks->get_all_details_search($value['home'], $value['draw'], $value['away']);
+        foreach ($result_searched as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value->team_name . "</td>";
+            echo "<td>" . $value->home . "</td>";
+            echo "<td>" . $value->draw . "</td>";
+            echo "<td>" . $value->away . "</td>";
+            echo "<td>" . $value->result_ht. "</td>";
+            echo "<td>" . $value->result_ft . "</td>";
+            echo "<td>" . $value->results . "</td>";
+            echo "<td>" . $value->league . "</td>";
+            echo "<td> 
+                    <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
+                    <i class='fa fa-share'></i> Learn More</a>
+            </td>"; 
+            echo "</tr>";
         }
-
-
-        echo "<tbody></table>";
-        echo "
-        <script>
-          $(document).ready(function(){
-            $('#myTable').DataTable();
-          });
-        </script>
-      ";
+      }
+    echo "<tbody></table>";
+    echo "
+    <script>
+      $(document).ready(function(){
+        $('#myTable').DataTable();
+      });
+    </script>
+  ";
     }
 
     public function trend2() {
@@ -1781,6 +1730,23 @@ class Mark extends CI_Controller {
         });
        </script>";
     }
+    public function setting(){
+        $settings = $this->marks->load_settings();
+        $data['title'] = 'System Settings';
+        $data['most_common'] = $settings[0]->field_value;
+        $data['id'] = $settings[0]->id;
+        $this->load->view('system_setting',$data);
+    }
+
+    public function settings_update(){
+        $data = $this->input->post('id');
+        $data1['field_value'] = $this->input->post('field_value');
+        $results1 = $this->marks->update_settings($data, $data1);
+        if ($results1) {
+            echo "success";
+        }
+    }
+
 
 //    public function files() {
 //        $this->load->helper('file');

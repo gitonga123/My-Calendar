@@ -23,6 +23,7 @@ require_once('header.php');
         <span style="margin-left: 30%"></span>
         <div style="padding-bottom: 2%"></div>
         <a href="/page/mark/update_team" class="btn btn-warning"><i class="fa fa-upload"> </i> Update Team Name</a>
+        <?php echo $button;?>
         <div style="padding-bottom: 2%"></div>
         <div class="row">
             <div class="col-lg-12">
