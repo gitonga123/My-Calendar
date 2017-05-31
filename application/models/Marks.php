@@ -82,7 +82,7 @@ class Marks extends CI_Model {
     public function get_frequent_home($value_size) {
         $value = (int)$value_size;
         $query_string = "SELECT home, draw, away
-                            FROM (SELECT home,draw,away FROM TABLE2 
+                            FROM (SELECT home,draw,away FROM old_new
                                     GROUP BY home,draw,away 
                                     HAVING COUNT(home) >= ($value) AND COUNT(draw) >= ($value) and COUNT(away) >= ($value)) as t";
         if ($this->db->simple_query($query_string)) {

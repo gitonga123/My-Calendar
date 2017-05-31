@@ -5,21 +5,12 @@ require_once('header.php');
 </head>
 <body>
     <div class=" container container-fluid">
-        <div style="padding-bottom: 2%"></div>
-        <a href="/page/mark" class="btn btn-info"><i class="fa fa-home"></i> Home </a>
-        <span style="margin-left: 5%"></span>
-        <a href="/page/mark/add_result" class="btn btn-danger"><i class="fa fa-fast-forward"></i> Add / Ongeza</a>
-        <span style="margin-left: 5%"></span>
-        <a href="/page/mark/search_area" class="btn btn-warning"><i class="fa fa-search"></i> Search</a>
-        <span style="margin-left: 5%"></span>
-        <a href="/page/mark/update_result" class="btn btn-success"><i class="fa fa-database"> </i> Update Result</a>
-
-        <span style="margin-left: 5%"></span>
-        <a href="/page/mark/summary" class="btn btn-info"><i class="fa fa-line-chart"> </i> Summary</a>
-
-        <span style="margin-left: 5%"></span>
-        <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
-        <span style="margin-left: 5%"></span>
+       <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
+       	<span style="margin-left: 5%"></span>
+       	<a href="/page/make" class="btn btn-warning"><i class="fa fa-home"> </i> Home</a>
+       	<span style="margin-left: 5%"></span>
+       	<a href="/page/make/exact_search" class="btn btn-danger"><i class="fa fa-fast-backward"> </i> Back</a>
+      	<span style="margin-left: 5%"></span>
         <a href="#" id="timeClock" class="btn btn-default"></a>
         <span style="margin-left: 5%"></span>
         <div style="padding-bottom: 1%"></div>

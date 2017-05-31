@@ -89,7 +89,7 @@ require_once('header.php');
             var time = prompt("Please enter the time");
 
             var srvRqst = $.ajax({
-                url: '/page/make/transafer',
+                url: '/page/make/excels',
                 type: 'post',
                 data: {time: time},
                 datatype: 'text',
@@ -97,7 +97,7 @@ require_once('header.php');
              });
 
             srvRqst.done(function (response) {
-                document.getElementById("upload_data").className = "btn btn-danger disabled";
+                // document.getElementById("upload_data").className = "btn btn-danger disabled";
                 $('div.user_error').html(response);
             }); 
         });

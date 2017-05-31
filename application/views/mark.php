@@ -89,7 +89,7 @@ require_once('header.php');
             var time = prompt("Please enter the time");
 
             var srvRqst = $.ajax({
-                url: '/page/mark/transafer',
+                url: '/page/mark/excels',
                 type: 'post',
                 data: {time: time},
                 datatype: 'text',

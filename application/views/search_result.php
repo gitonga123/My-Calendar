@@ -4,9 +4,12 @@ require_once('header.php');
 </head>
 <body>
 	<div class=" container container-fluid">
+	<div style="padding-bottom: 2%"></div>	
 	 	<a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
        	<span style="margin-left: 5%"></span>
-       	<a href="/page/mark/update_team" class="btn btn-warning"><i class="fa fa-upload"> </i> Update Team Name</a>
+       	<a href="/page/make" class="btn btn-success"><i class="fa fa-user"> </i> New Home</a>
+       	<span style="margin-left: 5%"></span>
+       	<a href="/page/mark" class="btn btn-danger"><i class="fa fa-fast-home"> </i> OdD News</a>
        	<span style="margin-left: 5%"></span>
        	<a href="/page/mark/exact_search" class="btn btn-danger"><i class="fa fa-fast-backward"> </i> Back</a>
        	<div style="padding-bottom: 2%"></div>
@@ -88,7 +91,7 @@ require_once('header.php');
                             	<table class='table table-condensed'>
                                     <thead>
                                         <tr>
-                                            <th>Desc</th>
+                                            <th>Desc [HALF TIME]</th>
                                             <th>Conclusion</th>
                                         </tr>
                                     </thead>
@@ -104,7 +107,7 @@ require_once('header.php');
                             	<table class='table table-condensed'>
                                     <thead>
                                         <tr>
-                                            <th>Desc</th>
+                                            <th>Desc [FULL TIME]</th>
                                             <th>Conclusion</th>
                                         </tr>
                                     </thead>
@@ -117,6 +120,31 @@ require_once('header.php');
                                 </table>
                         </div>
                     </div>
+
+                <div class='col-md-12'>
+                				<p class='alert alert-danger'>Most Likely Result Full Time</p>
+                                <table class='table table-bordered'>
+                                    <thead>
+                                        <tr>
+                                            <th>Desc</th>
+                                            <th>Count</th>
+                                            <th>Conclusion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><th>Home</th><td>{$judgment[4]}</td><td>{$judgment[1]}%</td></tr>
+                                        <tr><th>Draw</th><td>{$judgment[3]}</td><td>{$judgment[0]}%</td></tr>
+                                        <tr><th>Away</th><td>{$judgment[5]}</td><td>{$judgment[2]}%</td></tr>
+                                        <tr><th>Prediction</th><td>{$judgment[6]}</td><td>{$judgment[7]}</td></tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                
+
+                            </div>
+                        </div>
+
                 </div>
                 </div>
             ";

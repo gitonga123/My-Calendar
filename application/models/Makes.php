@@ -12,6 +12,11 @@ class Makes extends CI_Model {
         $table_name = 'hold_search';
         return $this->db->insert($table_name,$data);
     }
+
+    public function insert_table_2($data){
+        $table_name = 'table_2';
+        return $this->db->insert($table_name,$data);
+    }
     public function get_all_details2() {
         $table_name = "TABLE3";
         $this->db->select();
@@ -30,6 +35,28 @@ class Makes extends CI_Model {
         return $query->result();
     }
 
+    public function load_settings(){
+        $table_name = 'settings';
+        $this->db->select();
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+       }
+       
+    public function get_frequent_home($value_size) {
+        $value = (int)$value_size;
+        $query_string = "SELECT home, draw, away
+                            FROM (SELECT home,draw,away FROM TABLE3
+                                    GROUP BY home,draw,away 
+                                    HAVING COUNT(home) >= ($value) AND COUNT(draw) >= ($value) and COUNT(away) >= ($value)) as t";
+        if ($this->db->simple_query($query_string)) {
+            $query = $this->db->query($query_string);
+            return $query->result();
+        }else{
+            return "Error ME Friend";
+        }
+        
+    }
     public function get_exact_search_data(){
         $table_name = 'hold_search';
         $this->db->select();

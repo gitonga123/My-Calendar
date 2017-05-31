@@ -20,16 +20,85 @@ class Make extends CI_Controller {
         $this->load->view('mark2', $data);
     }
 
+    public function excels(){
+        // $inputs = $this->post->($value);
+        $time = $this->input->post('time');
+        $this->load->library('excel');
+        $file = '/home/daniel/Desktop/Learning_python/output.xlsx';
+        $check = 0;
+        $objPHPExcel = PHPExcel_IOFactory::load($file);
+        $cell_collection = $objPHPExcel->getActiveSheet()->getCellCollection();
+        foreach ($cell_collection as $cell) {
+            $column = $objPHPExcel->getActiveSheet()->getCell($cell)->getColumn();
+            $row = $objPHPExcel->getActiveSheet()->getCell($cell)->getRow();
+            $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
+         
+            //header will/should be in row 1 only. of course this can be modified to suit your need.
+            if ($row == 1) {
+                $header[$row][$column] = $data_value;
+            } else {
+                $arr_data[$row][$column] = $data_value;
+            }
+        }
+         
+        //send the data in an array format
+        $data['header'] = $header;
+        $data['values'] = $arr_data;
+
+        $value_key = 12;
+        $upload_data = array();
+        foreach ($arr_data as $key => $value) {
+            if ($key == $value_key) {
+                if(!empty($value['B'])){
+                    if($value['B'] == $time){
+                     $upload_data[] = array( 
+                      "`DATE`"=>$value['A'],
+                      "`TIME`"=>$value['B'],
+                      "`HOMETEAM`"=>$value['D'],
+                      "`HOME`"=>$value['E'],
+                      "`DRAW`"=>$value['F'],
+                      "`VISITINGTEAM`"=>$value['G'],
+                      "`AWAY`"=>$value['H'],
+                      "`LEAGUE`"=>$tempral,
+                      
+                      );    
+                    }
+                    
+                }else{
+                    $tempral = $value['A'];
+
+                }             
+
+              $value_key++;
+            }  
+           
+        }
+        // print_r($upload_data);
+        for ($i=0; $i < count($upload_data); $i++) { 
+            $check = $this->makes->insert_table_2($upload_data[$i]);
+        }
+
+        if ($check) {
+             $this->transafer();
+           // echo "am doing";
+        }else{
+            echo "<p class='alert alert-danger'>Data With Time" . $time . " can not be found</p>" ;
+        }
+    }
+
+        
+        // print_r($arr_data);
+        // echo print_r($arr_data);
+
     public function transafer() {
         $table_name = "table_2";
-        $time = $this->input->post('time');
         $data = $this->makes->get_details_for_uploads($table_name);
         if ($data) {
             $query = json_decode(json_encode($data), TRUE);
             foreach ($query as $key => $value) {
-                if (!empty($value['HOME TEAM']) && $value['TIME'] == $time) {
+                if (!empty($value['HOMETEAM'])) {
                     $datas = array(
-                        "team_name" => ucwords(strtolower($value['HOME TEAM'])),
+                        "team_name" => ucwords(strtolower($value['HOMETEAM'])),
                         "home" => $this->is_decimal($value['HOME']),
                         "away" => $this->is_decimal($value['AWAY']),
                         "draw" => $this->is_decimal($value['DRAW']),
@@ -41,7 +110,7 @@ class Make extends CI_Controller {
                     $this->makes->get_updates($datas);
                 }
             }
-            echo "<p class='alert alert-info'>Data Upload complete:  Go to <a href='/page/make/update_result' class='btn btn-sm btn-info'>Uploads to add update result</a></p>";
+            echo "<p class='alert alert-info'>Data Upload complete:  Go to <a href='/page/make/update_result' class='btn btn-sm btn-info'>Uploads to add update result</a> OR GO TO => <a href='/page/make/search_area' class='btn btn-sm btn-danger'> Mass Search</a></p>";
         } else {
             echo "<p class='alert alert-danger'>No Data uploads Avaialable</p>";
         }
@@ -408,6 +477,7 @@ class Make extends CI_Controller {
     }
 
     public function update_result() {
+        $this->delete_uploaded();
         $data['title'] = "Update Results";
         $odds = $this->makes->get_all_details();
         $hold = array();
@@ -529,7 +599,8 @@ class Make extends CI_Controller {
         $datas = $this->makes->get_all_details();
         $data = json_decode(json_encode($datas), true);
         foreach ($data as $key => $value) {
-            $hommy[] = $value['results'];
+            if(!empty($value['results']))
+                $hommy[] = $value['results'];
         }
         //print_r($hommy);
 
@@ -557,7 +628,9 @@ class Make extends CI_Controller {
         $datas = $this->makes->get_all_details();
         $data = json_decode(json_encode($datas), true);
         foreach ($data as $key => $value) {
-            $score[] = $value['result_ht'];
+            if(!empty($value['result_ht']))
+                $score[] = $value['result_ht'];
+
         }
         $hommes = array_count_values($score);
         arsort($hommes);
@@ -585,7 +658,9 @@ class Make extends CI_Controller {
         $data = json_decode(json_encode($datas), true);
 
         foreach ($data as $key => $value) {
-            $score[] = $value['result_ft'];
+            if(!empty($value['result_ht']))
+                $score[] = $value['result_ft'];
+
         }
         $hommes = array_count_values($score);
         arsort($hommes);
@@ -1001,15 +1076,13 @@ class Make extends CI_Controller {
 
 //Brief Case Home
     public function trend() {
-        $hold = array();
-        $datas2 = $this->makes->get_all_details();
-        $data_search = json_decode(json_encode($datas2), TRUE);
-        foreach ($datas2 as $key => $value) {
-            $temp_home[] = $value->home;
-        }
-        $temp_home_u = array_unique($temp_home);
-
-        echo "<p class='alert alert-info'><i class='fa fa-briefcase'></i>Home</p>
+        $actual_link = base_url(uri_string());
+        $settings = $this->makes->load_settings();
+        $result_with = $this->makes->get_frequent_home($settings[0]->field_value);
+        $data_search = json_decode(json_encode($result_with), TRUE);
+       
+        echo "<p class='alert alert-info'><i class='fa fa-briefcase'></i> Most Repetitive with a value of :
+        {$settings[0]->field_value}. Go to System Settings To Change <bold><a href='/page/mark/setting'> Settings</a></bold></p>
         <table class='table table-hover table-condensed' id='myTable'>
         <thead>
           <th>Team Name</th>
@@ -1019,36 +1092,38 @@ class Make extends CI_Controller {
           <th>halftime</th>
           <th>fulltime</th>
           <th>Judgment</th>
+          <th>League</th>
+          <th>Learn More</th>
           
         </thead><tbody>
       ";
-        foreach ($temp_home_u as $key => $value) {
-            $exacts = $this->search_return($data_search, 'home', $value);
-            if (count($exacts) > 15) {
-                foreach ($exacts as $key => $value) {
-                    echo "<tr>";
-                    echo "<td>" . $value['team_name'] . "</td>";
-                    echo "<td>" . $value['home'] . "</td>";
-                    echo "<td>" . $value['draw'] . "</td>";
-                    echo "<td>" . $value['away'] . "</td>";
-                    echo "<td>" . $value['result_ht'] . "</td>";
-                    echo "<td>" . $value['result_ft'] . "</td>";
-                    echo "<td>" . $value['results'] . "</td>";
-
-                    echo "</tr>";
-                }
-            }
+      foreach ($data_search as $key => $value) {
+        $result_searched = $this->makes->get_all_details_search($value['home'], $value['draw'], $value['away']);
+        foreach ($result_searched as $key => $value) {
+            echo "<tr>";
+            echo "<td>" . $value->team_name . "</td>";
+            echo "<td>" . $value->home . "</td>";
+            echo "<td>" . $value->draw . "</td>";
+            echo "<td>" . $value->away . "</td>";
+            echo "<td>" . $value->result_ht. "</td>";
+            echo "<td>" . $value->result_ft . "</td>";
+            echo "<td>" . $value->results . "</td>";
+            echo "<td>" . $value->league . "</td>";
+            echo "<td> 
+                    <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' >
+                    <i class='fa fa-share'></i> Learn More</a>
+            </td>"; 
+            echo "</tr>";
         }
-
-
-        echo "<tbody></table>";
-        echo "
-        <script>
-          $(document).ready(function(){
-            $('#myTable').DataTable();
-          });
-        </script>
-      ";
+      }
+    echo "<tbody></table>";
+    echo "
+    <script>
+      $(document).ready(function(){
+        $('#myTable').DataTable();
+      });
+    </script>
+  ";
     }
 
     public function trend2() {
@@ -1374,11 +1449,11 @@ class Make extends CI_Controller {
         $odds = $this->makes->get_details_for_uploads2();
         foreach ($odds as $key => $value) {
             $query = $this->makes->delete_uploaded($value->id);
-            if ($query) {
-                echo "<p class='alert alert-info'>Details Deleted</p>";
-            } else {
-                echo "<p class='alert alert-danger'>Details Not Deleted</p>";
-            }
+            // if ($query) {
+            //     echo "<p class='alert alert-info'>Details Deleted</p>";
+            // } else {
+            //     echo "<p class='alert alert-danger'>Details Not Deleted</p>";
+            // }
         }
     }
 
@@ -1395,8 +1470,8 @@ class Make extends CI_Controller {
                         <th>Home</th>
                         <th>Draw</th>
                         <th>Away</th>
-                        <th>Result Half Time</th>
-                        <th>Result FUll Time</th>
+                        <th>Half Time</th>
+                        <th>Full Time</th>
                         <th>Results</th>
                         <th>League</th>
                         <th>ID</th>
@@ -1562,8 +1637,8 @@ class Make extends CI_Controller {
                         <th>Home</th>
                         <th>Draw</th>
                         <th>Away</th>
-                        <th>Result Half Time</th>
-                        <th>Result FUll Time</th>
+                        <th>Half Time</th>
+                        <th>Full Time</th>
                         <th>Results</th>
                         <th>League</th>
                         <th>Form</th>

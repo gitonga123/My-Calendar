@@ -24,7 +24,7 @@ require_once('header.php');
         <div style="padding-bottom: 1%"></div>
         <a href="/page/make/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
         <span style="margin-left: 5%"></span>        
-        <button class="btn btn-default" id="briefhome"><i class="fa fa-briefcase"></i> Brief Home</button>
+        <button class="btn btn-danger" id="briefhome"><i class="fa fa-search"></i> Discovery</button>
         <span style="margin-left: 5%"></span>
         <button class="btn btn-info" id="briefdraw"><i class="fa fa-book"></i> Brief Draw</button>
         <span style="margin-left: 5%"></span>

@@ -692,24 +692,35 @@ class Mark extends CI_Controller {
 
         if(count($data) != 0){
             foreach ($data as $key => $value) {
-                    
-                    $split_results = explode('-', $value->result_ht);
-                    $halftime[] = $this->sum($split_results);
+                    if(!empty($value->results)){   
+
+                        $split_results = explode('-', $value->result_ht);
+                        $halftime[] = $this->sum($split_results);
+                    }
+
             }
             $halftime_counted_values =(array_count_values($halftime));
             $analysis = $this->get_over_under($halftime_counted_values,'halftime');
 
             foreach ($data as $key => $value) {
-                    
-                    $split_results_fulltime = explode('-', $value->result_ft);
-                    $fulltime[] = $this->sum($split_results_fulltime);
+                    if(!empty($value->results)){
+                        $split_results_fulltime = explode('-', $value->result_ft);
+                        $fulltime[] = $this->sum($split_results_fulltime);
+                    }
             }
             $fulltime_counted_values =(array_count_values($fulltime));
             $analysisf = $this->get_over_under($fulltime_counted_values,'fulltime');
 
             foreach ($data as $key => $value) {
+                if(!empty($value->results)){
+                    $arrayj [] = $value->results;
+                }       
+            }
+            foreach ($data as $key => $value) {
+                if(!empty($value->results)){
                     $halftimes[] = $value->result_ht;
                     $fulltimes[] = $value->result_ft;
+                }
             }
             $gg_halftime = $this->goal_nogoal($halftimes); 
             $gg_fulltime = $this->goal_nogoal($fulltimes);
@@ -724,6 +735,7 @@ class Mark extends CI_Controller {
             $data1['gg_fulltime'] = $gg_fulltime;
             $data1['gg_halftime'] = $gg_halftime;
             $data1['title'] = "Learn More";
+            $data1['judgment'] = $this->determine_winner($arrayj);
             $this->load->view('search_result',$data1);
 
         }else{
@@ -754,29 +766,39 @@ class Mark extends CI_Controller {
             if($halftime['GG'] > $halftime['NG']){
 
                 $prediction = "GG";
-                $precentage_win = number_format((($halftime['GG']/count($array))*100),2). '%';
-
+                $precentage_win = number_format((($halftime['GG']/count($array))*100),2);
+                if($precentage_win == 100.00){
+                    $precentage_wins = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$precentage_win." %</bold>";
+                }else{
+                    $precentage_wins = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$precentage_win."%</bold>";   
+                }
                 $halftime ['prediction']= $prediction;
 
-                $halftime ['percentage_win']= $precentage_win;
+                $halftime ['percentage_win']= $precentage_wins;
+
             }elseif ($halftime['GG'] == $halftime['NG']) {
-                echo "Percentage Win";
 
                 $prediction = "GG/NG";
-                $precentage_win = number_format((($halftime['GG']/count($array))*100),2). '%';
+                $precentage_win = number_format((($halftime['GG']/count($array))*100),2);
 
+                $precentage_wins = "<bold style='color:#000080; font-family: 'Lucida Console', Monaco, monospace'>".$precentage_win."%</bold>";
                 $halftime ['prediction']= $prediction;
 
-                $halftime ['percentage_win']= $precentage_win;
+                $halftime ['prediction']= $prediction;
+                $halftime ['percentage_win']= $precentage_wins;
             }else{
                 
-
                 $prediction = "NG";
-                $precentage_win = number_format((($halftime['NG']/count($array))*100),2). '%';
+                $precentage_win = number_format((($halftime['NG']/count($array))*100),2);
 
+                if($precentage_win == 100.00){
+                    $precentage_wins = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$precentage_win."%</bold>";
+                }else{
+                    $precentage_wins = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$precentage_win."%</bold>";   
+                }
                 $halftime ['prediction']= $prediction;
 
-                $halftime ['percentage_win']= $precentage_win;
+                $halftime ['percentage_win']= $precentage_wins;
             }
             return ($halftime);
         }else{
@@ -817,19 +839,38 @@ class Mark extends CI_Controller {
             if($determine_over > $determine_under){
 
                 $precentage_win = $get_average_high / $denominator * 100;
-
-                $conclusion  = array("Over 1.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
+                $percentage_wins = number_format($precentage_win,2);
+                if($precentage_win == 100.00){
+                    $precentage_wines = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$percentage_wins."%</bold>";
+                }else{
+                    $precentage_wines = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$percentage_wins."%</bold>"; 
+                }
+                $conclusion  = array("Over 1.5",$precentage_wines,$get_average_low, $get_average_high);
                 return $conclusion;
             }elseif($determine_over == $determine_under){
 
                 $precentage_win = $get_average_high / $denominator * 100;
 
-                $conclusion  = array("Over 1.5/Under 1.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
+                $percentage_wins = number_format($precentage_win,2);
+                if($precentage_win == 100.00){
+                    $precentage_wines = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$percentage_wins."%</bold>";
+                }else{
+                    $precentage_wines = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$percentage_wins."%</bold>"; 
+                }
+
+                $conclusion  = array("Over 1.5/Under 1.5",$precentage_wines,$get_average_low, $get_average_high);
+
                 return $conclusion;
             }
             else{
                 $precentage_win = $get_average_low / $denominator * 100;
-                $conclusion  = array("Under 1.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
+                $percentage_wins = number_format($precentage_win,2);
+                if($precentage_win == 100.00){
+                    $precentage_wines = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$percentage_wins."%</bold>";
+                }else{
+                    $precentage_wines = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$percentage_wins."%</bold>"; 
+                }
+                $conclusion  = array("Under 1.5",$precentage_wines,$get_average_low, $get_average_high);
                 return $conclusion;
             }
         }
@@ -857,21 +898,248 @@ class Mark extends CI_Controller {
 
                 $precentage_win = $get_average_high / $denominator * 100;
 
-                $conclusion  = array("Over 2.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
+                $percentage_wins = number_format($precentage_win,2);
+                if($precentage_win == 100.00){
+                    $precentage_wines = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$percentage_wins."%</bold>";
+                }else{
+                    $precentage_wines = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$percentage_wins."%</bold>"; 
+                }
+
+                $conclusion  = array("Over 2.5",$precentage_wines,$get_average_low, $get_average_high);
                 return $conclusion;
             }elseif($determine_over == $determine_under){
 
                 $precentage_win = $get_average_high / $denominator * 100;
 
-                $conclusion  = array("Over 2.5/Under 2.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
+                $percentage_wins = number_format($precentage_win,2);
+                if($precentage_win == 100.00){
+                    $precentage_wines = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$percentage_wins."%</bold>";
+                }else{
+                    $precentage_wines = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$percentage_wins."%</bold>"; 
+                }
+
+                $conclusion  = array("Over 2.5/Under 2.5",$precentage_wines,$get_average_low, $get_average_high);
                 return $conclusion;
             }
             else{
                 echo $get_average_low;
                 $precentage_win = $get_average_low / $denominator * 100;
-                $conclusion  = array("Under 2.5",number_format($precentage_win,2).'%',$get_average_low, $get_average_high);
+
+                $percentage_wins = number_format($precentage_win,2);
+                if($precentage_win == 100.00){
+                    $precentage_wines = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$percentage_wins."%</bold>";
+                }else{
+                    $precentage_wines = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$percentage_wins."%</bold>"; 
+                }
+
+
+                $conclusion  = array("Under 2.5",$precentage_wines,$get_average_low, $get_average_high);
                 return $conclusion;
             }
+        }
+    }
+
+    public function determine_winner($array){
+        
+        if(is_array($array)){
+            $count_result = array_count_values($array);
+            if(array_key_exists('X', $count_result) && array_key_exists('1', $count_result) && array_key_exists('2', $count_result)){
+               $win_x = number_format(($count_result['X']/($count_result['1'] + $count_result['2'] + $count_result['X']))*100,2);
+               $win_1 = number_format(($count_result['1']/($count_result['1'] + $count_result['2'] + $count_result['X']))*100,2);
+               $win_2 = number_format(($count_result['2']/($count_result['1'] + $count_result['2'] + $count_result['X']))*100,2);
+
+               $result_x = $count_result['X'];
+               $result_1 = $count_result['1'];
+               $result_2 = $count_result['2'];
+
+               $prediction = max($win_2,$win_x,$win_1);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+               if($prediction == $win_1 && $prediction == $win_2 && $prediction > $win_x){
+                    $predictions = "1 OR 2";
+               }
+               elseif($prediction == $win_1 && $prediction == $win_x && $prediction > $win_2){
+                    $predictions = "1 OR X";
+               }
+               elseif($prediction == $win_2 && $prediction == $win_x && $prediction > $win_1){
+                    $predictions = "X OR 2";
+               }elseif($prediction == $win_2 && $prediction == $win_x && $prediction == $win_x ){
+                    $predictions = "Clear Winner Can Not Be Determined";
+               }
+               elseif($prediction == $win_1){
+                    $predictions = "HOME WIN";
+               }elseif($prediction == $win_2){
+                    $predictions = "AWAY WIN";
+               }elseif($prediction == $win_x){
+                    $predictions = "DRAW";
+               }
+               $conclusion = array($win_x,$win_1,$win_2,$result_x,$result_1,$result_2,$predictions,$predictive_win);
+               return $conclusion;
+            }
+
+            elseif (array_key_exists('X', $count_result) && array_key_exists('1', $count_result) 
+                        && !array_key_exists('2', $count_result)) {
+                $win_x = number_format(($count_result['X']/($count_result['1']  + $count_result['X']))*100,2);
+               $win_1 = number_format(($count_result['1']/($count_result['1']  + $count_result['X']))*100,2);
+               $result_x = $count_result['X'];
+               $result_1 = $count_result['1'];
+               
+
+               $prediction = max($win_x,$win_1);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+               if($prediction == $win_1 && $prediction == $win_x ){
+                    $predictions = "1 OR X";
+               }
+               elseif($prediction == $win_1){
+                    $predictions = "Home Win";
+               }elseif($prediction == $win_x){
+                    $predictions = "DRAW";
+               }
+               $conclusion = array($win_x,$win_1,0,$result_x,$result_1,0,$predictions,$predictive_win);
+               return $conclusion;
+            }
+
+            elseif (array_key_exists('X', $count_result) && array_key_exists('2', $count_result) 
+                        && !array_key_exists('1', $count_result)) {
+                $win_x = number_format(($count_result['X']/($count_result['2']  + $count_result['X']))*100,2);
+               $win_2 = number_format(($count_result['2']/($count_result['2']  + $count_result['X']))*100,2);
+               $result_x = $count_result['X'];
+               $result_2 = $count_result['2'];
+               
+
+               $prediction = max($win_x,$win_2);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+               if($prediction == $win_2 && $prediction == $win_x ){
+                    $predictions = "X OR 2";
+               }
+               elseif($prediction == $win_2){
+                    $predictions = "AWAY WIN";
+               }elseif($prediction == $win_x){
+                    $predictions = "DRAW";
+               }
+               $conclusion = array($win_x,0,$win_2,$result_x,0,$result_2,$predictions,$predictive_win);
+               return $conclusion;
+            }
+
+            elseif (array_key_exists('1', $count_result) && array_key_exists('2', $count_result) 
+                        && !array_key_exists('X', $count_result)) {
+                $win_1 = number_format(($count_result['1']/($count_result['2']  + $count_result['1']))*100,2);
+               $win_2 = number_format(($count_result['2']/($count_result['2']  + $count_result['1']))*100,2);
+               $result_1 = $count_result['1'];
+               $result_2 = $count_result['2'];
+               
+
+               $prediction = max($win_1,$win_2);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+               if($prediction == $win_2 && $prediction == $win_1 ){
+                    $predictions = "1 OR 2";
+               }
+               elseif($prediction == $win_2){
+                    $predictions = "AWAY WIN";
+               }elseif($prediction == $win_1){
+                    $predictions = "HOME WIN";
+               }
+               $conclusion = array(0,$win_1,$win_2,0,$result_1,$result_2,$predictions,$predictive_win);
+               return $conclusion;
+            }
+
+            elseif (array_key_exists('X', $count_result) && !array_key_exists('1', $count_result) 
+                        && !array_key_exists('2', $count_result)) {
+
+                $win_x = number_format(($count_result['X']/($count_result['X']))*100,2);
+               
+             
+               $result_x = $count_result['X'];
+               
+
+               $prediction = max($win_x,0,0);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+                if($prediction == $win_x){
+                    $predictions = "DRAW";
+               }
+               $conclusion = array($win_x,0,0,$result_x,0,0,$predictions,$predictive_win);
+               return $conclusion;
+            }
+
+            elseif (array_key_exists('2', $count_result) && !array_key_exists('1', $count_result) 
+                        && !array_key_exists('X', $count_result)) {
+                $win_2 = number_format(($count_result['2']/($count_result['2']))*100,2);
+               
+             
+               $result_2 = $count_result['2'];
+               
+
+               $prediction = max($win_2,0,0);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+                if($prediction == $win_2){
+                    $predictions = "AWAY WIN";
+               }
+               $conclusion = array(0,0,$win_2,0,0,$result_2,$predictions,$predictive_win);
+               return $conclusion;
+            }
+
+            elseif (array_key_exists('1', $count_result) && !array_key_exists('2', $count_result) 
+                        && !array_key_exists('X', $count_result)) {
+                $win_1 = number_format(($count_result['1']/($count_result['1']))*100,2);
+               
+             
+               $result_1 = $count_result['1'];
+               
+
+               $prediction = max($win_1,0,0);
+               if ($prediction == 100) {
+                   $predictive_win = "<bold style='color:red; font-family: 'Lucida Console', Monaco, monospace'>".$prediction."%</bold>";
+               }else{
+                $predictive_win = "<bold style='color:#0000CD; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif'>".$prediction."%</bold>";
+               }
+
+                if($prediction == $win_1){
+                    $predictions = "HOME WIN";
+               }
+               $conclusion = array(0,$win_1,0,0,$result_1,0,$predictions,$predictive_win);
+               return $conclusion;
+            }else{
+                $conclusion = array(0,0,0,0,0,0,0,0);
+               return $conclusion;
+            }
+            // foreach ($count_result as $key => $value) {
+            //     echo $key . " \t" . $value. "<br /><hr />";
+            //     if ($key['X'] > $key[1] > $key[2] >) {
+            //         # code...
+            //     }
+            // }
+
+            }else{
+            echo "Not Array";
         }
     }
     //Brief Case Draw
@@ -1209,6 +1477,29 @@ class Mark extends CI_Controller {
     }
    
 //Brief Case Home
+    public function automatic_repetitive_home_matches(){
+        $array1 = array(1,2,'X');
+        $result_fulltime = array();
+        $settings = $this->marks->load_settings();
+        $result_with = $this->marks->get_frequent_home($settings[0]->field_value);
+        $data_search = json_decode(json_encode($result_with), TRUE);
+
+        foreach ($data_search as $key => $value) {
+            $result_searched[] = $this->marks->get_all_details_search($value['home'], $value['draw'], $value['away']);
+        }
+
+        for ($i=0; $i < count($result_searched) ; $i++) { 
+            foreach ($result_searched[$i] as $key => $value) {
+                $result_fulltime[] = $value->results; 
+
+                // $fulltime_analysis[] = $this->determine_winner($result_fulltime);
+                // print_r($result_fulltime);
+            }
+        }
+        
+        // print_r($result_searched);
+        
+    }
     public function trend() {
         //Get my current 
         $actual_link = base_url(uri_string());
@@ -1228,6 +1519,7 @@ class Mark extends CI_Controller {
           <th>fulltime</th>
           <th>Judgment</th>
           <th>League</th>
+          
           <th>Learn More</th>
           
         </thead><tbody>
@@ -1244,11 +1536,13 @@ class Mark extends CI_Controller {
             echo "<td>" . $value->result_ft . "</td>";
             echo "<td>" . $value->results . "</td>";
             echo "<td>" . $value->league . "</td>";
+            // echo "<td>" . $value->date . "</td>";
             echo "<td> 
                     <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
                     <i class='fa fa-share'></i> Learn More</a>
             </td>"; 
             echo "</tr>";
+            
         }
       }
     echo "<tbody></table>";
@@ -1602,15 +1896,17 @@ class Mark extends CI_Controller {
         echo "<table class='table table-bordered' id='predict_table'>
                 <thead>
                     <tr class='active'>
+                        <th>ID</th>
                         <th>Team Name</th>
                         <th>Home</th>
                         <th>Draw</th>
                         <th>Away</th>
-                        <th>Result Half Time</th>
-                        <th>Result FUll Time</th>
+                        <th>Result Hall </th>
+                        <th>Result Full</th>
                         <th>Results</th>
                         <th>League</th>
-                        <th>ID</th>
+                        <th>Learn more</th>
+
                     </tr>
                 </thead><tbody>";
         foreach ($search as $keys => $values) {
@@ -1621,6 +1917,7 @@ class Mark extends CI_Controller {
                         $check[] = $query;
                         if (!empty($value->results)) {
                             echo "<tr class='danger'>
+                                <td>{$value->id}</td>
                                 <td>{$value->team_name}</td>
                                 <td>{$value->home}</td> 
                                 <td>{$value->draw}</td>
@@ -1629,7 +1926,12 @@ class Mark extends CI_Controller {
                                 <td>{$value->result_ft}</td>
                                 <td>{$value->results}</td>
                                 <td>{$value->league}</td>
-                                <td>{$value->id}</td>
+                            ";
+                            echo "
+                                <td> 
+                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
+                                <i class='fa fa-share'></i> Learn More</a>
+                             </td>
                             </tr>";
                             $result1ft[] = $value->result_ft;
                             $result1ht[] = $value->result_ht;
@@ -1639,6 +1941,7 @@ class Mark extends CI_Controller {
                     foreach ($query as $key => $value) {
                         if (!empty($value->results)) {
                             echo "<tr class='success'>
+                                <td>{$value->id}</td>
                                 <td>{$value->team_name}</td>
                                 <td>{$value->home}</td> 
                                 <td>{$value->draw}</td>
@@ -1647,7 +1950,12 @@ class Mark extends CI_Controller {
                                 <td>{$value->result_ft}</td>
                                 <td>{$value->results}</td>
                                 <td>{$value->league}</td>
-                                <td>{$value->id}</td>
+                                ";
+                            echo "
+                                <td> 
+                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
+                                <i class='fa fa-share'></i> Learn More</a>
+                             </td>
                             </tr>";
                             $resultsat[] = $value->result_ht;
                             $reesultsaf[] = $value->result_ft;
@@ -1664,8 +1972,8 @@ class Mark extends CI_Controller {
                 $('#predict_table').DataTable();
            });
            </script>";
-        $num = $this->information("Half",$result1ft);
-        echo $num;
+        // $num = $this->information("Half",$result1ft);
+        // echo $num;
     }
 
     public function information($strings,$results) {

@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div style="padding-bottom: 1%"></div>
-            <div class="user_error">
+            <div class="user_error" id="odds">
 
             </div>
             <p style="color: blue;" id="entry_error" class="alert alert-danger">Error Section</p>
@@ -74,8 +74,8 @@
                         echo "<td>" . $value['home'] . "</td>";
                         echo "<td>" . $value['draw'] . "</td>";
                         echo "<td>" . $value['away'] . "</td>";
-                        echo "<td>" . "<input type='text' id='halftime' placeholder ='half time' class='form-control'/>" . "</td>";
-                        echo "<td>" . "<input type='text' id='fulltime' placeholder ='full time' class='form-control'/>" . "</td>";
+                        echo "<td>" . "<input type='text' id='halftime' onkeyup='getVal()' onclick='this.value  = &#39;&#39;;' onkeydown='this.style.color = &#39;#000000&#39;' placeholder ='half time' class='form-control'/>" . "</td>";
+                        echo "<td>" . "<input type='text' id='fulltime' onkeyup='getVal2()' onclick='this.value  = &#39;&#39;;' onkeydown='this.style.color = &#39;#000000&#39;' placeholder ='full time' class='form-control'/>" . "</td>";
                         echo "<td>" . $value['league'] . "</td>";
                         echo "<td style='display:none;'>" . "<input type='text' id='teamid' value='" . $value['id'] . "' />" . "</td>";
                         echo "<td>" . $value['times'] . "</td>";
@@ -240,6 +240,15 @@
                     $('div.user_error').html(response);
                 }); 
             });
+
+            function getVal() {
+                var x = document.getElementById("halftime");
+                document.getElementById("odds").innerHTML = x.value.toUpperCase();
+            }
+            function getVal2() {
+                var x = document.getElementById("fulltime");
+                document.getElementById("odds").innerHTML = x.value.toUpperCase();
+            }
 
                 
         </script>
