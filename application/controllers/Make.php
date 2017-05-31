@@ -55,10 +55,10 @@ class Make extends CI_Controller {
                       "`DATE`"=>$value['A'],
                       "`TIME`"=>$value['B'],
                       "`HOMETEAM`"=>$value['D'],
-                      "`HOME`"=>$value['E'],
-                      "`DRAW`"=>$value['F'],
+                      "`HOME`"=>$this->is_decimal($value['E']),
+                      "`DRAW`"=>$this->is_decimal($value['F']),
                       "`VISITINGTEAM`"=>$value['G'],
-                      "`AWAY`"=>$value['H'],
+                      "`AWAY`"=>$this->is_decimal($value['H']),
                       "`LEAGUE`"=>$tempral,
                       
                       );    
@@ -89,7 +89,66 @@ class Make extends CI_Controller {
         
         // print_r($arr_data);
         // echo print_r($arr_data);
+    //Database Back up
+    public function backup(){
+       // $this->load->dbutil();
+       // $this->load->helper('file');
+       // $this->load->helper('download');
+       // $check =0;
+       // // if ($this->dbutil->optimize_table('TABLE3')){
+       // //      echo 'Success!';
+       // //  }
 
+       //  // $backup = $this->dbutil->backup();
+
+       //  // // Load the file helper and write the file to your server
+       //  // write_file('/home/daniel/Desktop', $backup);
+
+       //  // // Load the download helper and send the file to your desktop
+        
+       //  // $check = force_download('mybackup.gz', $backup);
+       //  $prefs = array(
+       //  // 'tables'        => array('TABLE3', 'TABLE2'),   // Array of tables to backup.
+       //  // 'ignore'        => array('testing','table_2'),                     // List of tables to omit from the backup
+       //  'format'        => 'txt',                       // gzip, zip, txt
+       //  'filename'      => 'mybackup.sql',              // File name - NEEDED ONLY WITH ZIP FILES
+       //  // 'add_drop'      => TRUE,                        // Whether to add DROP TABLE statements to backup file
+       //  // 'add_insert'    => TRUE,                        // Whether to add INSERT data to backup file
+       //  // 'newline'       => "\n"                         // Newline character used in backup file
+       //  );
+
+       //  $backup = $this->dbutil->backup($prefs);
+
+       //  $db_name = 'backup-on-'.date("Y-m-d-H-i-s").'.zip';
+       //  $save = '/home/daniel/Desktop/books/'.$db_name;
+       //  write_file($save, $backup); 
+       //  force_download($db_name, $backup); 
+       //  // if($check){
+       //  //     echo "Successfully Backed";
+       //  // }else{
+       //  //     echo "An Error exeprienced";
+       //  // }
+        // $this->load->dbutil();
+
+        // $prefs = array(     
+        //         'format'      => 'zip',             
+        //         'filename'    => 'my_db_backup.sql'
+        //       );
+
+
+        // $backup =& $this->dbutil->backup($prefs); 
+
+        // $db_name = 'backup-on-'. date("Y-m-d-H-i-s") .'.zip';
+        // $save = 'home/daniel/Desktop/books/'.$db_name;
+
+        // $this->load->helper('file');
+        // write_file($save, $backup); 
+
+
+        // $this->load->helper('download');
+        // force_download($db_name, $backup);
+        echo "<p class='alert alert-default'>Am Not Currently in service am Under Development</p>";
+    }
     public function transafer() {
         $table_name = "table_2";
         $data = $this->makes->get_details_for_uploads($table_name);
@@ -146,7 +205,7 @@ class Make extends CI_Controller {
             $datas['results'] = $this->input->post('results');
             $datas['league'] = ucwords(strtolower($this->input->post('league')));
             $datas['times'] = $this->get_time();
-            $data['date'] = $this->get_date();
+            $datas['date'] = $this->get_date();
             $this->makes->get_updates($datas);
 
             // $this->testing_area();
@@ -544,9 +603,9 @@ class Make extends CI_Controller {
     public function get_time() {
         $date = date("Y-m-d H:i:s");
 
-        $endtime = strtotime('+120 minutes', strtotime($date));
+        $endtime = strtotime('+0 minutes', strtotime($date));
 
-        $mess = date('h:i:s', $endtime);
+        $mess = date('H:i', $endtime);
 
         return $mess;
     }
@@ -1082,7 +1141,7 @@ class Make extends CI_Controller {
         $data_search = json_decode(json_encode($result_with), TRUE);
        
         echo "<p class='alert alert-info'><i class='fa fa-briefcase'></i> Most Repetitive with a value of :
-        {$settings[0]->field_value}. Go to System Settings To Change <bold><a href='/page/mark/setting'> Settings</a></bold></p>
+        {$settings[0]->field_value}. Go to System Settings To Change <bold><a href='/page/mark/setting' target='_blank'> Settings</a></bold></p>
         <table class='table table-hover table-condensed' id='myTable'>
         <thead>
           <th>Team Name</th>
@@ -1110,7 +1169,7 @@ class Make extends CI_Controller {
             echo "<td>" . $value->results . "</td>";
             echo "<td>" . $value->league . "</td>";
             echo "<td> 
-                    <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' >
+                    <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
                     <i class='fa fa-share'></i> Learn More</a>
             </td>"; 
             echo "</tr>";
@@ -1462,6 +1521,7 @@ class Make extends CI_Controller {
         $resultsbt = array();
         $reesultsaf = array();
         $resultsat = array();
+        $hold = array();
         $search = $this->makes->get_details_for_uploads2();
         echo "<table class='table table-bordered' id='predict_table'>
                 <thead>
@@ -1479,57 +1539,63 @@ class Make extends CI_Controller {
                 </thead><tbody>";
         foreach ($search as $keys => $values) {
             $query = $this->makes->get_all_details_search($values->HOME, $values->DRAW, $values->AWAY);
-
-            if (!empty($query)) {
-                if (count($query) < 5) {
-                    foreach ($query as $key => $value) {
-                        if (!empty($value->results)) {
-                            echo "<tr class='danger'>
-                                <td>{$value->team_name}</td>
-                                <td>{$value->home}</td> 
-                                <td>{$value->draw}</td>
-                                <td>{$value->away}</td>
-                                <td>{$value->result_ht}</td>
-                                <td>{$value->result_ft}</td>
-                                <td>{$value->results}</td>
-                                <td>{$value->league}</td>
-                                <td>{$value->id}</td>
-                            </tr>";
-                            $resultsbf[] = $value->result_ft;
-                            $resultsbt[] = $value->result_ht;
+            $hold[] = $query;
+        }
+        if (!empty($hold)) {
+                if (count($hold) < 5) {
+                    for ($i=0; $i < sizeof($hold); $i++) { 
+                        foreach ($hold[$i] as $key => $value) {
+                            if (!empty($value->results)) {
+                                echo "<tr class='danger'>
+                                    <td>{$value->team_name}</td>
+                                    <td>{$value->home}</td> 
+                                    <td>{$value->draw}</td>
+                                    <td>{$value->away}</td>
+                                    <td>{$value->result_ht}</td>
+                                    <td>{$value->result_ft}</td>
+                                    <td>{$value->results}</td>
+                                    <td>{$value->league}</td>
+                                    <td>{$value->id}</td>
+                                </tr>";
+                                $resultsbf[] = $value->result_ft;
+                                $resultsbt[] = $value->result_ht;
+                            }
                         }
                     }
                 } else {
-                    foreach ($query as $key => $value) {
-                        if (!empty($value->results)) {
-                            echo "<tr class='success'>
-                                <td>{$value->team_name}</td>
-                                <td>{$value->home}</td> 
-                                <td>{$value->draw}</td>
-                                <td>{$value->away}</td>
-                                <td>{$value->result_ht}</td>
-                                <td>{$value->result_ft}</td>
-                                <td>{$value->results}</td>
-                                <td>{$value->league}</td>
-                                <td>{$value->id}</td>
-                            </tr>";
-                            $resultsat[] = $value->result_ht;
-                            $reesultsaf[] = $value->result_ft;
+                    for ($i=0; $i < sizeof($hold); $i++) { 
+                        foreach ($query as $key => $value) {
+                            if (!empty($value->results)) {
+                                echo "<tr class='success'>
+                                    <td>{$value->team_name}</td>
+                                    <td>{$value->home}</td> 
+                                    <td>{$value->draw}</td>
+                                    <td>{$value->away}</td>
+                                    <td>{$value->result_ht}</td>
+                                    <td>{$value->result_ft}</td>
+                                    <td>{$value->results}</td>
+                                    <td>{$value->league}</td>
+                                    <td>{$value->id}</td>
+                                </tr>";
+                                $resultsat[] = $value->result_ht;
+                                $reesultsaf[] = $value->result_ft;
+                            }
                         }
                     }
                 }
-            }
+        }else{
+            echo "No Data is Uploaded to Analyse";
         }
 
-        echo "</tbody></thead>";
+        echo "</tbody>";
 
         echo "<script>
            $(document).ready(function(){
                 $('#predict_table').DataTable();
            });
            </script>";
-        $num = $this->information("Half",$resultsat);
-        echo $num;
+        // $num = $this->information("Half",$resultsat);
+        // echo $num;
 //        echo "<div class='col-lg-3'>";
 //            $this->information($resultsbf);
 //        echo "</div>";

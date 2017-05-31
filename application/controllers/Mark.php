@@ -695,7 +695,9 @@ class Mark extends CI_Controller {
                     if(!empty($value->results)){   
 
                         $split_results = explode('-', $value->result_ht);
-                        $halftime[] = $this->sum($split_results);
+                        if(!empty($value->results)){
+                            $halftime[] = $this->sum($split_results);
+                        }
                     }
 
             }
@@ -1538,7 +1540,7 @@ class Mark extends CI_Controller {
             echo "<td>" . $value->league . "</td>";
             // echo "<td>" . $value->date . "</td>";
             echo "<td> 
-                    <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
+                    <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
                     <i class='fa fa-share'></i> Learn More</a>
             </td>"; 
             echo "</tr>";
@@ -1929,7 +1931,7 @@ class Mark extends CI_Controller {
                             ";
                             echo "
                                 <td> 
-                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
+                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
                                 <i class='fa fa-share'></i> Learn More</a>
                              </td>
                             </tr>";
@@ -1953,7 +1955,7 @@ class Mark extends CI_Controller {
                                 ";
                             echo "
                                 <td> 
-                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}'>
+                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
                                 <i class='fa fa-share'></i> Learn More</a>
                              </td>
                             </tr>";

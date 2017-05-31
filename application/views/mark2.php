@@ -30,6 +30,9 @@ require_once('header.php');
         <a href="#" class="btn btn-danger" id="upload_data"><i class="fa fa-upload"> </i> Uploads</a>
         <span style="margin-left: 5%"></span>
         <a href="/page/mark/" class="btn btn-primary"><i class="fa fa-next"> </i> Old Site</a>
+        <span style="margin-left: 5%"></span>
+        <a href="#" class="btn btn-danger" id="back_up"><i class="fa fa-database"> </i> Backup Database</a>
+
        <span> <?php echo "<p style='font-weight: bold; color: red'>Total Records=: " . $count . "</p>"; ?></span>
        <div class="user_error"></div>
        <div style="padding-bottom: 2%"></div>
@@ -92,6 +95,21 @@ require_once('header.php');
                 url: '/page/make/excels',
                 type: 'post',
                 data: {time: time},
+                datatype: 'text',
+
+             });
+
+            srvRqst.done(function (response) {
+                // document.getElementById("upload_data").className = "btn btn-danger disabled";
+                $('div.user_error').html(response);
+            }); 
+        });
+
+        $('#back_up').click(function(){
+            var srvRqst = $.ajax({
+                url: '/page/make/backup',
+                type: 'post',
+                data: {},
                 datatype: 'text',
 
              });
