@@ -31,6 +31,8 @@ require_once('header.php');
         <button class="btn btn-primary" id="briefaway"><i class="fa fa-bookmark"></i> Brief Away</button>
         <span style="margin-left: 5%"></span>
         <button class="btn btn-primary" id="highest"><i class="fa fa-bar-chart-o"></i> Highest Rep</button>
+        <span style="margin-left: 5%"></span>
+        <a class="btn btn-default" href="/page/make/get_database" target="_blank"><i class="fa fa-database"></i> All Records</a>
         <div style="padding-bottom: 1%"></div>
         <div class="row">
 

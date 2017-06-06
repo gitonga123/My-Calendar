@@ -20,6 +20,12 @@ class Make extends CI_Controller {
         $this->load->view('mark2', $data);
     }
 
+    public function get_database(){
+        $data['title'] = "All Records";
+        $data['records'] =$this->makes->get_all_details3();
+        $this->load->view('records',$data);
+    }
+
     public function excels(){
         // $inputs = $this->post->($value);
         $time = $this->input->post('time');
@@ -79,7 +85,7 @@ class Make extends CI_Controller {
         }
 
         if ($check) {
-             $this->transafer();
+             $this->transafer($time);
            // echo "am doing";
         }else{
             echo "<p class='alert alert-danger'>Data With Time" . $time . " can not be found</p>" ;
@@ -149,13 +155,13 @@ class Make extends CI_Controller {
         // force_download($db_name, $backup);
         echo "<p class='alert alert-default'>Am Not Currently in service am Under Development</p>";
     }
-    public function transafer() {
+    public function transafer($time) {
         $table_name = "table_2";
         $data = $this->makes->get_details_for_uploads($table_name);
         if ($data) {
             $query = json_decode(json_encode($data), TRUE);
             foreach ($query as $key => $value) {
-                if (!empty($value['HOMETEAM'])) {
+                if (!empty($value['HOMETEAM']) && $value['TIME'] == $time) {
                     $datas = array(
                         "team_name" => ucwords(strtolower($value['HOMETEAM'])),
                         "home" => $this->is_decimal($value['HOME']),
@@ -1152,6 +1158,7 @@ class Make extends CI_Controller {
           <th>fulltime</th>
           <th>Judgment</th>
           <th>League</th>
+          <th>Time</th>
           <th>Learn More</th>
           
         </thead><tbody>
@@ -1168,6 +1175,7 @@ class Make extends CI_Controller {
             echo "<td>" . $value->result_ft . "</td>";
             echo "<td>" . $value->results . "</td>";
             echo "<td>" . $value->league . "</td>";
+            echo "<td>" . $value->times . "</td>";
             echo "<td> 
                     <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
                     <i class='fa fa-share'></i> Learn More</a>
@@ -1516,84 +1524,85 @@ class Make extends CI_Controller {
         }
     }
 
-    public function get_prediction() {
-        $resultsbf = array();
-        $resultsbt = array();
-        $reesultsaf = array();
-        $resultsat = array();
-        $hold = array();
-        $search = $this->makes->get_details_for_uploads2();
-        echo "<table class='table table-bordered' id='predict_table'>
-                <thead>
-                    <tr class='active'>
-                        <th>Team Name</th>
-                        <th>Home</th>
-                        <th>Draw</th>
-                        <th>Away</th>
-                        <th>Half Time</th>
-                        <th>Full Time</th>
-                        <th>Results</th>
-                        <th>League</th>
-                        <th>ID</th>
-                    </tr>
-                </thead><tbody>";
-        foreach ($search as $keys => $values) {
-            $query = $this->makes->get_all_details_search($values->HOME, $values->DRAW, $values->AWAY);
-            $hold[] = $query;
-        }
-        if (!empty($hold)) {
-                if (count($hold) < 5) {
-                    for ($i=0; $i < sizeof($hold); $i++) { 
-                        foreach ($hold[$i] as $key => $value) {
-                            if (!empty($value->results)) {
-                                echo "<tr class='danger'>
-                                    <td>{$value->team_name}</td>
-                                    <td>{$value->home}</td> 
-                                    <td>{$value->draw}</td>
-                                    <td>{$value->away}</td>
-                                    <td>{$value->result_ht}</td>
-                                    <td>{$value->result_ft}</td>
-                                    <td>{$value->results}</td>
-                                    <td>{$value->league}</td>
-                                    <td>{$value->id}</td>
-                                </tr>";
-                                $resultsbf[] = $value->result_ft;
-                                $resultsbt[] = $value->result_ht;
-                            }
-                        }
-                    }
-                } else {
-                    for ($i=0; $i < sizeof($hold); $i++) { 
-                        foreach ($query as $key => $value) {
-                            if (!empty($value->results)) {
-                                echo "<tr class='success'>
-                                    <td>{$value->team_name}</td>
-                                    <td>{$value->home}</td> 
-                                    <td>{$value->draw}</td>
-                                    <td>{$value->away}</td>
-                                    <td>{$value->result_ht}</td>
-                                    <td>{$value->result_ft}</td>
-                                    <td>{$value->results}</td>
-                                    <td>{$value->league}</td>
-                                    <td>{$value->id}</td>
-                                </tr>";
-                                $resultsat[] = $value->result_ht;
-                                $reesultsaf[] = $value->result_ft;
-                            }
-                        }
-                    }
-                }
-        }else{
-            echo "No Data is Uploaded to Analyse";
-        }
+    // public function get_prediction() {
+    //     $resultsbf = array();
+    //     $resultsbt = array();
+    //     $reesultsaf = array();
+    //     $resultsat = array();
+    //     $hold = array();
+    //     $search = $this->makes->get_details_for_uploads2();
 
-        echo "</tbody>";
+    //     // echo "<table class='table table-bordered' id='predict_table'>
+        //         <thead>
+        //             <tr class='active'>
+        //                 <th>Team Name</th>
+        //                 <th>Home</th>
+        //                 <th>Draw</th>
+        //                 <th>Away</th>
+        //                 <th>Half Time</th>
+        //                 <th>Full Time</th>
+        //                 <th>Results</th>
+        //                 <th>League</th>
+        //                 <th>ID</th>
+        //             </tr>
+        //         </thead><tbody>";
+        // foreach ($search as $keys => $values) {
+        //     $query = $this->makes->get_all_details_search($values->HOME, $values->DRAW, $values->AWAY);
+        //     $hold[] = $query;
+        // }
+        // if (!empty($hold)) {
+        //         if (count($hold) < 5) {
+        //             for ($i=0; $i < sizeof($hold); $i++) { 
+        //                 foreach ($hold[$i] as $key => $value) {
+        //                     if (!empty($value->results)) {
+        //                         echo "<tr class='danger'>
+        //                             <td>{$value->team_name}</td>
+        //                             <td>{$value->home}</td> 
+        //                             <td>{$value->draw}</td>
+        //                             <td>{$value->away}</td>
+        //                             <td>{$value->result_ht}</td>
+        //                             <td>{$value->result_ft}</td>
+        //                             <td>{$value->results}</td>
+        //                             <td>{$value->league}</td>
+        //                             <td>{$value->id}</td>
+        //                         </tr>";
+        //                         $resultsbf[] = $value->result_ft;
+        //                         $resultsbt[] = $value->result_ht;
+        //                     }
+        //                 }
+        //             }
+        //         } else {
+        //             for ($i=0; $i < sizeof($hold); $i++) { 
+        //                 foreach ($query as $key => $value) {
+        //                     if (!empty($value->results)) {
+        //                         echo "<tr class='success'>
+        //                             <td>{$value->team_name}</td>
+        //                             <td>{$value->home}</td> 
+        //                             <td>{$value->draw}</td>
+        //                             <td>{$value->away}</td>
+        //                             <td>{$value->result_ht}</td>
+        //                             <td>{$value->result_ft}</td>
+        //                             <td>{$value->results}</td>
+        //                             <td>{$value->league}</td>
+        //                             <td>{$value->id}</td>
+        //                         </tr>";
+        //                         $resultsat[] = $value->result_ht;
+        //                         $reesultsaf[] = $value->result_ft;
+        //                     }
+        //                 }
+        //             }
+        //         }
+        // }else{
+        //     echo "No Data is Uploaded to Analyse";
+        // }
 
-        echo "<script>
-           $(document).ready(function(){
-                $('#predict_table').DataTable();
-           });
-           </script>";
+        // echo "</tbody>";
+
+        // echo "<script>
+        //    $(document).ready(function(){
+        //         $('#predict_table').DataTable();
+        //    });
+        //    </script>";
         // $num = $this->information("Half",$resultsat);
         // echo $num;
 //        echo "<div class='col-lg-3'>";
@@ -1613,6 +1622,95 @@ class Make extends CI_Controller {
 //         print_r($resultsaf);
 //         print_r($resultsbt);
 //         print_r($resultsbf);
+    // }
+        public function get_prediction() {
+        $resultsbf = array();
+        $resultsbt = array();
+        $reesultsaf = array();
+        $resultsat = array();
+        $check = array();
+        $search = $this->makes->get_details_for_uploads2();
+        echo "<table class='table table-bordered' id='predict_table'>
+                <thead>
+                    <tr class='active'>
+                        <th>ID</th>
+                        <th>Team Name</th>
+                        <th>Home</th>
+                        <th>Draw</th>
+                        <th>Away</th>
+                        <th>Half Time </th>
+                        <th>Full Time</th>
+                        <th>Results</th>
+                        <th>League</th>
+                        <th>Learn more</th>
+
+                    </tr>
+                </thead><tbody>";
+        foreach ($search as $keys => $values) {
+            $query = $this->makes->get_all_details_search($values->HOME, $values->DRAW, $values->AWAY);
+            if (!empty($query)) {
+                if (count($query) < 5) {
+                    foreach ($query as $key => $value) {
+                        $check[] = $query;
+                        if (!empty($value->results)) {
+                            echo "<tr class='danger'>
+                                <td>{$value->id}</td>
+                                <td>{$value->team_name}</td>
+                                <td>{$value->home}</td> 
+                                <td>{$value->draw}</td>
+                                <td>{$value->away}</td>
+                                <td>{$value->result_ht}</td>
+                                <td>{$value->result_ft}</td>
+                                <td>{$value->results}</td>
+                                <td>{$value->league}</td>
+                            ";
+                            echo "
+                                <td> 
+                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
+                                <i class='fa fa-share'></i> Learn More</a>
+                             </td>
+                            </tr>";
+                            $result1ft[] = $value->result_ft;
+                            $result1ht[] = $value->result_ht;
+                        }
+                    }
+                } else {
+                    foreach ($query as $key => $value) {
+                        if (!empty($value->results)) {
+                            echo "<tr class='success'>
+                                <td>{$value->id}</td>
+                                <td>{$value->team_name}</td>
+                                <td>{$value->home}</td> 
+                                <td>{$value->draw}</td>
+                                <td>{$value->away}</td>
+                                <td>{$value->result_ht}</td>
+                                <td>{$value->result_ft}</td>
+                                <td>{$value->results}</td>
+                                <td>{$value->league}</td>
+                                ";
+                            echo "
+                                <td> 
+                                <a class='btn btn-danger btn-sm' href='/page/mark/call_function/{$value->home}/{$value->draw}/{$value->away}' target='_blank'>
+                                <i class='fa fa-share'></i> Learn More</a>
+                             </td>
+                            </tr>";
+                            $resultsat[] = $value->result_ht;
+                            $reesultsaf[] = $value->result_ft;
+                        }
+                    }
+                }
+            }
+        }
+
+        echo "</tbody></thead>";
+
+        echo "<script>
+           $(document).ready(function(){
+                $('#predict_table').DataTable();
+           });
+           </script>";
+        // $num = $this->information("Half",$result1ft);
+        // echo $num;
     }
 
     public function information($strings,$results) {

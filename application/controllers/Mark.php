@@ -488,7 +488,7 @@ class Mark extends CI_Controller {
     }
 
     public function summary() {
-        $datas = $this->marks->get_all_details();
+        $datas = $this->marks->get_all_summary();
 
         $data['title'] = "Summary";
 
@@ -726,6 +726,7 @@ class Mark extends CI_Controller {
             }
             $gg_halftime = $this->goal_nogoal($halftimes); 
             $gg_fulltime = $this->goal_nogoal($fulltimes);
+            $data1['size'] = count($data);
             $data1['home'] = $value_home;
             $data1['draw'] = $value_draw;
             $data1['away'] = $value_away;
@@ -1903,8 +1904,8 @@ class Mark extends CI_Controller {
                         <th>Home</th>
                         <th>Draw</th>
                         <th>Away</th>
-                        <th>Result Hall </th>
-                        <th>Result Full</th>
+                        <th>Half Time </th>
+                        <th>Full Time</th>
                         <th>Results</th>
                         <th>League</th>
                         <th>Learn more</th>
@@ -2055,6 +2056,12 @@ class Mark extends CI_Controller {
         if ($results1) {
             echo "success";
         }
+    }
+
+    public function headerinfo(){
+        $title = "Header Info";
+        $data['title'] = $title;
+        $this->load->view('menu',$data);
     }
 
 

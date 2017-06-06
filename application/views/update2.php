@@ -96,7 +96,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#sendupdate").click(function () {
-                    console.log("Daniel");
+                    console.log("This Application is Copyrighted To Daniel Mutwiri");
                     
                     var id = $("#teamid").val();
                     var halftime = $("#halftime").val();
@@ -105,11 +105,13 @@
                     var pattern='^[0-9]*\-[0-9]*\$';
                     var fulltimes = fulltime.match(pattern);
                     var halftimes = halftime.match(pattern);
+                    var test = halftime.split("-");
+                    
                     if(fulltimes != null || fulltime === 'P'){
                         if(halftime.length >= 1 && halftimes != null ||halftime ==='P'){
                             var compare1 = halftime.split("-");
                             var compare2 = fulltime.split("-");
-                            if(compare1.constructor === Array && compare2.constructor === Array){
+                            if(compare1.constructor === Array && compare2.constructor === Array && compare1[0] != "" && compare1[1] != "" && compare2[0] != "" && compare2[1] != "" ){
                                 var total = 0;
                                 var total2 = 0;
                                 var resultss = '';
@@ -120,7 +122,6 @@
                                 for(var i = 0; i < compare2.length; i++){
                                     total2 = total2 + Number(compare2[i]);
                                 }
-                                console.log("compare1 [0]" + compare1[0] +"compare1 [1]" + compare1[1] +"compare2 [0]" + compare2[0] +"compare2 [1]" + compare1[1])
                                 if(total2 < total){
                                     $("#halftime").css('border','solid 1px red');
                                     $("#fulltime").css('border','solid 1px red');
@@ -208,7 +209,11 @@
                                         }
                                     }     
                                 }                                          
-                            }  
+                            }else{
+                                $("#halftime").css('border','solid 1px green');
+                                $("#fulltime").css('border','solid 1px green');
+                                document.getElementById("entry_error").innerHTML="<i class='fa fa-exclamation-triangle'></i> Check Your Half/Full Time Entry";
+                            } 
                       }else{
                         $("#halftime").css('border','solid 1px red');
                         document.getElementById("entry_error").innerHTML="Content Missing || Wrong Entry";

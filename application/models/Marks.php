@@ -30,6 +30,15 @@ class Marks extends CI_Model {
         return $query->result();
     }
 
+    public function get_all_summary() {
+        $table_name = "old_new";
+        $this->db->select();
+        
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+
     public function get_exact_search_data(){
         $table_name = 'hold_search';
         $this->db->select();

@@ -9,7 +9,7 @@ require_once('header.php');
        	<span style="margin-left: 5%"></span>
        	<a href="/page/make" class="btn btn-success"><i class="fa fa-user"> </i> New Home</a>
        	<span style="margin-left: 5%"></span>
-       	<a href="/page/mark" class="btn btn-danger"><i class="fa fa-fast-home"> </i> OdD News</a>
+       	<a href="/page/mark" class="btn btn-danger"><i class="fa fa-fast-home"> </i> Odd News</a>
        	<span style="margin-left: 5%"></span>
        	<a href="/page/mark/exact_search" class="btn btn-danger"><i class="fa fa-fast-backward"> </i> Back</a>
        	<div style="padding-bottom: 2%"></div>
@@ -21,7 +21,7 @@ require_once('header.php');
                 <div class='container'>
                     <div class='row'>
                     <div class='col-md-12'>
-                        <p class='alert alert-success'>Over/Under Analysis of <bold>{$home}</bold>, <bold>{$draw} </bold> and <bold>{$away}</bold></p>
+                        <p class='alert alert-success'>Over/Under Analysis of <bold>{$home}</bold>, <bold>{$draw} </bold> and <bold>{$away}</bold> Count = {$size}</p>
                     </div>
                         <div class='col-md-6'>
                         <p class='alert alert-info'>Half Time Analysis</p>
