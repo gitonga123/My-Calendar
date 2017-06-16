@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>K-Nearest Neighbor </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/knn.js" type="text/javascript"></script>
+        <script type="text/javascript">
+//            var degCent = prompt("Enter the F To Convert?");
+//            if(degCent < 32){
+//                alert("Number Can not be converted");
+//            }else{
+//                var degCents = 5/9 * (degCent - 32);
+//                alert(degCents);
+//            }
+
+//            var myArray = new Array();
+//            myArray[0] = "Bob";
+//            myArray[1] = "Pete";
+//            myArray[2] = "Paul";
+//            myArray[3] = "Dan";
+//            myArray[4] = "James";
+//
+//            document.write("myArray[0] = " + myArray[0] + "<BR>");
+//            document.write("myArray[1] = " + myArray[1] + "<BR>");
+//            document.write("myArray[2] = " + myArray[2] + "<BR>");
+//            document.write("myArray[3] = " + myArray[3] + "<BR>");
+//            document.write("myArray[4] = " + myArray[4] + "<BR>");
+//               console.log("Daniel Mutwiti");
+//               console.log(Math.max(5,4));
+//               confirm("Are the Details filled Okay ?");
+//            var holdon = Number(prompt("What is your favourite number ?"));
+//            
+//            switch(holdon){
+//                case 1:
+//                    document.write("Your number is " + holdon);
+//                    break;
+//                case 2: 
+//                    document.write("Your Number is " + holdon)
+//                    break;
+//                case 3:
+//                    document.write("Your number is " + holdon);
+//                    break;
+//                case 4: 
+//                    document.write("Your Number is " + holdon)
+//                    break;
+//                case 5:
+//                    document.write("Your number is " + holdon);
+//                    break;
+//                case 6: 
+//                    document.write("Your Number is " + holdon)
+//                    break;
+//                default:
+//                    document.write("Common your number must be between 1-6", holdon);
+//                    break;
+////            }
+//            function square(x) {
+//                return x * x;
+//            }
+//            var number = Number(prompt("Enter the Number to square"));
+//            if(!isNaN(number)){
+//                console.log(square(number));
+//            }else{
+//                console.log("Enter a number you: " + number);
+//            }
+//            
+//            function powerof(value,expo){
+//                return value *=expo;
+//            }
+//            
+//            console.log(powerof(10,2));
+//            
+            var landscape = function () {
+                var result = "";
+                var flat = function (size) {
+                    for (var count = 0; count < size; count++) {
+                        result += "_"
+                    }
+                };
+
+                var mountain = function (size) {
+                    result += "/";
+                    for (var count = 0; count < size; count++) {
+                        result += "";
+                        result += "\\";
+                    }
+                };
+
+                flat(3);
+                mountain(4);
+                flat(6);
+                mountain(1);
+                flat(1);
+
+                return result;
+            }
+           document.write(landscape())
+        </script>
+
+    </head>
+
+    <body bgcolor="white">
+        <p>TODO write content</p>
+        <p id="resultsP"></p>
+
+        <script language="JavaScript" type="text/javascript">
+//            var firstNumber = prompt("Enter the first number", "");
+//            var secondNumber = prompt("Enter the second number", "");
+//            var theTotal = parseInt(firstNumber) + parseInt(secondNumber);
+//            document.write(firstNumber + " added to " + secondNumber + " equals " +
+//                    theTotal);
+//            var age = prompt("Enter your age.");
+//            
+//            var isOverSixty = parseInt(age) > 60;
+//            
+//            document.write("Your Age => 60: " + isOverSixty);
+
+//            var degFahren = Number(prompt("Enter the degrees Fahrenheit", 32));
+//            var degCent;
+//            degCent = 5 / 9 * (degFahren - 32);
+//            document.write(degFahren + "\xB0 Fahrenheit is : " + degCent + "\xB0 centigrade <br />");
+//            
+//            if(degCent < 0){
+//                document.write("That's Below the Freezing Point of Water")
+//            }
+//            if(degCent === 100){
+//                document.write("That's the boiling point of water");
+//            }
+//              myArray = new Array("Daniel","Mutwiri", "Gitonga");
+//              for(element in myArray){
+//                  document.write(myArray[element] + "\t");
+//              }
+//            var defCent = new Array();
+//            var defFerein = new Array(303,212,450,"james");
+//            var loopCount = 0;
+//            while(loopCount < defFerein.length){
+//                if(isNaN(defFerein[loopCount])){
+//                    alert("Data :"+ defFerein[loopCount] + " at position : " + loopCount + " is invalid for conversation");
+//                    break;
+//                }
+//                defCent[loopCount] = 5/9 * (defFerein[loopCount]-32);
+//                loopCount ++;
+//            }
+//            
+//            for(element in defCent){
+//                document.write(defCent[element] + "\n");
+//            }
+
+        </script> 
+    </body>
+</html>

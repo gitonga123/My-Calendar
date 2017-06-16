@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Learning Angular</title>
+        <!--<script type="text/javascript" src="script/angular.min.js"></script>-->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+        <script src="script/angular.js" type="text/javascript"></script>
+        <script src="script/script.js" type="text/javascript"></script>
+        <script src="script/filter.js" type="text/javascript"></script>
+        <link href="style/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <!-- ng-app directive -->
+    <body>
+        <div class="container">
+<!--            <div ng-app="myModule">
+                <div ng-controller="myController">               
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Country Name</th>
+                                                <th>Capital</th>
+                                                <th>Flag</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" ng-model="country.name" /></td>
+                    
+                                                <td><input type="text" ng-model="country.capital" /></td>
+                                                <td><input type="file" ng-model="country.flag" name="pic"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                        <br />
+                                        <div class="col-md-6 col-offset-2">
+                                            Rows to Display: <input type="number" step="1" ng-model="rowLimit" min="0" max="10"/>
+                                        </div>
+                                        <div class="col-md-6 col-offset-2">
+                                            Sort By:  <select ng-model="orderColumn">
+                                                <option value="name">Name ASC</option>
+                                                <option value="gender">Gender ASC</option>
+                                                <option value="dateOfBirth">DOB ASC </option>
+                                                <option value="-salary">Salary Desc</option>
+                                               
+                                            </select>
+                                        </div>
+                                        <br/>
+                                        <hr>
+                    <div></div>
+                    <div class="col-md-12 col-offset-2">
+                        <br />
+                        <div class="col-md-4 col-offset-2">
+                            <input type="text" ng-model="searchText" placeholder="Search Name & Gender" />
+                        </div>
+                                                <div class="col-md-4 col-offset-2">
+                                                    <input type="text" ng-model="searchText.gender" placeholder="Search City" />
+                                                </div>
+                                                <div class="col-md-4 col-offset-2">
+                                                    <input type="checkbox" ng-model="exactMatch" /> Exact Match
+                                                </div>
+                    </div>
+                    <input type="checkbox" ng-model="hideGender" /> Hide Gender
+                    <br />
+                    <hr>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th ng-click="sortDate('name')">Name <div ng-class="getSortClass('name')"></div></th>
+                                <th ng-click="sortDate('dateOfBirth')">Date Of Birth <div ng-class="getSortClass('dateOfBirth')"></div></th>
+                                <th ng-click="sortDate('gender')" ng-show="!hideGender">Gender <div ng-class="getSortClass('gender')"></div></th>
+                                <th ng-click="sortDate('salary')" >Salary - Number <div ng-class="getSortClass('salary')"></div></th>
+                                <th ng-click="sortDate('salary')">Salary - Currency <div ng-class="getSortClass('salary')"></div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            limitTo: rowLimit | orderBy: orderColumn : reverseSort | filter: searchText:exactMatch
+                            <tr ng-repeat="employee in employees| limitTo: rowLimit | orderBy: orderColumn : reverseSort | filter: search">
+                                <td>
+                                    {{ employee.name | uppercase}}
+                                </td>
+                                <td>
+                                    {{ employee.dateOfBirth | date:"dd/MM/yyyy"}}
+                                </td>
+
+                                <td ng-show="!hideGender">{{employee.gender| gender }}</td>
+
+                                <td>
+                                    {{employee.salary| number:2}}
+                                                                        <input type="button" value="Like" ng-click="incrementLikes(technology)"  class="btn btn-success"/>
+                                                                        <input type="button" value="Dislike" ng-click="incrementDeslikes(technology)" class="btn btn-danger"/>
+                                </td>
+                                <td> {{employee.salary| currency: "Kshs."}}</td>
+                            </tr>
+                                                    <tr ng-repeat="country in country" ng-init="parentIndex=$index">
+                                                        <td>{{country.name}} === index = {{$index }}</td>
+                                                        <td>
+                                                            <ul>
+                                                                <li ng-repeat="city in country.cities">
+                                                                    {{ city.name }} === Parent Index = {{ parentIndex }},=== index = {{$index}}
+                                                                </li>
+                                                            </ul>
+                                                        </td>
+                                                      </tr>
+                        </tbody>
+                    </table>
+                </div>
+                                        {{{name: 'David', age:30}.name}}
+                                        {{['Daniel', 'Mutwiri', 'James'][2]}}
+                            <div ng-controller="myController">
+                                                {{ message}}
+                                First Name: {{ employee.firstName}}
+                                <hr> Last Name: {{ employee.lastName}}
+                                <hr> Gender: {{ employee.gender}}
+                                <hr>
+                            </div>
+
+
+            </div>-->
+            <div ng-app>
+                <div ng-init=" naming = [
+                    {firstName: 'Daniel', lastName: 'Mutwiri', gender: 'Male', salary: 70000 },
+                    {firstName: 'Mutwiri', lastName: 'Daniel', gender: 'Male', salary: 80000 },
+                    {firstName: 'Gitonga', lastName: 'MMtungi', gender: 'Male', salary: 90000 },
+                    {firstName: 'MMtungi', lastName: 'Gitonga', gender: 'Male', salary: 100000 },
+                    {firstName: 'Daniel', lastName: 'Mutwiri', gender: 'Male', salary: 70000 },
+                    {firstName: 'Mutwiri', lastName: 'Daniel', gender: 'Male', salary: 80000 },
+                    {firstName: 'Gitonga', lastName: 'MMtungi', gender: 'Male', salary: 90000 },
+                    {firstName: 'MMtungi', lastName: 'Gitonga', gender: 'Male', salary: 100000 }
+
+                    ]">
+                      <table class='table table-condensed'>
+                          <thead>
+                              <tr>
+                              
+                             
+                             <th>First Name</th>
+                             <th>Last Name</th>
+                             <th>Gender</th>
+                             <th>Salary</th> </tr>
+                      </thead>
+                      <tbody>
+                          <tr ng-repeat="employee in naming">
+                              <td>{{employee.firstName}}</td>
+                              <td>{{employee.lastName}}</td>
+                              <td>{{employee.gender}}</td>
+                              <td>{{employee.salary}}</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
