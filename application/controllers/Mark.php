@@ -1932,8 +1932,9 @@ class Mark extends CI_Controller {
         // foreach ($team_search as $key => $value) {
         //     $hold[] = $value->results;
         // }
-        // echo json_encode($hold);
-        $this->load->view('wizard');
+        // echo json_encode($hold)
+        $data['title'] = "Form wizard";
+        $this->load->view('wizard',$data);
     }
 
     public function post() {
