@@ -58,7 +58,86 @@ class Marks extends CI_Model {
         return $query->result();
     }
 
+    public function get_all_inner_details($home,$draw,$away){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('gg =',$home);
+        $this->db->where('over =',$draw);
+        $this->db->where('hto =',$away);
+        $query = $this->db->get($table_name);
 
+        return $query->result();
+    }
+
+    public function get_all_inner_details2($home,$draw){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('gg =',$home);
+        $this->db->where('over =',$draw);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+    public function get_all_inner_details3($home,$draw){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('over =',$home);
+        $this->db->where('hto =',$draw);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+    public function get_all_inner_details4($home,$draw){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('gg =',$home);
+        $this->db->where('half =',$draw);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+    public function get_all_inner_details5($home){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('gg =',$home);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+    public function get_all_inner_details6($draw){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('over =',$draw);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+    public function get_all_inner_details7($home){
+        $table_name = "outer_inner";
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('half =',$home);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+
+    public function get_halftime_search($home,$draw,$away){
+        $table_name = 'halftime';
+        $this->db->select();
+        $this->db->order_by('home','ASC');
+        $this->db->where('home =',$home);
+        $this->db->where('draw =',$draw);
+        $this->db->where('away =',$away);
+        $query = $this->db->get($table_name);
+        return $query->result();
+    }
 
     public function get_all_details_search2($home,$draw,$away){
         $table_name = "old_new";
@@ -148,6 +227,9 @@ class Marks extends CI_Model {
         $this->db->insert("TABLE2", $data);
     }
 
+    public function halftime_update($data) {
+        $this->db->insert("halftime", $data);
+    }
     public function team_name() {
         $this->db->distinct();
         $this->db->select('team_name');
@@ -173,6 +255,26 @@ class Marks extends CI_Model {
         $this->db->distinct();
         $this->db->select('draw');
         $query = $this->db->get('TABLE2');
+        return $query->result();
+    }
+
+    public function gg_name() {
+        $this->db->distinct();
+        $this->db->select('gg');
+        $query = $this->db->get('halftime');
+        return $query->result();
+    }
+    public function ov_name() {
+        $this->db->distinct();
+        $this->db->select('over');
+        $query = $this->db->get('halftime');
+        return $query->result();
+    }
+
+    public function ht_name() {
+        $this->db->distinct();
+        $this->db->select('hto');
+        $query = $this->db->get('halftime');
         return $query->result();
     }
 

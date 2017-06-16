@@ -39,7 +39,8 @@
                      <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
                 </div>
                 <div class="col-md-4">
-                     <a href="/page/mark/files" class="btn btn-danger"> Files Testing</a>
+                    
+        <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
                 </div>
                  <div class="col-md-4">
                     <a href="#" class="btn btn-danger" id="upload_data"><i class="fa fa-upload"> </i> Advanced Uploads</a>

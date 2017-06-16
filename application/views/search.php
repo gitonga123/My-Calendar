@@ -33,7 +33,8 @@
             <span style="margin-left: 5%"></span>
             <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-search"> </i> Exact Search</a>
             <span style="margin-left: 5%"></span>
-
+            
+        <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
             <a href="#" class="btn btn-default" id="testing"><i class="fa fa-terminal"> </i> Testing</a>
             <span style="margin-left: 5%"></span>
             <div style="padding-bottom: 2%"></div>

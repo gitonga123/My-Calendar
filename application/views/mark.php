@@ -30,6 +30,8 @@ require_once('header.php');
         <a href="#" class="btn btn-danger" id="upload_data"><i class="fa fa-upload"> </i> Uploads</a>
         <span style="margin-left: 5%"></span>
         <a href="/page/make/" class="btn btn-primary"><i class="fa fa-next"> </i> New Site</a>
+        <span style="margin-left: 5%"></span>
+        <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
        <span> <?php echo "<p style='font-weight: bold; color: red'>Total Records=: " . $count . "</p>"; ?></span>
        <div class="user_error"></div>
        <div style="padding-bottom: 2%"></div>

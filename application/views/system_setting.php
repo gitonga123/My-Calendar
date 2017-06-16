@@ -12,7 +12,9 @@ require_once('header.php');
        	<a href="/page/make/exact_search" class="btn btn-danger"><i class="fa fa-fast-backward"> </i> Back</a>
       	<span style="margin-left: 5%"></span>
         <a href="#" id="timeClock" class="btn btn-default"></a>
+        
         <span style="margin-left: 5%"></span>
+        <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
         <div style="padding-bottom: 1%"></div>
         <div class="page-header">
 		  <h1>System Settings</h1>

@@ -20,6 +20,11 @@ class Mark extends CI_Controller {
         $this->load->view('mark', $data);
     }
 
+    public function inner_details(){
+        $data['title'] = 'Inner Details Search';
+        $this->load->view('inner_details',$data);
+    }
+
     public function transafer() {
         $table_name = "table_2";
         $time = $this->input->post('time');
@@ -197,6 +202,44 @@ class Mark extends CI_Controller {
 
         echo json_encode($hold);
     }
+
+    public function gg_name(){
+        $team_gg = $this->marks->gg_name();
+
+        $hold = array();
+
+        foreach ($team_gg as $key => $value) {
+            $hold[] = $value->gg;
+        }
+
+        echo json_encode($hold);
+    }
+
+    public function over_name(){
+        $team_gg = $this->marks->ov_name();
+
+        $hold = array();
+
+        foreach ($team_gg as $key => $value) {
+            $hold[] = $value->over;
+        }
+
+        echo json_encode($hold);
+    }
+
+    public function half_name(){
+        $team_gg = $this->marks->ht_name();
+
+        $hold = array();
+
+        foreach ($team_gg as $key => $value) {
+            $hold[] = $value->hto;
+        }
+
+        echo json_encode($hold);
+    }
+
+
 
     public function search_areas() {
         $search = $this->input->post('search');
@@ -653,6 +696,7 @@ class Mark extends CI_Controller {
                 'away' => $value_away);
 
             $data['exact_search'] = $this->marks->get_all_details_search($value_home, $value_draw, $value_away);
+            $data['half_search'] = $this->marks->get_halftime_search($value_home,$value_draw,$value_away);
             $exact_search = "<p class='alert alert-warning'>Results Area</p>";
             $exact_hold = "<p class='alert alert-warning'>Results Area</p>";
             $exact_search_hold = "<p class='alert alert-warning'>Results Area</p>";
@@ -662,6 +706,8 @@ class Mark extends CI_Controller {
 
             $data['button']= "<span style='margin-left: 5%'></span>
             <a href='/page/mark/call_function/{$value_home}/{$value_draw}/{$value_away}' class='btn btn-primary'><i class='fa fa-star'> </i> View Analysis</a>";
+            $data['add_halftime'] = "<span style='margin-left: 5%'></span>
+            <a href='/page/mark/add_halftime/{$value_home}/{$value_draw}/{$value_away}' target='_blank' class='btn btn-danger'><i class='fa fa-car'> </i> Add Half Time</a>";
 
         }
         if (!empty($push_db)) {
@@ -673,8 +719,46 @@ class Mark extends CI_Controller {
             $exact_search = "<p class='alert alert-warning'>Results Area</p>";
             $data['exact_search'] = $exact_search;
             $data['button'] = '';
+            $data['add_halftime'] = '';
+            $data['half_search'] = ' ';
             $this->load->view('exact_search', $data);
         }
+    }
+
+    public function add_halftime(){
+        $data['value1']=  $this->uri->segment(3);
+        $data['value2'] =  $this->uri->segment(4);
+        $data['value3'] =  $this->uri->segment(5);
+        $data['title'] = 'Add Halftime and Fulltime Result';
+        $this->load->view('halftime_form',$data);
+    }
+
+    public function added_halftime(){
+        $this->load->helper('url');
+        $data['value1']=  "null";
+        $data['value2'] = "null";
+        $data['value3'] = "null";
+        $data['title'] = 'Add Halftime and Fulltime Result';
+
+        if (isset($_POST['home'])) {
+            $datas['team_name'] = ucwords(strtolower($this->input->post('team_name')));
+            $datas['under'] = $this->input->post('under');
+            $datas['home'] = $this->input->post('home');
+            $datas['away'] = $this->input->post('away');
+            $datas['draw'] = $this->input->post('draw');
+            $datas['over'] = $this->input->post('over');
+            $datas['htu'] = $this->input->post('hfu');
+            $datas['hto'] = $this->input->post('hfo');
+            $datas['gg'] =$this->input->post('gg');
+            $datas['ng'] =$this->input->post('ng');
+
+            $datas['times'] = $this->get_time();
+            $datas['date'] = $this->get_date();
+            $this->marks->halftime_update($datas);   
+
+            $this->load->view('halftime_form',$data);         
+        }
+
     }
 
     public function call_function(){
@@ -1478,6 +1562,79 @@ class Mark extends CI_Controller {
         $result = $this->marks->get_frequent_home($settings[0]->field_value);
         return $result;
     }
+
+    public function get_inner(){
+        $gg = $this->input->post('gg');
+        $over = $this->input->post('over');
+        $half = $this->input->post('half');
+        if($half == 0.00){
+            $array = $this->marks->get_all_inner_details2($gg, $over);
+        }else if($gg == 0.00){
+            $array = $this->marks->get_all_inner_details3($over, $half);
+        }
+        else if($over == 0.00){
+            $array = $this->marks->get_all_inner_details4($gg, $half);
+        }
+        else if($half ==0.00 && $over ==0.00){
+            $array = $this->marks->get_all_inner_details5($gg);
+        }else if($half ==0.00 && $gg ==0.00){
+            $array = $this->marks->get_all_inner_details6($over);
+        }else if($gg ==0.00 && $over ==0.00){
+            $array = $this->marks->get_all_inner_details7($half);
+        }
+        else{
+         $array = $this->marks->get_all_inner_details($gg, $over, $half);   
+        }
+        echo ' <table class="table table-hover table-bordered table-condensed" id="innerTable">
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Home</th>
+                            <th>Draw</th>
+                            <th>Away</th>
+                            <th>Half</th>
+                            <th>Full</th>
+                            <th>GG</th>
+                            <th>NG</th>
+                            <th>Over</th>
+                            <th>Under</th>
+                            <th>HTO</th>
+                            <th>HTU</th>
+                            <th>League</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>';
+                        foreach ($array as $key => $value) {
+                            if (empty($value->result_ht) or empty($value->result_ft) or empty($value->results)) {
+                                echo "<tr>
+                                        <td>" . $value->team_name . "</td>";
+                                echo "<td>" . $value->home . "</td>";
+                                echo "<td>" . $value->draw . "</td>";
+                                echo "<td>" . $value->away . "</td>";
+                                echo "<td class='danger'>" . $value->result_ht . "</td>";
+                                echo "<td class='danger'>" . $value->result_ft . "</td>";
+                                echo "<td>" . $value->gg . "</td>";
+                                echo "<td>" . $value->ng . "</td>";
+                                echo "<td>" . $value->over . "</td>";
+                                echo "<td>" . $value->under . "</td>";
+                                echo "<td>" . $value->hto . "</td>";
+                                echo "<td>" . $value->htu . "</td>";
+                                echo "<td>" . $value->league . "</td>";
+                            }
+                        }
+        echo"                    </tbody>
+                        </table>";
+        echo "
+        <script>
+          $(document).ready(function(){
+            $('#innerTable').DataTable();
+          });
+        </script>
+  ";
+                
+
+    }
    
 //Brief Case Home
     public function automatic_repetitive_home_matches(){
@@ -1770,17 +1927,13 @@ class Mark extends CI_Controller {
     }
 
     public function test() {
-
-        $strings = $this->marks->get_string_analysis();
-        $value = 07.19;
-        // $pattern = "/^[0-9]*\.[0-9]{2}$";
-        $pattern = "/^[0-9]+(?:\.[0-9]{2})?$/";
-        if (preg_match($pattern, $value)) {
-            echo $value;
-        } else {
-            $number2 = number_format($value, 2, '.', '');
-            echo $number2;
-        }
+        // $team_search = $this->marks->result_name();
+        // $hold = array();
+        // foreach ($team_search as $key => $value) {
+        //     $hold[] = $value->results;
+        // }
+        // echo json_encode($hold);
+        $this->load->view('wizard');
     }
 
     public function post() {

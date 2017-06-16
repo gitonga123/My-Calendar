@@ -23,7 +23,11 @@ require_once('header.php');
         <span style="margin-left: 30%"></span>
         <div style="padding-bottom: 2%"></div>
         <a href="/page/mark/update_team" class="btn btn-warning"><i class="fa fa-upload"> </i> Update Team Name</a>
+        <span style="margin-left: 5%"></span>
+        <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
         <?php echo $button;?>
+        <span style="margin-left: 5%"></span>
+        <?php echo $add_halftime;?>
         <div style="padding-bottom: 2%"></div>
         <div class="row">
             <div class="col-lg-12">
@@ -68,7 +72,7 @@ require_once('header.php');
                 </form>
             </div>
             <div class="col-lg-12">
-                <div class="col-lg-2">
+                <div class="col-lg-12">
                     <?php
                     if (is_array($exact_search)) {
                         if (!empty($exact_search)) {
@@ -79,31 +83,35 @@ require_once('header.php');
                     }
                     ?>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <?php
                     if (is_array($exact_search)) {
                         echo "
-		        				<table class='table table-hover table-bordered'>
+		        				<table class='table table-hover table-bordered' id='fulltime'>
 				        			<thead>
+                                        <th>Team Name</th>
 				        				<th>Home</th>
 				        				<th>Draw</th>
 				        				<th>Away</th>
-				        				<th>Half Time</th>
-				        				<th>Full Time</th>
-				        				<th>Judgement</th>
-				        				<th>League</th>
+				        				<th>Half</th>
+				        				<th>Full</th>
+				        				<th>Result</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
 				        			</thead><tbody>
 		        			";
                         if (!empty($exact_search)) {
                             foreach ($exact_search as $key => $value) {
                                 echo "<tr>";
+                                echo "<td>{$value->team_name}</td>";
                                 echo "<td>{$value->home}</td>";
                                 echo "<td>{$value->draw}</td>";
                                 echo "<td>{$value->away}</td>";
                                 echo "<td>{$value->result_ht}</td>";
                                 echo "<td>{$value->result_ft}</td>";
                                 echo "<td>{$value->results}</td>";
-                                echo "<td>{$value->league}</td>";
+                                echo "<td>{$value->date}</td>";
+                                echo "<td>{$value->times}</td>";
                                 echo "</tr>";
                             }
                             echo "</tbody>";
@@ -115,8 +123,45 @@ require_once('header.php');
                     }
                     ?>
                 </div>
-                <div class="col-lg-2">
-
+                <div class="col-lg-6">
+                    <?php
+                    if (is_array($half_search)) {
+                        echo "
+                        <table class='table table-hover table-bordered' id='halftime'>
+                                    <thead>
+                                        <th>Team Name</th>
+                                        <th>GG</th>
+                                        <th>NG</th>
+                                        <th>Over</th>
+                                        <th>Under</th>
+                                        <th>HTO</th>
+                                        <th>HTU</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                    </thead><tbody>
+                            ";
+                        if (!empty($half_search)) {
+                            foreach ($half_search as $key => $value) {
+                                echo "<tr>";
+                                echo "<td>{$value->team_name}</td>";
+                                echo "<td>{$value->gg}</td>";
+                                echo "<td>{$value->ng}</td>";
+                                echo "<td>{$value->over}</td>";
+                                echo "<td>{$value->under}</td>";
+                                echo "<td>{$value->hto}</td>";
+                                echo "<td>{$value->htu}</td>";
+                                echo "<td>{$value->date}</td>";
+                                echo "<td>{$value->times}</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                        }
+                        
+                    } else {
+                        echo $exact_search_hold;
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -129,8 +174,8 @@ require_once('header.php');
 
         <script type="text/javascript">
             $(document).ready(function () {
-                // $('#resultsTables').DataTable();
-                // $('#resultsTables2').DataTable();
+                $('#fulltime').DataTable();
+                $('#halftime').DataTable();
                 // $('#resultsTables3').DataTable();
             });
         </script>

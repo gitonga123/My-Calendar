@@ -22,5 +22,9 @@
 	"require":
    {
       "phpoffice/phpexcel": "dev-develop"
-   }
+   },
+    "require":
+     {
+        "smalot/pdfparser": "*"
+    }
 }

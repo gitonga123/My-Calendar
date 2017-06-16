@@ -21,7 +21,9 @@ require_once('header.php');
         <span style="margin-left: 5%"></span>
         <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
         <span style="margin-left: 5%"></span>
-        
+       
+        <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
+         <span style="margin-left: 5%"></span>
         <div style="padding-bottom: 2%"></div>
         <a href="/page/mark/exact_search" class="btn btn-warning"><i class="fa fa-upload"> </i> Exact Search</a>
         <span style="margin-left: 5%"></span>

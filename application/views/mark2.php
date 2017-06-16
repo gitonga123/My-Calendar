@@ -32,7 +32,7 @@ require_once('header.php');
         <a href="/page/mark/" class="btn btn-primary"><i class="fa fa-next"> </i> Old Site</a>
         <span style="margin-left: 5%"></span>
         <a href="#" class="btn btn-danger" id="back_up"><i class="fa fa-database"> </i> Backup Database</a>
-
+        
        <span> <?php echo "<p style='font-weight: bold; color: red'>Total Records=: " . $count . "</p>"; ?></span>
        <div class="user_error"></div>
        <div style="padding-bottom: 2%"></div>
