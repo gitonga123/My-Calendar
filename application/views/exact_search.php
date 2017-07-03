@@ -25,6 +25,8 @@ require_once('header.php');
         <a href="/page/mark/update_team" class="btn btn-warning"><i class="fa fa-upload"> </i> Update Team Name</a>
         <span style="margin-left: 5%"></span>
         <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
+        <span style="margin-left: 5%"></span>
+        <a href="/page/mark/update_halftime" class="btn btn-success"><i class="fa fa-bullhorn"> </i> Outer + Inner</a>
         <?php echo $button;?>
         <span style="margin-left: 5%"></span>
         <?php echo $add_halftime;?>

@@ -95,7 +95,7 @@ class Marks extends CI_Model {
         $this->db->select();
         $this->db->order_by('home','ASC');
         $this->db->where('gg =',$home);
-        $this->db->where('half =',$draw);
+        $this->db->where('hto =',$draw);
         $query = $this->db->get($table_name);
 
         return $query->result();
@@ -118,11 +118,34 @@ class Marks extends CI_Model {
 
         return $query->result();
     }
+
+    public function get_team_with_date($draw,$table_name){
+        $this->db->select();
+        $this->db->order_by('team_name','ASC');
+        $this->db->where('date =',$draw);
+        $this->db->where('half_id =',null);
+        $query = $this->db->get($table_name);
+        return $query->result();
+    }
+
+    public function get_team_with_date_name($home,$draw,$away,$date){
+        $table_name = "TABLE2";
+        $this->db->select();
+        $this->db->order_by('team_name','ASC');
+        $this->db->where('home =',$home);
+        $this->db->where('draw =',$draw);
+        $this->db->where('away =',$away);
+        $this->db->where('date =',$date);
+        $query = $this->db->get($table_name);
+
+        return $query->result();
+    }
+
     public function get_all_inner_details7($home){
         $table_name = "outer_inner";
         $this->db->select();
         $this->db->order_by('home','ASC');
-        $this->db->where('half =',$home);
+        $this->db->where('hto =',$home);
         $query = $this->db->get($table_name);
 
         return $query->result();
@@ -454,6 +477,11 @@ class Marks extends CI_Model {
         $query =  $this->db->get('countypro_crontab');
         
         return $query->result();
+    }
+
+    public function update_half_time_id($data, $data1,$table_name) {
+        $this->db->where('id', $data);
+        return $this->db->update($table_name, $data1);
     }
     
 //    public function get_form(){

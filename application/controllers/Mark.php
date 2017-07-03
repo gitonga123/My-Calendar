@@ -82,7 +82,7 @@ class Mark extends CI_Controller {
             $datas['results'] = $this->input->post('results');
             $datas['league'] = $this->input->post('league');
             $datas['times'] = $this->get_time();
-            $data['date'] = $this->get_date();
+            $datas['date'] = $this->get_date();
             $this->marks->get_updates($datas);
 
             // $this->testing_area();
@@ -517,7 +517,7 @@ class Mark extends CI_Controller {
     public function get_time() {
         $date = date("Y-m-d H:i:s");
 
-        $endtime = strtotime('+120 minutes', strtotime($date));
+        $endtime = strtotime('+0 minutes', strtotime($date));
 
         $mess = date('h:i:s', $endtime);
 
@@ -1563,24 +1563,55 @@ class Mark extends CI_Controller {
         return $result;
     }
 
+    public function get_preffered_table(){
+        $settings = $this->marks->load_settings();
+        $result = $settings[1]->field_value;
+
+        return $result;
+    }
+
+    public function get_preffered_time(){
+        $settings = $this->marks->load_settings();
+        $result = $settings[2]->field_value;
+        return $result;
+    }
+
+    public function get_preffered_date(){
+        $settings = $this->marks->load_settings();
+        $result = $settings[3]->field_value;
+        return $result;
+    }
+
     public function get_inner(){
         $gg = $this->input->post('gg');
         $over = $this->input->post('over');
         $half = $this->input->post('half');
-        if($half == 0.00){
-            $array = $this->marks->get_all_inner_details2($gg, $over);
-        }else if($gg == 0.00){
-            $array = $this->marks->get_all_inner_details3($over, $half);
-        }
-        else if($over == 0.00){
-            $array = $this->marks->get_all_inner_details4($gg, $half);
-        }
-        else if($half ==0.00 && $over ==0.00){
-            $array = $this->marks->get_all_inner_details5($gg);
-        }else if($half ==0.00 && $gg ==0.00){
-            $array = $this->marks->get_all_inner_details6($over);
-        }else if($gg ==0.00 && $over ==0.00){
-            $array = $this->marks->get_all_inner_details7($half);
+      
+        if($half == 0.00 || $over == 0.00 || $gg == 0.00){
+           if($half == 0.00 && $over != 0.00 && $gg != 0.00){
+                
+                $array = $this->marks->get_all_inner_details2($gg, $over);
+            }
+            else if($gg == 0.00 && $over != 0.00 && $half != 0.00){
+                
+                $array = $this->marks->get_all_inner_details3($over, $half);
+            }
+            else if($over == 0.00 && $half != 0.00 && $gg != 0.00){
+                
+                $array = $this->marks->get_all_inner_details4($gg, $half);
+            }
+            else if($half ==0.00 && $over ==0.00 && $gg != 0.00){
+                
+                $array = $this->marks->get_all_inner_details5($gg);
+            }
+            else if($half ==0.00 && $gg ==0.00 && $over != 0.00){
+                
+                $array = $this->marks->get_all_inner_details6($over);
+            }
+            else if($gg ==0.00 && $over ==0.00 && $half != 0.00){
+               
+                $array = $this->marks->get_all_inner_details7($half);
+            } 
         }
         else{
          $array = $this->marks->get_all_inner_details($gg, $over, $half);   
@@ -2199,7 +2230,13 @@ class Mark extends CI_Controller {
         $settings = $this->marks->load_settings();
         $data['title'] = 'System Settings';
         $data['most_common'] = $settings[0]->field_value;
-        $data['id'] = $settings[0]->id;
+        $data['table_choice'] = $settings[1]->field_value;
+        $data['date_choice'] = $settings[2]->field_value;
+        $data['id_common'] = $settings[0]->id;
+        $data['id_table'] = $settings[1]->id;
+        $data['id_date'] = $settings[2]->id;
+        $data['id_date2'] = $settings[3]->id;
+        $data['date2_choice'] = $settings[3]->field_value;
         $this->load->view('system_setting',$data);
     }
 
@@ -2217,6 +2254,47 @@ class Mark extends CI_Controller {
         $data['title'] = $title;
         $this->load->view('menu',$data);
     }
+
+    public function update_halftime(){
+        $data['title'] = 'Update Halftime Details';
+
+        $time = $this->get_preffered_date();
+        $times = $this->get_preffered_time();
+        $table_name = 'halftime';
+        $table_name2 = $this->get_preffered_table();
+        $hold = array();
+        $result = $this->marks->get_team_with_date($time,$table_name);
+
+        $new_result = $this->marks->get_team_with_date($times,$table_name2);
+        // foreach ($result as $key => $value) {
+        //    $hold[] = $this->marks->get_team_with_date_name($value->home,$value->draw,$value->away,$time); 
+        // }
+        $data['result'] = $result;
+        $data['new_result'] = $new_result;
+        $data['time'] = $time;
+        $data['times'] = $times;
+
+        $this->load->view('update_halftime',$data);
+    }
+
+    public function update_halftime_team_id() {
+        $data_halftime = $this->input->post('id');
+        $data_table3 = $this->input->post('half_id');
+        $data1['half_id'] = $this->input->post('half_id');
+        $data2['half_id'] = $this->input->post('id');
+        $table_name = 'halftime';
+        $table_name2 = $this->get_preffered_table();
+        $results1 = $this->marks->update_half_time_id($data_halftime, $data1,$table_name);
+        if ($results1) {
+            $results2 = $this->marks->update_half_time_id($data_table3, $data2,$table_name2);
+            if ($results2) {
+                echo "Success";
+            }else{
+                echo "Resulted To An Error";
+            }
+        }
+    }
+
 
 
 //    public function files() {

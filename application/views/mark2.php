@@ -1,5 +1,5 @@
 <?php
-require_once('header.php');
+require_once('header2.php');
 ?>
     <link rel="stylesheet" type="text/css" href="/page/assets/css/w3.css">
 </head>
@@ -32,7 +32,8 @@ require_once('header.php');
         <a href="/page/mark/" class="btn btn-primary"><i class="fa fa-next"> </i> Old Site</a>
         <span style="margin-left: 5%"></span>
         <a href="#" class="btn btn-danger" id="back_up"><i class="fa fa-database"> </i> Backup Database</a>
-        
+        <span style="margin-left: 5%"></span>
+        <a href="/page/mark/update_halftime" class="btn btn-success"><i class="fa fa-bullhorn"> </i> Outer + Inner</a>
        <span> <?php echo "<p style='font-weight: bold; color: red'>Total Records=: " . $count . "</p>"; ?></span>
        <div class="user_error"></div>
        <div style="padding-bottom: 2%"></div>

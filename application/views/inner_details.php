@@ -41,7 +41,12 @@
             <a href="#" id="timeClock" class="btn btn-default"></a>
             <span style="margin-left: 5%"></span>
             <a href="/page/mark/lock" class="btn btn-default"><i class="fa fa-lock"></i> Lock</a>
+            <span style="margin-left: 5%"></span>
+            <a href="/page/mark/inner_details" class="btn btn-default"><i class="fa fa-database"> </i> Outer Inter</a>
+            <span style="margin-left: 5%"></span>
+            <a href="/page/mark/update_halftime" class="btn btn-success"><i class="fa fa-bullhorn"> </i> Outer + Inner</a>
             <div style="padding-bottom: 2%"></div>
+
             <div class="search_form_result">
                 <div class="row">
                     <div class="col-lg-12">
